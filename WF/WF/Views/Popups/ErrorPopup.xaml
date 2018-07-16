@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="WF.Views.Popups.ErrorPopup"
+             xmlns:ext="clr-namespace:WF.Extensions;assembly=WF"
+             Style="{StaticResource PageStyle}"
+             CloseWhenBackgroundIsClicked="True"  >
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center">
+            <ContentView  HorizontalOptions="Center" VerticalOptions="Center"  Padding="20,0,20,10" >
+                <ContentView x:Name="AnimatedGrid" IsVisible="True" BackgroundColor="#F1F9F6">
+                    <ContentView  HorizontalOptions="Fill"
+                    VerticalOptions="CenterAndExpand">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="60"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackLayout Orientation="Vertical" Grid.Row="0" Padding="0,10,0,0">
+                                <Image Source="errorImage" HorizontalOptions="Center" Margin="0,0,0,5"/>
+                                <StackLayout   Orientation="Vertical">
+                                    <Label  FontSize="20" Text="{ext:Translate errormessage}"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  LineBreakMode="WordWrap">
+                                    </Label>
+                                </StackLayout>
+                                <Grid HeightRequest="10"></Grid>
+                            </StackLayout>
+                            <ContentView  Grid.Row="1"  BackgroundColor="{StaticResource ButtonColor}" VerticalOptions="FillAndExpand">
+                                <Label FontSize="20" x:Name="MainLabel" Text="{ext:Translate close}" VerticalOptions="Center" HorizontalOptions="Fill" HorizontalTextAlignment="Center" TextColor="White"/>
+                            </ContentView>
+                        </Grid>
+                    </ContentView>
+                </ContentView>
+
+
+            </ContentView>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>

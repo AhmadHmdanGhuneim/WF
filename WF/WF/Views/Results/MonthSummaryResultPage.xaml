@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
+             xmlns:extensions="clr-namespace:WF.Extensions;assembly=WF"
+             x:Class="WF.Views.Results.MonthSummaryResultPage"
+             Title="{extensions:Translate MonthSummaryTitle}">
+
+
+    <ContentPage.Content>
+        <StackLayout  x:Name="MainStackLayout"   BackgroundColor="#d8d8d8">
+            <StackLayout Padding="10" BindingContext="{Binding SelectSummary}" BackgroundColor="White" Margin="0,0,0,10">
+                <Grid ColumnSpacing="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!--HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"-->
+                    <Label  Grid.Row="0" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate DepartmentLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                    <Label  Grid.Row="0" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding Department}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label  Grid.Row="1" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate EmployeeLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                    <Label  Grid.Row="1" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding Employee}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label  Grid.Row="2" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate MonthTitle}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                    <Label  Grid.Row="2" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding Month}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label  Grid.Row="3" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate Year}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="3" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding Year}" HorizontalTextAlignment="{Binding TextAligment}" />
+
+
+                </Grid>
+            </StackLayout>
+            <StackLayout VerticalOptions="FillAndExpand">
+
+                <local:CustomListViewRenderer x:Name="SummaryListView" HasUnevenRows="True" BackgroundColor="#d8d8d8" SeparatorVisibility="None" ItemsSource="{Binding Summaries}" >
+                    <local:CustomListViewRenderer.Header>
+                        <StackLayout HeightRequest="1"></StackLayout>
+                    </local:CustomListViewRenderer.Header>
+
+                    <local:CustomListViewRenderer.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid  VerticalOptions="FillAndExpand" Margin="0,0,0,10" Padding="6" BackgroundColor="White">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<Label Grid.Row="0" Grid.Column="3" WidthRequest="20" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="{Binding HorizontalTextAligment}" 
+                                           Text="{extensions:Translate DayGridTitle}"></Label>-->
+                                    <Label Grid.Row="0" Grid.Column="{Binding DayPosition}"  TextColor="{StaticResource ButtonColor}" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="{Binding HorizontalTextAligment}" HorizontalOptions="FillAndExpand" 
+                                           Text="{Binding DayComment}">
+                                    </Label>
+                                    <!--<Label Grid.Row="0" Grid.Column="1" WidthRequest="20" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="{Binding HorizontalTextAligment}" 
+                                         
+                                    Text="{extensions:Translate DateGridTitle}"></Label>-->
+
+                                    <Label Grid.Row="0" Grid.Column="{Binding DatePosition}"  TextColor="{StaticResource ButtonColor}" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="{Binding HorizontalTextAligment}" HorizontalOptions="FillAndExpand" 
+                                           Text="{Binding DateComment}"></Label>
+
+
+
+                                    <Label Grid.Row="1" Grid.Column="{Binding InGridTitle}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center"
+                                           Text="{extensions:Translate InGridTitle}"></Label>
+
+
+                                    <Label Grid.Row="1"  Grid.Column="{Binding OutGridTitle}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center"
+                                           Text="{extensions:Translate OutGridTitle}"></Label>
+
+                                    <Label Grid.Row="1" Grid.Column="{Binding DurationGridTitle}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center"
+                                           Text="{extensions:Translate DurGridTitle}"></Label>
+
+                                    <Label Grid.Row="1" Grid.Column="{Binding StatusGridTitle}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center"
+                                           Text="{extensions:Translate StatusGridTitle}"></Label>
+
+
+                                    <Label Grid.Row="2" Grid.Column="{Binding InGridTitle}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center"
+                                           Text="{Binding PunchInComment}"></Label>
+
+                                    <Label Grid.Row="2"  Grid.Column="{Binding OutGridTitle}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center"
+                                           Text="{Binding PunchOutComment}"></Label>
+
+                                    <Label Grid.Row="2" Grid.Column="{Binding DurationGridTitle}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center"
+                                           Text="{Binding WorkDurationComment}"></Label>
+
+                                    <Label Grid.Row="2" Grid.Column="{Binding StatusGridTitle}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="Center"
+                                           Text="{Binding Status}"></Label>
+
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </local:CustomListViewRenderer.ItemTemplate>
+                    <local:CustomListViewRenderer.Footer>
+                        <StackLayout HeightRequest="1"></StackLayout>
+                    </local:CustomListViewRenderer.Footer>
+
+
+
+                </local:CustomListViewRenderer>
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

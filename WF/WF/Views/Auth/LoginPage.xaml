@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WF.Views.Auth.LoginPage"
+             xmlns:ext="clr-namespace:WF.Extensions;assembly=WF"
+             Title="WorkForce">
+
+    <ContentPage.Content>
+
+        <ScrollView>
+            <StackLayout x:Name="MainStackLayout" Padding="10">
+                <Image VerticalOptions="Center" HorizontalOptions="Center" Source="Logo.png"
+                       HeightRequest="100" />
+                <Entry x:Name="UserNameEntry" Placeholder="{ext:Translate LoginPlaceholder}"
+                    HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Login}"
+                   HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="PasswordEntry" Placeholder="{ext:Translate PasswordPlaceholder}"
+                   HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Password}"
+                   HorizontalOptions="FillAndExpand" IsPassword="True"/>
+
+                <Button BorderColor="Black" BackgroundColor="{StaticResource ButtonColor}"
+                            Text="{ext:Translate LoginButtonTitle}" FontSize="Medium" TextColor="{StaticResource TextColor}"
+                            HorizontalOptions="FillAndExpand"
+                            Command="{Binding AuthCommand}" />
+                
+                <Image  Source="Fingerprint.png" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding VisibleFingerprint}" HeightRequest="60">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding FingerprintAuthCommand}"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

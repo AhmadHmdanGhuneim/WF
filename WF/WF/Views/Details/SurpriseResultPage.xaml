@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:WF.Extensions;assembly=WF"
+             xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
+             x:Class="WF.Views.Details.SurpriseResultPage"
+             x:Name="ContentPage"
+             Title="{extensions:Translate SurpriseResultTitle}">
+
+
+    <ContentPage.Content>
+
+        <StackLayout Padding="10">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                    Spacing="20">
+
+
+                <Label FontSize="Small" Text="{extensions:Translate MasterSurpriseLabel}"
+                                    HorizontalOptions="{Binding TextAligment}"
+                                    HorizontalTextAlignment="{Binding TextAligment}"/>
+                <extensions:BindablePicker Title="{Binding MasterSurprisePikerTitle}"
+                                        VerticalOptions="Center"
+                                        ItemsSource="{Binding MasterSurprises}"
+                                        SelectedItem="{Binding SelectedSurprise}"
+                                        DisplayMemberPath="Title"/>
+
+                <Button Text="{extensions:Translate ShowButton}"
+                                        HorizontalOptions="FillAndExpand"
+                                  
+                            BackgroundColor="{StaticResource ButtonColor}"
+                                        TextColor="{StaticResource TextColor}"
+                                        Command="{Binding ShowCommand}" />
+
+
+
+
+                <Label Text="{extensions:Translate NoDataYet}" IsVisible="{Binding IsNoDataMsgVisible}"
+                                FontAttributes="Bold" FontSize="Large"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"/>
+
+              
+            </StackLayout>
+            <Grid  IsVisible="{Binding IsGridTitleVisible}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="{Binding NumberPosition}" FontSize="Small" FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               Text="{extensions:Translate IdGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                <Label Grid.Row="0" Grid.Column="{Binding NamePosition}" FontSize="Small" FontAttributes="Bold"
+                              HorizontalOptions="Center"
+                               Text="{extensions:Translate NameGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                <Label Grid.Row="0" Grid.Column="{Binding CheckPosition}" FontSize="Small" FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               Text="{extensions:Translate CheckedGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                <Label Grid.Row="0" Grid.Column="{Binding InPosition}" FontSize="Small" FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               Text="{extensions:Translate InLocationGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+            </Grid>
+
+            <local:CustomListViewRenderer ItemsSource="{Binding DetailSurprises}"
+                     VerticalOptions="FillAndExpand"
+                      SeparatorVisibility="None"
+                      ItemSelected="ListView_OnItemSelected">
+                    
+                
+                <local:CustomListViewRenderer.Header>
+                        <StackLayout HeightRequest="1"></StackLayout>
+                    </local:CustomListViewRenderer.Header>
+
+                    <local:CustomListViewRenderer.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                            <Grid ColumnSpacing="5" VerticalOptions="Fill" BackgroundColor="{Binding BackgroundColor}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                   FontSize="Small"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding EmpId}"></Label>
+                                <Label Grid.Column="1"
+                                   FontSize="Small"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding EmpName}"></Label>
+                                <Grid Column="2">
+                                    <Image VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           Source="{Binding IsCheckedImg}"
+                                           HeightRequest="20"/>
+                                </Grid>
+                                <Grid Column="3">
+                                    <Image VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           Source="{Binding InLocationImg}"
+                                           HeightRequest="20"/>
+                                </Grid>
+                            </Grid>
+
+
+                            <!--<Grid ColumnSpacing="5" VerticalOptions="Fill" BackgroundColor="{Binding BackgroundColor}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="**"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="{Binding Path=BindingContext.NumberPosition,Source={x:Reference ContentPage}}" FontSize="Small" VerticalOptions="Center"
+                                   HorizontalOptions="Center" Text="{Binding EmpId}"></Label>
+                                  
+                                    <Label Grid.Column="{Binding Path=BindingContext.NamePosition,Source={x:Reference ContentPage}}"
+                                      FontSize="Small" VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding EmpName}"></Label>
+                                    <Grid Column="{Binding Path=BindingContext.CheckPosition,Source={x:Reference ContentPage}}">
+                                        <Image VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           Source="{Binding IsCheckedImg}"
+                                           HeightRequest="20"/>
+                                    </Grid>
+                                    <Grid Column="{Binding Path=BindingContext.InPosition,Source={x:Reference ContentPage}}">
+                                        <Image VerticalOptions="Center" HorizontalOptions="Center"
+                                           Source="{Binding InLocationImg}"
+                                           HeightRequest="20"/>
+                                    </Grid>
+                                </Grid>-->
+                            </ViewCell>
+                        </DataTemplate>
+                    </local:CustomListViewRenderer.ItemTemplate>
+
+                    <local:CustomListViewRenderer.Footer>
+                        <StackLayout HeightRequest="1"></StackLayout>
+                    </local:CustomListViewRenderer.Footer>
+                </local:CustomListViewRenderer>
+         
+            <Button Text="{extensions:Translate ResendPushButton}"
+                                HorizontalOptions="FillAndExpand"
+                                BackgroundColor="{StaticResource ButtonColor}"
+                                TextColor="{StaticResource TextColor}"
+                               
+                                Command="{Binding ResendCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:extensions="clr-namespace:WF.Extensions;assembly=WF"
+             x:Class="WF.Views.Popups.RequestInfoPage">
+
+
+    <Frame HorizontalOptions="Fill" Margin="30" Padding="10" VerticalOptions="Center" BackgroundColor="#dddddd">
+        <ScrollView>
+            <StackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="0"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           Text="{extensions:Translate ReqIdText}" 
+                           HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="0"
+                           VerticalOptions="Center"
+                           Text="{Binding Request.Id}" 
+                           HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+
+
+
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="1"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           Text="{extensions:Translate UserText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="1"
+                           VerticalOptions="Center"
+                           Text="{Binding Request.EmpLogin}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+
+
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="2"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           Text="{extensions:Translate EmpIdText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="2"
+                           VerticalOptions="Center"
+                           Text="{Binding Request.EmpId}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+
+
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="3"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           Text="{extensions:Translate RetIdText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="3"
+                           VerticalOptions="Center"
+                           Text="{Binding Request.RetStr}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="4"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           Text="{extensions:Translate TypeText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="4"
+                           VerticalOptions="Center"
+                           Text="{Binding Request.RequestType.Name}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="5"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           Text="{extensions:Translate ReasonLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="5"
+                           VerticalOptions="Center"
+                           Text="{Binding Request.Reason}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                </Grid>
+                <Grid IsVisible="{Binding IsExc}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="0"
+                           FontAttributes="Bold" FontSize="Medium"       
+                           VerticalOptions="Center" Text="{extensions:Translate DateLabel}"/>
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="0"
+                           VerticalOptions="Center" Text="{Binding Request.DateFromComment}"/>
+
+
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="1"
+                           FontAttributes="Bold" FontSize="Medium"
+                           VerticalOptions="Center" Text="{extensions:Translate TimeFromLabel}"/>
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="1"
+                           VerticalOptions="Center" Text="{Binding Request.TimeFromComment}"/>
+
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="2"
+                           FontAttributes="Bold" FontSize="Medium" VerticalOptions="Center"
+                           Text="{extensions:Translate TimeToLabel}"/>
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="2"
+                           VerticalOptions="Center" Text="{Binding Request.TimeToComment}"/>
+                </Grid>
+                <Grid IsVisible="{Binding IsVac}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="0"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           Text="{extensions:Translate DateFromLabel}" 
+                             HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="0"
+                           VerticalOptions="Center"
+                           Text="{Binding Request.DateFromComment}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+
+                    <Label Grid.Column="{Binding StartSpan}" Grid.Row="1"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           Text="{extensions:Translate DateToLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+
+                    <Label Grid.Column="{Binding EndSpan}" Grid.Row="1"
+                           VerticalOptions="Center"
+                           Text="{Binding Request.DateToComment}"   HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                </Grid>
+                <Button Text="{extensions:Translate Back}" Command="{Binding BackCommand}" BackgroundColor="{StaticResource ButtonColor}" TextColor="{StaticResource TextColor}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+        </ScrollView>
+    </Frame>
+</pages:PopupPage>

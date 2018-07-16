@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ext="clr-namespace:WF.Extensions;assembly=WF"
+             xmlns:pullToRefresh="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
+             xmlns:xfShapeView="clr-namespace:XFShapeView;assembly=XFShapeView"
+             x:Class="WF.Views.Details.DashboardPage"
+             Title="{ext:Translate DashboardTitle}">
+
+    <ContentPage.Content>
+        <pullToRefresh:PullToRefreshLayout RefreshCommand="{Binding RefreshCommand}"  IsRefreshing="{Binding IsRefreshBusy}">
+            <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10" Spacing="20">
+
+                    <StackLayout>
+                        <Label FontSize="Small" IsVisible="{Binding IsManager}"  Text="{ext:Translate DepartmentLabel}" HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"/>
+                        <ext:BindablePicker IsVisible="{Binding IsManager}" Title="{Binding DepartmentsPikerTitle}" VerticalOptions="Center"  ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}" DisplayMemberPath="Name"/>
+                        <Label FontSize="Small" IsVisible="{Binding IsManager}" Text="{ext:Translate EmployeeLabel}" HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"/>
+                        <ext:BindablePicker IsVisible="{Binding IsManager}" Title="{Binding EmployeePikerTitle}" VerticalOptions="Center" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" DisplayMemberPath="Name" />
+                        <Label FontSize="Small" Text="{ext:Translate SummaryTypeLabel}" HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}" />
+                        <ext:BindablePicker Title="{ext:Translate SummaryTypeTitle}" VerticalOptions="Center" SelectedItem="{Binding SelectedSummaryType}" ItemsSource="{Binding SummaryTypes}" >
+                        </ext:BindablePicker>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label FontSize="Small" IsVisible="{Binding IsDayVisible}" Grid.Row="0" Grid.Column="{Binding DayPosition}" Text="{ext:Translate DayText}" HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"></Label>
+                            <Label FontSize="Small" Grid.Row="0" Grid.Column="1" Text="{ext:Translate MonthText}" HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"></Label>
+                            <Label FontSize="Small" Grid.Row="0" Grid.Column="{Binding YearPosition}" Text="{ext:Translate Year}" HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"></Label>
+
+                            <ext:BindablePicker IsVisible="{Binding IsDayVisible}" Grid.Row="1" Grid.Column="{Binding DayPosition}" Title="{ext:Translate DayTitle}" SelectedItem="{Binding SelectedDay}" ItemsSource="{Binding Days}" />
+                            <ext:BindablePicker Grid.Row="1" Grid.Column="1" Title="{ext:Translate MonthTitle}" DisplayMemberPath="Value" SelectedItem="{Binding SelectedMonth}" ItemsSource="{Binding Months}"/>
+                            <ext:BindablePicker Grid.Row="1" Grid.Column="{Binding YearPosition}" Title="{ext:Translate Year}" SelectedItem="{Binding SelectedYear}" ItemsSource="{Binding Years}" />
+                        </Grid>
+
+
+                        <Button Text="{ext:Translate ShowButton}" HorizontalOptions="FillAndExpand" Command="{Binding ShowCommand}" BackgroundColor="{StaticResource ButtonColor}" TextColor="{StaticResource TextColor}" />
+                    </StackLayout>
+
+
+                  
+                  
+                    
+                    
+                    
+                    
+                    <Label Text="{ext:Translate NoDataYet}"
+               IsVisible="{Binding IsNoDataMsgVisible}"
+               FontAttributes="Bold"
+               FontSize="Large"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+                </StackLayout>
+            </ScrollView>
+        </pullToRefresh:PullToRefreshLayout>
+    </ContentPage.Content>
+</ContentPage>

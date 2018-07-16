@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
+             xmlns:extensions="clr-namespace:WF.Extensions;assembly=WF"
+             x:Class="WF.Views.Results.RequestDecisionResultPage"
+             x:Name="ContentPage"
+             Title="{extensions:Translate DecisionTitle}">
+    <ContentPage.Content>
+        <StackLayout Padding="10" BackgroundColor="#d8d8d8">
+            <StackLayout Padding="10" BindingContext="{Binding SelectSummary}" BackgroundColor="White" Margin="0,0,0,10">
+                <Grid ColumnSpacing="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!--HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"-->
+                    <Label  Grid.Row="0" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate DepartmentLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="0" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding Department}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label  Grid.Row="1" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate EmployeeLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="1" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding Employee}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label  Grid.Row="2" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate MonthTitle}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="2" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding Month}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+
+                    <Label  Grid.Row="3" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate Year}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                    <Label  Grid.Row="3" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding Year}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+
+
+                </Grid>
+            </StackLayout>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="{Binding UserPostion}" FontSize="Small" FontAttributes="Bold"
+                                    VerticalOptions="Center" HorizontalOptions="Center"
+                                    Text="{extensions:Translate UserGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+
+                <Label Grid.Row="0" Grid.Column="{Binding DatePostion}" FontSize="Small" FontAttributes="Bold"
+                               VerticalOptions="Center" HorizontalOptions="Center"
+                               Text="{extensions:Translate DateGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+
+                <Label Grid.Row="0" Grid.Column="{Binding InfoPosition}" FontSize="Small" FontAttributes="Bold"
+                               VerticalOptions="Center" HorizontalOptions="Center"
+                               Text="{extensions:Translate InfoGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+            </Grid>
+
+
+            <StackLayout VerticalOptions="FillAndExpand">
+                <local:CustomListViewRenderer HasUnevenRows="True" ItemsSource="{Binding Requests}"
+                          SeparatorVisibility="None" ItemSelected="ListView_OnItemSelected">
+                    <local:CustomListViewRenderer.Header>
+                        <StackLayout HeightRequest="1"></StackLayout>
+                    </local:CustomListViewRenderer.Header>
+                    <local:CustomListViewRenderer.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid ColumnSpacing="5" VerticalOptions="Fill" Margin="0,0,0,10" BackgroundColor="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="{Binding UserPostion}"  FontSize="Small" VerticalOptions="Center"
+                                           HorizontalOptions="Center" Text="{Binding EmpLogin}"></Label>
+
+                                    <Label Grid.Column="{Binding DateRequestPostion}" FontSize="Small" VerticalOptions="Center"
+                                           HorizontalOptions="Center" Text="{Binding DateComment}"></Label>
+
+
+                                    <Grid Column="{Binding InfoPosition}">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.ViewInfoCommand, Source={x:Reference ContentPage}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                        </Grid.GestureRecognizers>
+                                        <Image VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           Source="Document.png"
+                                           HeightRequest="25"></Image>
+                                    </Grid>
+
+                                    <Grid Column="{Binding CheckPosition}">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.CheckCommand, Source={x:Reference ContentPage}}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                        </Grid.GestureRecognizers>
+                                        <Image VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           Source="{Binding CheckImg}"
+                                           HeightRequest="20"/>
+                                    </Grid>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </local:CustomListViewRenderer.ItemTemplate>
+                    <local:CustomListViewRenderer.Footer>
+                        <StackLayout HeightRequest="1"></StackLayout>
+                    </local:CustomListViewRenderer.Footer>
+                </local:CustomListViewRenderer>
+
+
+
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
+                                 Padding="10">
+                <Button Text="{extensions:Translate ApproveButton}"
+                                HorizontalOptions="Center"
+                                BackgroundColor="#388E3C"
+                                BorderColor="Black" TextColor="White"
+                                WidthRequest="120"
+                                Command="{Binding ApproveCommand}"/>
+                
+                <Button Text="{extensions:Translate RejectButton}"
+                                HorizontalOptions="Center"
+                                BackgroundColor="#8b0000"
+                                BorderColor="Black" TextColor="White"
+                                WidthRequest="120"
+                                Command="{Binding RejectCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:me="clr-namespace:WF.Views"
+            xmlns:details="clr-namespace:WF.Views.Details"
+             xmlns:ext="clr-namespace:WF.Extensions;assembly=WF"
+             x:Class="WF.Views.MainPage">
+    
+    <!--<TabbedPage.ToolbarItems>
+        <ToolbarItem Text="{ext:Translate ChangeLang}"
+                     Order="Primary"
+                     Icon="Lang.png"
+                     Command="{Binding ChangeLangCommand}"/>
+    </TabbedPage.ToolbarItems>-->
+
+    <TabbedPage.Children>
+        <details:DashboardPage Title="{ext:Translate DashboardTitle}" Icon="Dashboard.png"/>
+        <me:SettingPage Title="{ext:Translate settings}" Icon="Setting.png"/>
+        
+    </TabbedPage.Children>
+</TabbedPage>

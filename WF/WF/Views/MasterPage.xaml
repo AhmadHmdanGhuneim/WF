@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:pages="clr-namespace:WF.Views"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="WF.Views.MasterPage"
+                  xmlns:ext="clr-namespace:WF.Extensions"
+                  Title="{ext:Translate workforce}">
+   
+    
+    <MasterDetailPage.Master>
+        <pages:MenuPage></pages:MenuPage>
+    </MasterDetailPage.Master>
+    
+    <MasterDetailPage.Detail>
+        <NavigationPage x:Name="MainNavigator" BarTextColor="White" BarBackgroundColor="#007dc1" >
+            <x:Arguments>
+                <pages:MainPage></pages:MainPage>
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+
+</MasterDetailPage>

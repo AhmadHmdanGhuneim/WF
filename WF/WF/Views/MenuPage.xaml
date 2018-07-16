@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:WF.Extensions;assembly=WF"
+             xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
+             xmlns:xamEffects="clr-namespace:XamEffects;assembly=XamEffects"
+             x:Class="WF.Views.MenuPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--<Style x:Key="BoxStartStyle" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1"></Setter>
+                <Setter Property="Color" Value="Gray"></Setter>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="VerticalOptions" Value="Start"></Setter>
+            </Style>
+            <Style x:Key="BoxStyle" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="1"></Setter>
+                <Setter Property="Color" Value="Gray"></Setter>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="VerticalOptions" Value="End"></Setter>
+            </Style>-->
+            <!--<Style x:Key="ImgStyle" TargetType="Image">
+                <Setter Property="Aspect" Value="AspectFit"></Setter>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="Scale" Value="0.75"></Setter>
+                <Setter Property="WidthRequest" Value="40"></Setter>
+            </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+                <Setter Property="FontSize" Value="Medium"></Setter>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"></Setter>
+            </Style>-->
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10">
+            <!-- This is header for menu -->
+            <!--<StackLayout BackgroundColor="White"  HeightRequest="20">
+                -->
+            <!--<Grid>-->
+            <Image Source="Logo.png"  HeightRequest="80" />
+            <local:CustomListViewRenderer x:Name="HeaderGrid" HorizontalOptions="Fill" HeightRequest="10">
+                <local:CustomListViewRenderer.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{Binding StartGridLength}" />
+                                    <ColumnDefinition Width="{Binding EndGridLength}" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="User.png" Grid.Column="{Binding StartSpan}" />
+                                <Label Text="{Binding WelcomeText}" Grid.Column="{Binding EndSpan}" VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="Black" FontSize="Small" FontAttributes="Bold"
+                                       HorizontalOptions="Fill"
+                                       HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </local:CustomListViewRenderer.ItemTemplate>
+
+                <!--</Grid>-->
+            </local:CustomListViewRenderer>
+            <BoxView Color="Gray" HeightRequest="1" />
+            <!--</StackLayout>-->
+            <!--<StackLayout x:Name="MainStackLayout" Padding="10" VerticalOptions="FillAndExpand">-->
+            <local:CustomListViewRenderer x:Name="MenuListView" SeparatorVisibility="Default" VerticalOptions="FillAndExpand">
+
+                <local:CustomListViewRenderer.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid VerticalOptions="FillAndExpand">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectMenuItemCommand}"/>
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{Binding StartGridLength}" />
+                                    <ColumnDefinition Width="{Binding EndGridLength}" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="{Binding StartSpan}" Source="{Binding Icon}" />
+                                <Label Grid.Column="{Binding EndSpan}"
+                                           Text="{Binding Title}"
+                                           VerticalTextAlignment="Center"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="{Binding TextAligment}"
+                                           HorizontalTextAlignment="{Binding TextAligment}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </local:CustomListViewRenderer.ItemTemplate>
+
+            </local:CustomListViewRenderer>
+
+            <!--</StackLayout>-->
+
+
+
+        </StackLayout>
+
+
+    </ContentPage.Content>
+</ContentPage>

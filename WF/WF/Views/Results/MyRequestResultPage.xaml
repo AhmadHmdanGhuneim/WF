@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
+             xmlns:extensions="clr-namespace:WF.Extensions;assembly=WF"
+             x:Class="WF.Views.Results.MyRequestResultPage"
+              Title="{extensions:Translate RequestTitle}">
+
+    <ContentPage.Content>
+
+
+
+        <StackLayout Padding="10"  BackgroundColor="#d8d8d8">
+
+            <StackLayout Padding="10" BindingContext="{Binding SelectSummary}" BackgroundColor="White" Margin="0,0,0,10">
+                <Grid ColumnSpacing="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!--HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"-->
+                    <Label  Grid.Row="0" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate StatusLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="0" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding RequetStatus}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label  Grid.Row="1" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate RequestTypeLable}"  HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="1" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding ReqestType}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+
+                    <Label  Grid.Row="2" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate DateFromLabel}"  HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="2" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding FromDate}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+                    <Label  Grid.Row="3" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate DateToLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                    <Label  Grid.Row="3" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding ToDate}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+
+
+                </Grid>
+            </StackLayout>
+
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="{Binding DatePostion}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
+                           HorizontalOptions="Center" Text="{extensions:Translate DateGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+
+                <Label Grid.Row="0" Grid.Column="{Binding RequsetPostion}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
+                           HorizontalOptions="Center" Text="{extensions:Translate RetGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+
+                <Label Grid.Row="0" Grid.Column="{Binding TypePosition}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
+                           HorizontalOptions="Center" Text="{extensions:Translate TypeGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+
+                <Label Grid.Row="0" Grid.Column="{Binding StatusPosition}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
+                           HorizontalOptions="Center" Text="{extensions:Translate StatusGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+
+            </Grid>
+            
+            
+            <StackLayout VerticalOptions="FillAndExpand">
+
+
+                <local:CustomListViewRenderer HasUnevenRows="True" ItemsSource="{Binding Requests}"
+                          SeparatorVisibility="None" ItemSelected="ListView_OnItemSelected">
+                    <local:CustomListViewRenderer.Header>
+                        <StackLayout HeightRequest="1"></StackLayout>
+                    </local:CustomListViewRenderer.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+
+                                <Grid ColumnSpacing="5" VerticalOptions="Fill"  Margin="0,0,0,6" BackgroundColor="White">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                 
+
+                                    <Label Grid.Row="1" Grid.Column="{Binding DatePostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
+                               Text="{Binding DateComment}"></Label>
+                                    <Label Grid.Row="1" Grid.Column="{Binding RequsetPostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
+                               Text="{Binding RetId}"></Label>
+                                    <Label Grid.Row="1" Grid.Column="{Binding TypePosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
+                               Text="{Binding RequestType.Name}"></Label>
+                                    <Label Grid.Row="1" Grid.Column="{Binding StatusPosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
+                               Text="{Binding StatusComment}"></Label>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <local:CustomListViewRenderer.Footer>
+                        <StackLayout HeightRequest="1"></StackLayout>
+                    </local:CustomListViewRenderer.Footer>
+
+                </local:CustomListViewRenderer>
+
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

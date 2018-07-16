@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
+             x:Class="WF.Views.SettingPage">
+    <ContentPage.Content>
+        <StackLayout x:Name="MainStackLayout" Padding="10">
+            <local:CustomListViewRenderer x:Name="SettingListView">
+                <local:CustomListViewRenderer.Header>
+                    <StackLayout HeightRequest="1"></StackLayout>
+                </local:CustomListViewRenderer.Header>
+
+                <local:CustomListViewRenderer.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenPageCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{Binding StartGridLength}"></ColumnDefinition>
+                                    <ColumnDefinition Width="{Binding EndGridLength}"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="{Binding StartSpan}"  Text="{Binding Title}"  VerticalTextAlignment="Center" VerticalOptions="Center"   HorizontalTextAlignment="{Binding HorizontalTextAligment}"   />
+                                <Image Grid.Column="{Binding EndSpan}"  Source="{Binding Icon}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </local:CustomListViewRenderer.ItemTemplate>
+                <local:CustomListViewRenderer.Footer>
+                    <StackLayout HeightRequest="1"></StackLayout>
+                </local:CustomListViewRenderer.Footer>
+            </local:CustomListViewRenderer>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

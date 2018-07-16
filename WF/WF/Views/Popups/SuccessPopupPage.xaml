@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="WF.Views.Popups.SuccessPopupPage"
+             BackgroundColor="Transparent"
+             InputTransparent="True"
+             HasSystemPadding="False"
+             CloseWhenBackgroundIsClicked="False">
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation PositionIn="Top" PositionOut="Top"/>
+    </pages:PopupPage.Animation>
+    <StackLayout x:Name ="MainStackLayout" VerticalOptions="Start" BackgroundColor="#43A047" HeightRequest="90">
+        <Label x:Name="SuccessMessage" Margin="10, 0, 0, 15" TextColor="White" VerticalOptions="EndAndExpand"
+               HorizontalTextAlignment="End" HorizontalOptions="End">
+
+        </Label>
+    </StackLayout>
+</pages:PopupPage>

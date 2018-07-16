@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
+             x:Class="WF.Views.Details.LanguagePage">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <local:CustomListViewRenderer x:Name="LanuguageListView" HasUnevenRows="True" ItemsSource="{Binding LanguageList}">
+                <local:CustomListViewRenderer.Header>
+                    <StackLayout HeightRequest="1"></StackLayout>
+                </local:CustomListViewRenderer.Header>
+
+                <local:CustomListViewRenderer.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid x:Name="MainGrid" Padding="10">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectdLanguageCommand}"/>
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{Binding LabelColumn}"></ColumnDefinition>
+                                    <ColumnDefinition Width="{Binding ImageColumn}"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="{Binding LabelPosition}"  Text="{Binding Name}" VerticalOptions="Center" WidthRequest="200" HorizontalTextAlignment="{Binding HorizontalTextAligment}"   VerticalTextAlignment="Center" HorizontalOptions="{Binding TextAligment}" >
+                                </Label>
+                                <Image Grid.Column="{Binding ImagePosition}"  Source="{Binding SelectedIcon}" IsVisible="{Binding IsVisible}"   />
+                            </Grid>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </local:CustomListViewRenderer.ItemTemplate>
+                <local:CustomListViewRenderer.Footer>
+                    <StackLayout HeightRequest="1"></StackLayout>
+                </local:CustomListViewRenderer.Footer>
+            </local:CustomListViewRenderer>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
