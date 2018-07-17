@@ -307,16 +307,16 @@ namespace WF.ViewModels
                 {
                     case SelectedMenuOptions.Dashboard:
                         if (!(NavigationService.CurrentPage is DashboardPage))
-                        //    App.Current.MainPage = new MasterPage();
-                        //if (Device.Idiom != TargetIdiom.Tablet)
-                        //{
-                        //    
-                        //        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
-                        //  
-                        //}
+                            //    App.Current.MainPage = new MasterPage();
+                            //if (Device.Idiom != TargetIdiom.Tablet)
+                            //{
+                            //    
+                            //        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
+                            //  
+                            //}
 
                             NavigationService.SetDetailPage(new DashboardViewModel(), SelectedMenuOptions, Title);
-                            break;
+                        break;
                     case SelectedMenuOptions.DaySummary:
                         // if (!(NavigationService.CurrentPage is DaySummaryPage))
                         NavigationService.SetDetailPage(new DaySummaryViewModel(), SelectedMenuOptions, Title);
@@ -375,47 +375,57 @@ namespace WF.ViewModels
 
         public void ConfirmMenuOptions(SelectedMenuOptions options)
         {
-            DashboardColor = _deactiveColor;
-            LogoutColor = _deactiveColor;
-            DaySummaryColor = _deactiveColor;
-            MonthSummaryColor = _deactiveColor;
-            ExcuseColor = _deactiveColor;
-            VacationColor = _deactiveColor;
-            RequestColor = _deactiveColor;
-            DecisionColor = _deactiveColor;
-            ReqSurpriseColor = _deactiveColor;
-            SurpriseResultColor = _deactiveColor;
-
-            switch (options)
+            try
             {
-                case SelectedMenuOptions.Dashboard:
-                    DashboardColor = _selectedColor;
-                    break;
-                case SelectedMenuOptions.DaySummary:
-                    DaySummaryColor = _selectedColor;
-                    break;
-                case SelectedMenuOptions.MonthSummary:
-                    MonthSummaryColor = _selectedColor;
-                    break;
-                case SelectedMenuOptions.Excuse:
-                    ExcuseColor = _selectedColor;
-                    break;
-                case SelectedMenuOptions.Vacation:
-                    VacationColor = _selectedColor;
-                    break;
-                case SelectedMenuOptions.MyRequest:
-                    RequestColor = _selectedColor;
-                    break;
-                case SelectedMenuOptions.RequestDecision:
-                    DecisionColor = _selectedColor;
-                    break;
-                case SelectedMenuOptions.RequestSurprise:
-                    ReqSurpriseColor = _selectedColor;
-                    break;
-                case SelectedMenuOptions.SurpriseResult:
-                    SurpriseResultColor = _selectedColor;
-                    break;
+
+
+                DashboardColor = _deactiveColor;
+                LogoutColor = _deactiveColor;
+                DaySummaryColor = _deactiveColor;
+                MonthSummaryColor = _deactiveColor;
+                ExcuseColor = _deactiveColor;
+                VacationColor = _deactiveColor;
+                RequestColor = _deactiveColor;
+                DecisionColor = _deactiveColor;
+                ReqSurpriseColor = _deactiveColor;
+                SurpriseResultColor = _deactiveColor;
+
+                switch (options)
+                {
+                    case SelectedMenuOptions.Dashboard:
+                        DashboardColor = _selectedColor;
+                        break;
+                    case SelectedMenuOptions.DaySummary:
+                        DaySummaryColor = _selectedColor;
+                        break;
+                    case SelectedMenuOptions.MonthSummary:
+                        MonthSummaryColor = _selectedColor;
+                        break;
+                    case SelectedMenuOptions.Excuse:
+                        ExcuseColor = _selectedColor;
+                        break;
+                    case SelectedMenuOptions.Vacation:
+                        VacationColor = _selectedColor;
+                        break;
+                    case SelectedMenuOptions.MyRequest:
+                        RequestColor = _selectedColor;
+                        break;
+                    case SelectedMenuOptions.RequestDecision:
+                        DecisionColor = _selectedColor;
+                        break;
+                    case SelectedMenuOptions.RequestSurprise:
+                        ReqSurpriseColor = _selectedColor;
+                        break;
+                    case SelectedMenuOptions.SurpriseResult:
+                        SurpriseResultColor = _selectedColor;
+                        break;
+                }
             }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "SelectMenuItem");
+            }
+
         }
     }
 }

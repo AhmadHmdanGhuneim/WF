@@ -92,6 +92,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CustomeControl\CustomListView.cs" />
+    <Compile Include="CustomeControl\ImageEntryRenderer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />

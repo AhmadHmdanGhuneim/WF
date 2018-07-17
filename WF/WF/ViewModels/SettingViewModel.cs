@@ -1,5 +1,6 @@
 ﻿
 using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.ObjectModel;
 
 using System.Windows.Input;
@@ -50,10 +51,9 @@ namespace WF.ViewModels
                 }
                 
             }
-            catch 
+            catch (Exception exception)
             {
-
-                throw;
+                GeneralFunctions.HandelException(exception, "SettingViewModel : OpenPage");
             }
         }
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -20,7 +19,6 @@ using WF.Models.Summary;
 using WF.Models.Views;
 using WF.Resources;
 using WF.Services;
-using WF.ViewModels.Auth;
 using WF.ViewModels.Results;
 using WF.Views.Popups;
 using Xamarin.Forms;
@@ -49,7 +47,7 @@ namespace WF.ViewModels.Details
 
         // public ObservableCollection<Department> Departments { get; set; } = new ObservableCollection<Department>();
 
-        public ObservableCollection<Department> Departments { get; set; } 
+        public ObservableCollection<Department> Departments { get; set; }
 
 
         public ObservableCollection<KeyValuePair<int, string>> Months { get; set; } = new ObservableCollection<KeyValuePair<int, string>>();
@@ -166,135 +164,188 @@ namespace WF.ViewModels.Details
         public ICommand ChangeLangCommand { get; }
         public MonthSummaryViewModel()
         {
-            _user = GeneralFunctions.GetUser();
-            _factory = new DashboardFactory();
-            RefreshCommand = new Command(Refresh);
-            ShowCommand = new Command(Show);
-            FillCalendar();
-            ChangeLangCommand = new Command(LocaleHelper.ChangeCulture);
-            if (IsManager)
+            try
             {
-                FillDepartments();
+                _user = GeneralFunctions.GetUser();
+                _factory = new DashboardFactory();
+                RefreshCommand = new Command(Refresh);
+                ShowCommand = new Command(Show);
+                FillCalendar();
+                ChangeLangCommand = new Command(LocaleHelper.ChangeCulture);
+                if (IsManager)
+                {
+                    FillDepartments();
+                }
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MonthSummaryViewModel");
             }
         }
 
         private async void Refresh()
         {
-            CancellAll();
-            IsRefreshBusy = true;
-            if (IsManager && Departments.Count == 0)
+            try
             {
-                await FillDepartments();
-            }
-            else if (IsManager && SelectedDepartment != null && Employees.Count == 0)
-            {
-                await FillEmployees();
-            }
-            else if (IsManager && SelectedEmployee != null || !IsManager)
-            {
-                await ShowGrid();
-            }
 
-            StopRefresh();
+
+                CancellAll();
+                IsRefreshBusy = true;
+                if (IsManager && Departments.Count == 0)
+                {
+                    await FillDepartments();
+                }
+                else if (IsManager && SelectedDepartment != null && Employees.Count == 0)
+                {
+                    await FillEmployees();
+                }
+                else if (IsManager && SelectedEmployee != null || !IsManager)
+                {
+                    await ShowGrid();
+                }
+
+                StopRefresh();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MonthSummaryViewModel : Refersh");
+            }
         }
 
         private void StopRefresh()
         {
-            Task.Run(async delegate
+            try
             {
-                await Task.Delay(300);
-                IsRefreshBusy = false;
-            });
+
+                Task.Run(async delegate
+                {
+                    await Task.Delay(300);
+                    IsRefreshBusy = false;
+                });
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MonthSummaryViewModel : StopRefresh");
+            }
         }
 
         private void Show()
         {
-            ShowGrid();
+            try
+            {
+                ShowGrid();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "ShowGrid");
+            }
         }
 
         private async Task FillDepartments()
         {
-            CancellAll();
-            DepartmentsPikerTitle = Resource.DownloadingText;
-            Departments = new ObservableCollection<Department>();
-            var res = await _factory.GetDepartments(_user.Token, _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                string lang = GeneralFunctions.GetLanguage();
-                SelectedDepartment = null;
-                SelectedEmployee = null;
-                Departments.Clear();
-                Employees.Clear();
-                foreach (Department department in res.Data)
+
+                CancellAll();
+                DepartmentsPikerTitle = Resource.DownloadingText;
+                Departments = new ObservableCollection<Department>();
+                var res = await _factory.GetDepartments(_user.Token, _cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    department.Name = department.NameAr;
-                    if (!lang.Contains(GeneralFunctions.Language.ar.ToString()))
+                    string lang = GeneralFunctions.GetLanguage();
+                    SelectedDepartment = null;
+                    SelectedEmployee = null;
+                    Departments.Clear();
+                    Employees.Clear();
+                    foreach (Department department in res.Data)
                     {
-                        department.Name = department.NameEn;
+                        department.Name = department.NameAr;
+                        if (!lang.Contains(GeneralFunctions.Language.ar.ToString()))
+                        {
+                            department.Name = department.NameEn;
+                        }
+                        if (!string.IsNullOrEmpty(department.Name))
+                        {
+                            Departments.Add(department);
+                        }
+
                     }
-                   if(!string.IsNullOrEmpty(department.Name))
-                    {
-                        Departments.Add(department);
-                    }
-                    
                 }
+                DepartmentsPikerTitle = Resource.DepartmentTitle;
+
             }
-            DepartmentsPikerTitle = Resource.DepartmentTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MonthSummaryViewModel : FillDepartment");
+            }
         }
 
         private async Task FillEmployees()
         {
-            CancellAll();
-            EmployeePikerTitle = Resource.DownloadingText;
-            var res = await _factory.GetEmployeesForDepartment(_user.Token, SelectedDepartment.Id, _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                string lang = GeneralFunctions.GetLanguage();
-                SelectedEmployee = null;
-                Employees.Clear();
-                foreach (var emp in res.Data)
+                CancellAll();
+                EmployeePikerTitle = Resource.DownloadingText;
+                var res = await _factory.GetEmployeesForDepartment(_user.Token, SelectedDepartment.Id, _cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    emp.Name = emp.NameAr;
-                    if (!lang.Contains(GeneralFunctions.Language.ar.ToString()))
+                    string lang = GeneralFunctions.GetLanguage();
+                    SelectedEmployee = null;
+                    Employees.Clear();
+                    foreach (var emp in res.Data)
                     {
-                        emp.Name = emp.NameEn;
-                    }
+                        emp.Name = emp.NameAr;
+                        if (!lang.Contains(GeneralFunctions.Language.ar.ToString()))
+                        {
+                            emp.Name = emp.NameEn;
+                        }
 
-                    Employees.Add(emp);
+                        Employees.Add(emp);
+                    }
                 }
+                EmployeePikerTitle = Resource.EmployeeTitle;
             }
-            EmployeePikerTitle = Resource.EmployeeTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MonthSummaryViewModel : FillEmployee");
+            }
         }
 
         private void FillCalendar()
         {
-
-            string language = GeneralFunctions.GetLanguage();
-            var year = _user.IsGregorianLocale ? _now.Year : _nowHijri.Year;
-
-            //var year = GeneralFunctions.GetLanguage().Contains("en")  ? _now.Year : _nowHijri.Year;
-
-            for (var i = year; i >= year - 10; i--)
-                Years.Add(i);
-
-            var cul = _user.IsGregorianLocale ? new CultureInfo("en-US") : new CultureInfo("ar-SA");
-            //var cul = GeneralFunctions.GetLanguage().Contains("en") ? new CultureInfo("en-US") : new CultureInfo("ar-SA");
-           
-
-
-
-            for (var i = 1; i <= 12; i++)
+            try
             {
-                string monthName = cul.DateTimeFormat.GetMonthName(i);
-                if (language.Contains(GeneralFunctions.Language.ar.ToString()))
+                string language = GeneralFunctions.GetLanguage();
+                var year = _user.IsGregorianLocale ? _now.Year : _nowHijri.Year;
+
+                //var year = GeneralFunctions.GetLanguage().Contains("en")  ? _now.Year : _nowHijri.Year;
+
+                for (var i = year; i >= year - 10; i--)
+                    Years.Add(i);
+
+                var cul = _user.IsGregorianLocale ? new CultureInfo("en-US") : new CultureInfo("ar-SA");
+                //var cul = GeneralFunctions.GetLanguage().Contains("en") ? new CultureInfo("en-US") : new CultureInfo("ar-SA");
+
+
+
+
+                for (var i = 1; i <= 12; i++)
                 {
-                    cul = new CultureInfo("ar-AE");
-                    monthName = cul.DateTimeFormat.GetMonthName(i);
+                    string monthName = cul.DateTimeFormat.GetMonthName(i);
+                    if (language.Contains(GeneralFunctions.Language.ar.ToString()))
+                    {
+                        cul = new CultureInfo("ar-AE");
+                        monthName = cul.DateTimeFormat.GetMonthName(i);
+                    }
+                    Months.Add(new KeyValuePair<int, string>(i, monthName));
                 }
-                Months.Add(new KeyValuePair<int, string>(i, monthName));
+                SelectedYear = year;
+                SelectedMonth = Months.FirstOrDefault(m => m.Key == _now.Month);
             }
-            SelectedYear = year;
-            SelectedMonth = Months.FirstOrDefault(m => m.Key == _now.Month);
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MonthSummaryViewModel : FillCalender");
+            }
         }
 
         private async Task ShowGrid()
@@ -307,8 +358,7 @@ namespace WF.ViewModels.Details
                     return;
                 }
 
-                var page = new LoadingPopupPage();
-                await Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
+                await MessageViewer.Waiting();
 
                 OperationResult<AttendanceList[]> res;
                 CancellAll();
@@ -353,12 +403,6 @@ namespace WF.ViewModels.Details
                     else
                     {
 
-                        /* Sholud be go to MonthSummaryResult Page   */
-
-
-
-
-
                         IsGridTitleVisible = true;
 
                         var i = 0;
@@ -395,7 +439,16 @@ namespace WF.ViewModels.Details
 
         private async void CloseAllPopup()
         {
-            await Rg.Plugins.Popup.Services.PopupNavigation.PopAllAsync();
+            try
+            {
+                await Rg.Plugins.Popup.Services.PopupNavigation.PopAllAsync();
+            }
+            catch
+            {
+
+                throw;
+            }
+
             //await Navigation.PopAllPopupAsync();
         }
 

@@ -181,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomeControl\CustomListView.cs" />
+    <Compile Include="CustomeControl\ImageEntryRenderer.cs" />
     <Compile Include="DependencyServices\AskCapabilites.cs" />
     <Compile Include="DependencyServices\Fingerprint.cs" />
     <Compile Include="DependencyServices\Localize.cs" />

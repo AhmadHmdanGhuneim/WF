@@ -1,6 +1,7 @@
 ﻿
 using Rg.Plugins.Popup.Extensions;
 using System.Threading.Tasks;
+using WF.Functions;
 using WF.Resources;
 using WF.Services;
 using WF.Views.Popups;
@@ -63,7 +64,15 @@ namespace WF.Helpers
 
         public static async Task CloseAllPopup()
         {
-            await Rg.Plugins.Popup.Services.PopupNavigation.PopAllAsync();
+            try
+            {
+                await Rg.Plugins.Popup.Services.PopupNavigation.PopAllAsync();
+            }
+            catch (System.Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "ClossAllPop");
+            }
+           
         }
 
         public static async Task<bool> Alert(string msg)

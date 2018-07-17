@@ -68,7 +68,7 @@ namespace WF.ViewModels.Details
             set { SetProperty(ref _summary, value); }
         }
 
-       
+
 
         private Department _selectedDepartment = null;
 
@@ -219,24 +219,33 @@ namespace WF.ViewModels.Details
 
         public DashboardViewModel()
         {
-            _user = GeneralFunctions.GetUser();
-            Title = GeneralFunctions.GetText("mainpage");
-            _factory = new DashboardFactory();
-            RefreshCommand = new Command(Refresh);
-            ShowCommand = new Command(Show);
-           
+            try
+            {
 
-            SummaryTypes = new ObservableCollection<string>
+
+                _user = GeneralFunctions.GetUser();
+                Title = GeneralFunctions.GetText("mainpage");
+                _factory = new DashboardFactory();
+                RefreshCommand = new Command(Refresh);
+                ShowCommand = new Command(Show);
+
+
+                SummaryTypes = new ObservableCollection<string>
             {
                 Resource.MonthSummaryText,
                 Resource.DaySummaryText,
             };
 
-            FillCalendar();
+                FillCalendar();
 
-            if (IsManager)
+                if (IsManager)
+                {
+                    FillDepartments();
+                }
+            }
+            catch (Exception exception)
             {
-                FillDepartments();
+                GeneralFunctions.HandelException(exception, "DashboardViewModel");
             }
         }
 
@@ -333,123 +342,155 @@ namespace WF.ViewModels.Details
 
         private void Show()
         {
-            ShowCharts();
+            try
+            {
+                ShowCharts();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DashBoardViewModel : Show");
+            }
+
         }
 
         private async Task ShowCharts()
         {
-            if (SelectedEmployee == null && IsManager)
+            try
             {
-                await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
-                return;
-            }
-
-            OperationResult<CommonSummary> res;
-            CancellAll();
-            IsNoDataMsgVisible = false;
-            IsIndicatorVisible = true;
-            if (_selectedDaySummaryType)
-            {
-                var ticks = _user.IsGregorianLocale ? new DateTime(SelectedYear, SelectedMonth.Key, SelectedDay).Ticks : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
+                if (SelectedEmployee == null && IsManager)
                 {
-                    Year = SelectedYear,
-                    Month = SelectedMonth.Key,
-                    Day = SelectedDay
-                }).Ticks;
-
-                if (!IsManager)
-                    res = await _factory.DaySummary(_user.Token, ticks, _cancellationToken.Token);
-                else
-                    res = await _factory.DaySummaryForEmployee(_user.Token, SelectedEmployee.Id, ticks,
-                        _cancellationToken.Token);
-            }
-            else
-            {
-                var d = _user.IsGregorianLocale
-                    ? new DateTime(SelectedYear, SelectedMonth.Key, 1)
-                    : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
+                    await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
+                    return;
+                }
+                await MessageViewer.Waiting();
+                OperationResult<CommonSummary> res;
+                CancellAll();
+                IsNoDataMsgVisible = false;
+                IsIndicatorVisible = true;
+                if (_selectedDaySummaryType)
+                {
+                    var ticks = _user.IsGregorianLocale ? new DateTime(SelectedYear, SelectedMonth.Key, SelectedDay).Ticks : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
                     {
                         Year = SelectedYear,
                         Month = SelectedMonth.Key,
-                        Day = 1
-                    });
-                long startTicks = d.Ticks;
-                long endTicks = _user.IsGregorianLocale
-                    ? d.AddMonths(1).Ticks
-                    : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
-                    {
-                        Year = SelectedMonth.Key == 12 ? SelectedYear + 1 : SelectedYear,
-                        Month = SelectedMonth.Key == 12 ? 1 : SelectedMonth.Key + 1,
-                        Day = 1
+                        Day = SelectedDay
                     }).Ticks;
 
-                if (!IsManager)
-                    res = await _factory.MonthSummary(_user.Token, startTicks, endTicks, _cancellationToken.Token);
-                else
-                    res = await _factory.MonthSummaryForEmployee(_user.Token, SelectedEmployee.Id, startTicks, endTicks, _cancellationToken.Token);
-            }
-            IsIndicatorVisible = false;
-            if (res.ResultCode == ResultCode.Success)
-            {
-                if (res.Data == null)
-                {
-                    IsNoDataMsgVisible = true;
-                    IsChartsVisible = false;
+                    if (!IsManager)
+                        res = await _factory.DaySummary(_user.Token, ticks, _cancellationToken.Token);
+                    else
+                        res = await _factory.DaySummaryForEmployee(_user.Token, SelectedEmployee.Id, ticks,
+                            _cancellationToken.Token);
                 }
                 else
                 {
-                    SelectSummary selectSummary = new SelectSummary();
-                    selectSummary.Department = SelectedDepartment.Name;
-                    selectSummary.Employee = SelectedEmployee.Name;
-                    selectSummary.Month = SelectedMonth.Value;
-                    selectSummary.Year = SelectedYear.ToString();
+                    var d = _user.IsGregorianLocale
+                        ? new DateTime(SelectedYear, SelectedMonth.Key, 1)
+                        : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
+                        {
+                            Year = SelectedYear,
+                            Month = SelectedMonth.Key,
+                            Day = 1
+                        });
+                    long startTicks = d.Ticks;
+                    long endTicks = _user.IsGregorianLocale
+                        ? d.AddMonths(1).Ticks
+                        : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
+                        {
+                            Year = SelectedMonth.Key == 12 ? SelectedYear + 1 : SelectedYear,
+                            Month = SelectedMonth.Key == 12 ? 1 : SelectedMonth.Key + 1,
+                            Day = 1
+                        }).Ticks;
 
-                    OperationResult<CommonSummary> operationResult = res;
-                    NavigationService.SetDetailPage(new DashboardResultViewModel(selectSummary, operationResult), SelectedMenuOptions.None, "");
+                    if (!IsManager)
+                        res = await _factory.MonthSummary(_user.Token, startTicks, endTicks, _cancellationToken.Token);
+                    else
+                        res = await _factory.MonthSummaryForEmployee(_user.Token, SelectedEmployee.Id, startTicks, endTicks, _cancellationToken.Token);
                 }
+                IsIndicatorVisible = false;
+                if (res.ResultCode == ResultCode.Success)
+                {
+                    if (res.Data == null)
+                    {
+                        IsNoDataMsgVisible = true;
+                        IsChartsVisible = false;
+                    }
+                    else
+                    {
+                        SelectSummary selectSummary = new SelectSummary();
+                        selectSummary.Department = SelectedDepartment.Name;
+                        selectSummary.Employee = SelectedEmployee.Name;
+                        selectSummary.Month = SelectedMonth.Value;
+                        selectSummary.Year = SelectedYear.ToString();
+
+                        OperationResult<CommonSummary> operationResult = res;
+                        NavigationService.SetDetailPage(new DashboardResultViewModel(selectSummary, operationResult), SelectedMenuOptions.None, "");
+                    }
+                }
+                await MessageViewer.CloseAllPopup();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DashboardViewModel : ShowCharts");
             }
         }
 
-    
 
-      
+
+
 
         private void FillCalendar()
         {
-            string language = GeneralFunctions.GetLanguage();
-            var year = _user.IsGregorianLocale ? _now.Year : _nowHijri.Year;
-            for (var i = year; i >= year - 10; i--)
-                Years.Add(i);
-
-            var cul = _user.IsGregorianLocale ? new CultureInfo("en-US") : new CultureInfo("ar-SA");
-            for (var i = 1; i <= 12; i++)
+            try
             {
-                string monthName = cul.DateTimeFormat.GetMonthName(i);
-                if (language.Contains(GeneralFunctions.Language.ar.ToString()))
-                {
-                    cul = new CultureInfo("ar-AE");
-                    monthName = cul.DateTimeFormat.GetMonthName(i);
-                }
-                Months.Add(new KeyValuePair<int, string>(i, monthName));
-            }
-                
+                string language = GeneralFunctions.GetLanguage();
+                var year = _user.IsGregorianLocale ? _now.Year : _nowHijri.Year;
+                for (var i = year; i >= year - 10; i--)
+                    Years.Add(i);
 
-            SelectedYear = year;
-            SelectedMonth = Months.FirstOrDefault(m => m.Key == _now.Month);
+                var cul = _user.IsGregorianLocale ? new CultureInfo("en-US") : new CultureInfo("ar-SA");
+                for (var i = 1; i <= 12; i++)
+                {
+                    string monthName = cul.DateTimeFormat.GetMonthName(i);
+                    if (language.Contains(GeneralFunctions.Language.ar.ToString()))
+                    {
+                        cul = new CultureInfo("ar-AE");
+                        monthName = cul.DateTimeFormat.GetMonthName(i);
+                    }
+                    Months.Add(new KeyValuePair<int, string>(i, monthName));
+                }
+
+
+                SelectedYear = year;
+                SelectedMonth = Months.FirstOrDefault(m => m.Key == _now.Month);
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DashboardViewModel : FillCalendar");
+            }
+
         }
 
         private void FillDays()
         {
-            if (SelectedMonth.Key == 0 || SelectedYear == 0)
-                return;
-
-            var d = _user.IsGregorianLocale ? DateTime.DaysInMonth(SelectedYear, SelectedMonth.Key) : DateLocaleConvert.HijriDaysInMonth(SelectedYear, SelectedMonth.Key);
-            if (Days.Count != d)
+            try
             {
-                Days.Clear();
-                Days.AddRange(Enumerable.Range(1, d));
+                if (SelectedMonth.Key == 0 || SelectedYear == 0)
+                    return;
+
+                var d = _user.IsGregorianLocale ? DateTime.DaysInMonth(SelectedYear, SelectedMonth.Key) : DateLocaleConvert.HijriDaysInMonth(SelectedYear, SelectedMonth.Key);
+                if (Days.Count != d)
+                {
+                    Days.Clear();
+                    Days.AddRange(Enumerable.Range(1, d));
+                }
+                SelectedDay = 1;
             }
-            SelectedDay = 1;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DashboardViewModel : FillDays");
+            }
+           
         }
     }
 }

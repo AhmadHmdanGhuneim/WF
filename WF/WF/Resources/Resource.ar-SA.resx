@@ -613,4 +613,7 @@
   <data name="errormessage" xml:space="preserve">
     <value>حدث خطأ اثناء تنفيذ هذه العملية، يرجى المحاولة مرة اخرى.</value>
   </data>
+  <data name="close" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
 </root>

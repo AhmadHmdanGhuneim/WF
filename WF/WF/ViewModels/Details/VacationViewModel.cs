@@ -59,7 +59,7 @@ namespace WF.ViewModels.Details
 
         private DateTime _dateTo = DateTime.Today.AddDays(1);
 
-      
+
         public DateTime DateTo
         {
             get { return _dateTo; }
@@ -106,11 +106,19 @@ namespace WF.ViewModels.Details
         public ICommand ChangeLangCommand { get; }
         public VacationViewModel()
         {
-            _user = GeneralFunctions.GetUser();
-            _factory = new ReportsFactory();
-            RefreshCommand = new Command(Refresh);
-            SendCommand = new Command(Send);
-            FillReqTypes();
+            try
+            {
+                _user = GeneralFunctions.GetUser();
+                _factory = new ReportsFactory();
+                RefreshCommand = new Command(Refresh);
+                SendCommand = new Command(Send);
+                FillReqTypes();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "VacationViewModel");
+            }
+
         }
 
         public void CancellAll()
@@ -121,126 +129,154 @@ namespace WF.ViewModels.Details
 
         private async void Refresh()
         {
-            CancellAll();
-            IsRefreshBusy = true;
-            if (RequestTypes.Count == 0)
-                await FillReqTypes();
-            StopRefresh();
+            try
+            {
+                CancellAll();
+                IsRefreshBusy = true;
+                if (RequestTypes.Count == 0)
+                    await FillReqTypes();
+                StopRefresh();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "VacationViewModel");
+            }
         }
 
         private void StopRefresh()
         {
-            Task.Run(async delegate
+            try
             {
-                await Task.Delay(300);
-                IsRefreshBusy = false;
-            });
+                Task.Run(async delegate
+                            {
+                                await Task.Delay(300);
+                                IsRefreshBusy = false;
+                            });
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "VacationViewModel : StopRefresh");
+            }
+
         }
 
         private async Task FillReqTypes()
         {
-            CancellAll();
-            VacationTypesPikerTitle = Resource.DownloadingText;
-            bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-
-            var res = await _factory.GetVacationTypes(_cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                SelectedRequestType = null;
-                RequestTypes.Clear();
-                foreach (var req in res.Data)
-                {
-                    req.Name = req.NameAr;
-                    if (!isArabic)
-                    {
-                        req.Name = req.NameEn;
-                    }
-                    if (!string.IsNullOrEmpty(req.Name))
-                    {
-                        RequestTypes.Add(req);
-                    }
+                CancellAll();
+                VacationTypesPikerTitle = Resource.DownloadingText;
+                bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
 
+                var res = await _factory.GetVacationTypes(_cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
+                {
+                    SelectedRequestType = null;
+                    RequestTypes.Clear();
+                    foreach (var req in res.Data)
+                    {
+                        req.Name = req.NameAr;
+                        if (!isArabic)
+                        {
+                            req.Name = req.NameEn;
+                        }
+                        if (!string.IsNullOrEmpty(req.Name))
+                        {
+                            RequestTypes.Add(req);
+                        }
+
+                    }
                 }
+                VacationTypesPikerTitle = Resource.VacationTypeTitle;
             }
-            VacationTypesPikerTitle = Resource.VacationTypeTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "VacationViewModel :  FillReqType");
+            }
         }
 
         private async void Send()
         {
-            if (SelectedRequestType == null || string.IsNullOrWhiteSpace(Reason))
+            try
             {
-                // await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
-                List<string> messageList = new List<string>();
-                messageList.Add("NotEnouthFields");
-                var errorMessage = new ErrorMessagePopup(messageList);
-                await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, errorMessage);
-                return;
-            }
-            if (DateFrom >= DateTo)
-            {
-                List<string> messageList = new List<string>();
-                messageList.Add("VacationValidationError");
-                var errorMessage = new ErrorMessagePopup(messageList);
-                await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, errorMessage);
-               // await MessageViewer.ErrorAsync(Resource.VacationValidationError);
-                return;
-            }
-            var page = new LoadingPopupPage();
-            await Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
-            CancellAll();
-            IsIndicatorVisible = true;
-            var res = await _factory.SendVacation(_user.Token, SelectedRequestType.Id, DateFrom.Ticks, DateTo.Ticks, Reason, _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
-            {
-                if (res.Data)
+                if (SelectedRequestType == null || string.IsNullOrWhiteSpace(Reason))
+                {
+                    // await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
+                    List<string> messageList = new List<string>();
+                    messageList.Add("NotEnouthFields");
+                    var errorMessage = new ErrorMessagePopup(messageList);
+                    await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, errorMessage);
+                    return;
+                }
+                if (DateFrom >= DateTo)
+                {
+                    List<string> messageList = new List<string>();
+                    messageList.Add("VacationValidationError");
+                    var errorMessage = new ErrorMessagePopup(messageList);
+                    await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, errorMessage);
+                    // await MessageViewer.ErrorAsync(Resource.VacationValidationError);
+                    return;
+                }
+                var page = new LoadingPopupPage();
+                await Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
+                CancellAll();
+                IsIndicatorVisible = true;
+                var res = await _factory.SendVacation(_user.Token, SelectedRequestType.Id, DateFrom.Ticks, DateTo.Ticks, Reason, _cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
+                {
+                    if (res.Data)
+                    {
+                        CloseAllPopup();
+                        //await NavigationService.CurrentPage.DisplayAlert(Resource.SuccessText, Resource.SuccessSentRequest, Resource.OkText);
+                        DateFrom = DateTime.Today;
+                        DateTo = DateTime.Today.AddDays(1);
+                        SelectedRequestType = null;
+                        Reason = "";
+                        var sucessPage = new SuccessPopupPage("SuccessSentRequest");
+                        await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, sucessPage);
+                    }
+                    else
+                    {
+
+                        await NavigationService.CurrentPage.DisplayAlert(Resource.ErrorText, Resource.FailureSentRequst, Resource.OkText);
+                    }
+                }
+                else if (res.ResultCode == ResultCode.Vac_DaysLimit)
                 {
                     CloseAllPopup();
-                    //await NavigationService.CurrentPage.DisplayAlert(Resource.SuccessText, Resource.SuccessSentRequest, Resource.OkText);
-                    DateFrom = DateTime.Today;
-                    DateTo = DateTime.Today.AddDays(1);
-                    SelectedRequestType = null;
-                    Reason = "";
-                    var sucessPage = new SuccessPopupPage("SuccessSentRequest");
-                    await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, sucessPage);
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_DaysLimit, Resource.OkText);
                 }
-                else
+                else if (res.ResultCode == ResultCode.Vac_HaveTrans)
                 {
-
-                    await NavigationService.CurrentPage.DisplayAlert(Resource.ErrorText, Resource.FailureSentRequst, Resource.OkText);
+                    CloseAllPopup();
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_HaveTrans, Resource.OkText);
                 }
-            }
-            else if (res.ResultCode == ResultCode.Vac_DaysLimit)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_DaysLimit, Resource.OkText);
-            }
-            else if (res.ResultCode == ResultCode.Vac_HaveTrans)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_HaveTrans, Resource.OkText);
-            }
-            else if (res.ResultCode == ResultCode.Vac_MaxDays)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_MaxDays, Resource.OkText);
-            }
-            else if (res.ResultCode == ResultCode.Vac_Nesting)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_Nesting, Resource.OkText);
-            }
-            else if (res.ResultCode == ResultCode.Vac_NoEnterReset)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_NoEnterReset, Resource.OkText);
-            }
-            else if (res.ResultCode == ResultCode.Vac_NoWork)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_NoWork, Resource.OkText);
-            }
+                else if (res.ResultCode == ResultCode.Vac_MaxDays)
+                {
+                    CloseAllPopup();
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_MaxDays, Resource.OkText);
+                }
+                else if (res.ResultCode == ResultCode.Vac_Nesting)
+                {
+                    CloseAllPopup();
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_Nesting, Resource.OkText);
+                }
+                else if (res.ResultCode == ResultCode.Vac_NoEnterReset)
+                {
+                    CloseAllPopup();
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_NoEnterReset, Resource.OkText);
+                }
+                else if (res.ResultCode == ResultCode.Vac_NoWork)
+                {
+                    CloseAllPopup();
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_NoWork, Resource.OkText);
+                }
 
-            
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "VacationViewModel : Send");
+            }
         }
 
         private async void CloseAllPopup()

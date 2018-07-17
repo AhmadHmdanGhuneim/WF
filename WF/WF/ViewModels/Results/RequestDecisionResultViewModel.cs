@@ -65,14 +65,23 @@ namespace WF.ViewModels.Results
 
         public RequestDecisionResultViewModel(ObservableCollection<ReportRequest> reportRequests, SelectSummary selectSummary)
         {
-            _user = GeneralFunctions.GetUser();
-            _repFactory = new ReportsFactory();
-            CheckCommand = new Command<ReportRequest>(Check);
-            ApproveCommand = new Command(Approve);
-            RejectCommand = new Command(Reject);
-            ViewInfoCommand = new Command<ReportRequest>(ViewInfo);
-            Requests = reportRequests;
-            SelectSummary = selectSummary;
+            try
+            {
+
+
+                _user = GeneralFunctions.GetUser();
+                _repFactory = new ReportsFactory();
+                CheckCommand = new Command<ReportRequest>(Check);
+                ApproveCommand = new Command(Approve);
+                RejectCommand = new Command(Reject);
+                ViewInfoCommand = new Command<ReportRequest>(ViewInfo);
+                Requests = reportRequests;
+                SelectSummary = selectSummary;
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDecisionResultViewModel");
+            }
 
         }
 
@@ -82,7 +91,14 @@ namespace WF.ViewModels.Results
 
         private async void ViewInfo(ReportRequest report)
         {
-            await NavigationService.NavigatePopup(new RequestInfoViewModel(report));
+            try
+            {
+                await NavigationService.NavigatePopup(new RequestInfoViewModel(report));
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDecisionResultViewModel viewIfo");
+            }
         }
 
 
@@ -90,66 +106,90 @@ namespace WF.ViewModels.Results
 
         private void Approve()
         {
-            ApproveOrReject(true);
+            try
+            {
+                ApproveOrReject(true);
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDecisionResultViewModel Approve");
+            }
         }
 
         private void Reject()
         {
-            ApproveOrReject(false);
+            try
+            {
+                ApproveOrReject(false);
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDecisionResultViewModel :  Reject");
+            }
         }
 
 
         private async void ApproveOrReject(bool isApprove)
         {
-            IsBlockingDisplay = true;
-            var col = Requests.Where(e => e.IsSelected).ToArray();
-            if (col.Any())
+            try
             {
-                var isVacTypes = new StringBuilder();
-                var erqIds = new StringBuilder();
-                foreach (var request in col)
-                {
-                    erqIds.Append(request.Id + ",");
-                    isVacTypes.Append((request.RetId == "VAC") + ",");
-                }
-                var res = await _repFactory.RequestDecision(_user.Token, isVacTypes.ToString().TrimEnd(','), erqIds.ToString().TrimEnd(','), _user.Login, isApprove, _cancellationToken.Token);
-                if (res.ResultCode == ResultCode.Success)
-                {
-                    if (res.Data)
-                    {
-                       // await MessageViewer.SuccessAsync(Resource.SuccessSentRequest);
-                        var sucessPage = new SuccessPopupPage("SuccessSentRequest");
-                        await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, sucessPage);
 
-                        foreach (var request in col)
+
+                IsBlockingDisplay = true;
+                var col = Requests.Where(e => e.IsSelected).ToArray();
+                if (col.Any())
+                {
+                    var isVacTypes = new StringBuilder();
+                    var erqIds = new StringBuilder();
+                    foreach (var request in col)
+                    {
+                        erqIds.Append(request.Id + ",");
+                        isVacTypes.Append((request.RetId == "VAC") + ",");
+                    }
+                    var res = await _repFactory.RequestDecision(_user.Token, isVacTypes.ToString().TrimEnd(','), erqIds.ToString().TrimEnd(','), _user.Login, isApprove, _cancellationToken.Token);
+                    if (res.ResultCode == ResultCode.Success)
+                    {
+                        if (res.Data)
                         {
-                            Requests.Remove(request);
-                        }
-                        if (Requests.Count > 0)
-                        {
-                            var i = 0;
-                            foreach (var request in Requests)
+                            // await MessageViewer.SuccessAsync(Resource.SuccessSentRequest);
+                            var sucessPage = new SuccessPopupPage("SuccessSentRequest");
+                            await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, sucessPage);
+
+                            foreach (var request in col)
                             {
-                                request.BackgroundColor = i++ % 2 == 0 ? FirstColor : SecondColor;
+                                Requests.Remove(request);
+                            }
+                            if (Requests.Count > 0)
+                            {
+                                var i = 0;
+                                foreach (var request in Requests)
+                                {
+                                    request.BackgroundColor = i++ % 2 == 0 ? FirstColor : SecondColor;
+                                }
+                            }
+                            else
+                            {
+                                OnPropertyChanged(nameof(IsFooterVisible));
+
                             }
                         }
                         else
                         {
-                            OnPropertyChanged(nameof(IsFooterVisible));
-                         
+                            await MessageViewer.ErrorAsync(Resource.FailureSentRequst);
                         }
                     }
-                    else
-                    {
-                     await  MessageViewer.ErrorAsync(Resource.FailureSentRequst);
-                    }
                 }
+                else
+                {
+                    await MessageViewer.ErrorAsync(Resource.NotSelectedError);
+                }
+                IsBlockingDisplay = false;
             }
-            else
+            catch (Exception)
             {
-                await MessageViewer.ErrorAsync(Resource.NotSelectedError);
+
+                throw;
             }
-            IsBlockingDisplay = false;
         }
 
         private void Check(ReportRequest req)

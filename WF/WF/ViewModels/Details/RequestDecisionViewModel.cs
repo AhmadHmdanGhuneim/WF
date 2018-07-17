@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -186,39 +185,53 @@ namespace WF.ViewModels.Details
         public ICommand ChangeLangCommand { get; }
         public RequestDecisionViewModel()
         {
-            _user = GeneralFunctions.GetUser();
-            _repFactory = new ReportsFactory();
-            _boardFactory = new DashboardFactory();
+            try
+            {
+                _user = GeneralFunctions.GetUser();
+                _repFactory = new ReportsFactory();
+                _boardFactory = new DashboardFactory();
 
-            RefreshCommand = new Command(Refresh);
-            ShowCommand = new Command(Show);
+                RefreshCommand = new Command(Refresh);
+                ShowCommand = new Command(Show);
 
-            IsAllEmps = true;
-            ChangeLangCommand = new Command(LocaleHelper.ChangeCulture);
-            FillCalendar();
+                IsAllEmps = true;
+                ChangeLangCommand = new Command(LocaleHelper.ChangeCulture);
+                FillCalendar();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDescitionViewModel");
+            }
         }
 
         private void FillCalendar()
         {
-            string language = GeneralFunctions.GetLanguage();
-            var year = _user.IsGregorianLocale ? _now.Year : _nowHijri.Year;
-            var end = year - 10;
-            for (var i = year; i >= end; i--)
-                Years.Add(i);
-
-            var cul = _user.IsGregorianLocale ? new CultureInfo("en-US") : new CultureInfo("ar-SA");
-            for (var i = 1; i <= 12; i++)
+            try
             {
-                string monthName = cul.DateTimeFormat.GetMonthName(i);
-                if (language.Contains(GeneralFunctions.Language.ar.ToString()))
+                string language = GeneralFunctions.GetLanguage();
+                var year = _user.IsGregorianLocale ? _now.Year : _nowHijri.Year;
+                var end = year - 10;
+                for (var i = year; i >= end; i--)
+                    Years.Add(i);
+
+                var cul = _user.IsGregorianLocale ? new CultureInfo("en-US") : new CultureInfo("ar-SA");
+                for (var i = 1; i <= 12; i++)
                 {
-                    cul = new CultureInfo("ar-AE");
-                    monthName = cul.DateTimeFormat.GetMonthName(i);
+                    string monthName = cul.DateTimeFormat.GetMonthName(i);
+                    if (language.Contains(GeneralFunctions.Language.ar.ToString()))
+                    {
+                        cul = new CultureInfo("ar-AE");
+                        monthName = cul.DateTimeFormat.GetMonthName(i);
+                    }
+                    Months.Add(new KeyValuePair<int, string>(i, monthName));
                 }
-                Months.Add(new KeyValuePair<int, string>(i, monthName));
+                SelectedYear = year;
+                SelectedMonth = Months.FirstOrDefault(m => m.Key == _now.Month);
             }
-            SelectedYear = year;
-            SelectedMonth = Months.FirstOrDefault(m => m.Key == _now.Month);
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDescitionViewModel : FillCalender");
+            }
         }
 
 
@@ -227,39 +240,61 @@ namespace WF.ViewModels.Details
 
         private async void Refresh()
         {
-            CancellAll();
-            IsRefreshBusy = true;
-            if (IsAllEmps)
+            try
             {
-                await ShowGrid();
+                CancellAll();
+                IsRefreshBusy = true;
+                if (IsAllEmps)
+                {
+                    await ShowGrid();
+                }
+                else if (Departments.Count == 0)
+                {
+                    await FillDepartments();
+                }
+                else if (SelectedDepartment != null && Employees.Count == 0)
+                {
+                    await FillEmployees();
+                }
+                else if (SelectedEmployee != null)
+                {
+                    await ShowGrid();
+                }
+                StopRefresh();
             }
-            else if (Departments.Count == 0)
+            catch (Exception exception)
             {
-                await FillDepartments();
+                GeneralFunctions.HandelException(exception, "RequestDescitionViewModel : Refresh");
             }
-            else if (SelectedDepartment != null && Employees.Count == 0)
-            {
-                await FillEmployees();
-            }
-            else if (SelectedEmployee != null)
-            {
-                await ShowGrid();
-            }
-            StopRefresh();
         }
 
         private void StopRefresh()
         {
-            Task.Run(async delegate
+            try
             {
-                await Task.Delay(300);
-                IsRefreshBusy = false;
-            });
+
+                Task.Run(async delegate
+                {
+                    await Task.Delay(300);
+                    IsRefreshBusy = false;
+                });
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDescitionViewModel : StopRefresh");
+            }
         }
 
         private void Show()
         {
-            ShowGrid();
+            try
+            {
+                ShowGrid();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDescitionViewModel : Show");
+            }
         }
 
         private async Task ShowGrid()
@@ -279,7 +314,7 @@ namespace WF.ViewModels.Details
                 IsNoDataMsgVisible = false;
                 IsIndicatorVisible = true;
                 IsGridTitleVisible = false;
-
+                await MessageViewer.Waiting();
                 DateTime from;
                 DateTime to;
                 if (_user.IsGregorianLocale)
@@ -341,64 +376,77 @@ namespace WF.ViewModels.Details
             }
             catch (Exception exception)
             {
-
-                throw;
+                GeneralFunctions.HandelException(exception, "RequestDescitionViewModel : ShowGrid");
             }
         }
 
         private async Task FillDepartments()
         {
-            CancellAll();
-            DepartmentsPikerTitle = Resource.DownloadingText;
-            bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-            var res = await _boardFactory.GetDepartments(_user.Token, _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                SelectedDepartment = null;
-                SelectedEmployee = null;
-                Departments.Clear();
-                Employees.Clear();
-                foreach (var department in res.Data)
+                CancellAll();
+                DepartmentsPikerTitle = Resource.DownloadingText;
+                bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
+                var res = await _boardFactory.GetDepartments(_user.Token, _cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    department.Name = department.NameAr;
-                    if (!isArabic)
+                    SelectedDepartment = null;
+                    SelectedEmployee = null;
+                    Departments.Clear();
+                    Employees.Clear();
+                    foreach (var department in res.Data)
                     {
-                        department.Name = department.NameEn;
-                    }
-                    if (!string.IsNullOrEmpty(department.Name))
-                    {
-                        Departments.Add(department);
+                        department.Name = department.NameAr;
+                        if (!isArabic)
+                        {
+                            department.Name = department.NameEn;
+                        }
+                        if (!string.IsNullOrEmpty(department.Name))
+                        {
+                            Departments.Add(department);
+                        }
                     }
                 }
+                DepartmentsPikerTitle = Resource.DepartmentTitle;
             }
-            DepartmentsPikerTitle = Resource.DepartmentTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDescitionViewModel : FillDepartmet");
+            }
         }
 
         private async Task FillEmployees()
         {
-            CancellAll();
-            EmployeePikerTitle = Resource.DownloadingText;
-            bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-            var res = await _boardFactory.GetEmployeesForDepartment(_user.Token, SelectedDepartment.Id, _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                SelectedEmployee = null;
-                Employees.Clear();
-                foreach (var emp in res.Data)
+                CancellAll();
+                EmployeePikerTitle = Resource.DownloadingText;
+                bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
+                var res = await _boardFactory.GetEmployeesForDepartment(_user.Token, SelectedDepartment.Id, _cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    emp.Name = emp.NameAr;
-                    if (!isArabic)
+                    SelectedEmployee = null;
+                    Employees.Clear();
+                    foreach (var emp in res.Data)
                     {
-                        emp.Name = emp.NameEn;
-                    }
-                    if (!string.IsNullOrEmpty(emp.Name))
-                    {
-                        Employees.Add(emp);
-                    }
+                        emp.Name = emp.NameAr;
+                        if (!isArabic)
+                        {
+                            emp.Name = emp.NameEn;
+                        }
+                        if (!string.IsNullOrEmpty(emp.Name))
+                        {
+                            Employees.Add(emp);
+                        }
 
+                    }
                 }
+                EmployeePikerTitle = Resource.EmployeeTitle;
             }
-            EmployeePikerTitle = Resource.EmployeeTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestDescitionViewModel : FillEmployee");
+            }
         }
 
         public void CancellAll()

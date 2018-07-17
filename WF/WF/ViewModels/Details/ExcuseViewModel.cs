@@ -15,7 +15,7 @@ using WF.Resources;
 using WF.Services;
 using WF.Views.Popups;
 using Xamarin.Forms;
-using Rg.Plugins.Popup.Extensions;
+
 
 
 namespace WF.ViewModels.Details
@@ -149,116 +149,125 @@ namespace WF.ViewModels.Details
 
         private async Task FillReqTypes()
         {
-            CancellAll();
-            ExcuseTypesPikerTitle = Resource.DownloadingText;
-            bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-            var res = await _factory.GetExcuseTypes(_cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                SelectedRequestType = null;
-                RequestTypes.Clear();
-                foreach (var req in res.Data)
+                CancellAll();
+                ExcuseTypesPikerTitle = Resource.DownloadingText;
+                bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
+                var res = await _factory.GetExcuseTypes(_cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    req.Name = req.NameAr;
-                    if (!isArabic)
+                    SelectedRequestType = null;
+                    RequestTypes.Clear();
+                    foreach (var req in res.Data)
                     {
-                        req.Name = req.NameEn;
+                        req.Name = req.NameAr;
+                        if (!isArabic)
+                        {
+                            req.Name = req.NameEn;
+                        }
+                        if (!string.IsNullOrEmpty(req.Name))
+                        {
+                            RequestTypes.Add(req);
+                        }
+
                     }
-                    if(!string.IsNullOrEmpty(req.Name))
-                    {
-                        RequestTypes.Add(req);
-                    }
-                   
                 }
+                ExcuseTypesPikerTitle = Resource.ExcuseTypeTitle;
             }
-            ExcuseTypesPikerTitle = Resource.ExcuseTypeTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "ExcuseViewModel : FillReqTypes");
+            }
         }
 
         private async void Send()
         {
-            if (SelectedRequestType == null || string.IsNullOrWhiteSpace(Reason))
+            try
             {
-               // await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
-                List<string> messageList = new List<string>();
-                messageList.Add("NotEnouthFields");
-                var errorMessage = new ErrorMessagePopup(messageList);
-                await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null,errorMessage);
-                return;
-            }
-            if (TimeFrom >= TimeTo)
-            {
-                List<string> messageList = new List<string>();
-                messageList.Add("ExcuseValidationError");
-                var errorMessage = new ErrorMessagePopup(messageList);
-                await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, errorMessage);
-               // await MessageViewer.ErrorAsync(Resource.ExcuseValidationError);
-                return;
-            }
+                if (SelectedRequestType == null || string.IsNullOrWhiteSpace(Reason))
+                {
+                    // await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
+                    List<string> messageList = new List<string>();
+                    messageList.Add("NotEnouthFields");
+                    var errorMessage = new ErrorMessagePopup(messageList);
+                    await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, errorMessage);
+                    return;
+                }
+                if (TimeFrom >= TimeTo)
+                {
+                    List<string> messageList = new List<string>();
+                    messageList.Add("ExcuseValidationError");
+                    var errorMessage = new ErrorMessagePopup(messageList);
+                    await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, errorMessage);
+                    // await MessageViewer.ErrorAsync(Resource.ExcuseValidationError);
+                    return;
+                }
 
-            var page = new LoadingPopupPage();
-            await Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
+                var page = new LoadingPopupPage();
+                await Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
 
-            CancellAll();
-            IsIndicatorVisible = true;
-            var res = await _factory.SendExcuse(_user.Token, SelectedRequestType.Id, SelectedDate.Ticks, SelectedDate.Add(TimeFrom).Ticks, SelectedDate.Add(TimeTo).Ticks, Reason, _cancellationToken.Token);
+                CancellAll();
+                IsIndicatorVisible = true;
+                var res = await _factory.SendExcuse(_user.Token, SelectedRequestType.Id, SelectedDate.Ticks, SelectedDate.Add(TimeFrom).Ticks, SelectedDate.Add(TimeTo).Ticks, Reason, _cancellationToken.Token);
 
 
-            if (res.ResultCode == ResultCode.Success)
-            {
-                if (res.Data)
+                if (res.ResultCode == ResultCode.Success)
+                {
+                    if (res.Data)
+                    {
+                        CloseAllPopup();
+                        //await MessageViewer.SuccessAsync(Resource.SuccessSentRequest);
+                        SelectedDate = DateTime.Today;
+                        TimeFrom = new TimeSpan();
+                        TimeTo = new TimeSpan();
+                        SelectedRequestType = null;
+                        Reason = "";
+                        var sucessPage = new SuccessPopupPage("SuccessSentRequest");
+                        await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, sucessPage);
+
+                    }
+                    else
+                    {
+                        CloseAllPopup();
+                        await MessageViewer.ErrorAsync(Resource.FailureSentRequst);
+                    }
+                }
+                else if (res.ResultCode == ResultCode.Vac_DaysLimit)
                 {
                     CloseAllPopup();
-                    //await MessageViewer.SuccessAsync(Resource.SuccessSentRequest);
-                    SelectedDate = DateTime.Today;
-                    TimeFrom = new TimeSpan();
-                    TimeTo = new TimeSpan();
-                    SelectedRequestType = null;
-                    Reason = "";
-                    var sucessPage = new SuccessPopupPage("SuccessSentRequest");
-                    await Rg.Plugins.Popup.Extensions.NavigationExtension.PushPopupAsync(null, sucessPage);
-
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_DaysLimit, Resource.OkText);
                 }
-                else
+                else if (res.ResultCode == ResultCode.Vac_HaveTrans)
                 {
                     CloseAllPopup();
-                    await MessageViewer.ErrorAsync(Resource.FailureSentRequst);
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_HaveTrans, Resource.OkText);
+                }
+                else if (res.ResultCode == ResultCode.Vac_MaxDays)
+                {
+                    CloseAllPopup();
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_MaxDays, Resource.OkText);
+                }
+                else if (res.ResultCode == ResultCode.Vac_Nesting)
+                {
+                    CloseAllPopup();
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_Nesting, Resource.OkText);
+                }
+                else if (res.ResultCode == ResultCode.Vac_NoEnterReset)
+                {
+                    CloseAllPopup();
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_NoEnterReset, Resource.OkText);
+                }
+                else if (res.ResultCode == ResultCode.Vac_NoWork)
+                {
+                    CloseAllPopup();
+                    await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_NoWork, Resource.OkText);
                 }
             }
-            else if (res.ResultCode == ResultCode.Vac_DaysLimit)
+            catch (Exception exception)
             {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_DaysLimit, Resource.OkText);
+                GeneralFunctions.HandelException(exception, "ExcuseViewModel : Send");
             }
-            else if (res.ResultCode == ResultCode.Vac_HaveTrans)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_HaveTrans, Resource.OkText);
-            }
-            else if (res.ResultCode == ResultCode.Vac_MaxDays)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_MaxDays, Resource.OkText);
-            }
-            else if (res.ResultCode == ResultCode.Vac_Nesting)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_Nesting, Resource.OkText);
-            }
-            else if (res.ResultCode == ResultCode.Vac_NoEnterReset)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_NoEnterReset, Resource.OkText);
-            }
-            else if (res.ResultCode == ResultCode.Vac_NoWork)
-            {
-                CloseAllPopup();
-                await NavigationService.CurrentPage.DisplayAlert(Resource.ProcessStop, Resource.Vac_NoWork, Resource.OkText);
-            }
-
-         
-
-
-            IsIndicatorVisible = false;
 
         }
 

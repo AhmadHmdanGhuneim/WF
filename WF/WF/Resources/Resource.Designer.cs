@@ -232,6 +232,15 @@ namespace WF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string close {
+            get {
+                return ResourceManager.GetString("close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please ensure that you connerct to internet.
         /// </summary>
         internal static string connectionmessage {

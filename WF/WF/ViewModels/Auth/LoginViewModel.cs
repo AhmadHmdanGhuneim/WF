@@ -115,16 +115,13 @@ namespace WF.ViewModels.Auth
                 }
 
 
-                await MessageViewer.Waiting();
+               
                
 
-                VisibleButton = false;
-                VisibleIndicator = true;
-                //  _cancellationToken = new CancellationTokenSource();
-
+                
+                await MessageViewer.Waiting();
                 var user = await _factory.SignIn(Login, Password, Device.RuntimePlatform == Device.Android, _cancellationToken.Token);
-                //var user = await ServiceFunctions.CheckLogin(Login, Password);
-
+                
                 if (user != null)
                 {
                     if (user.ResultCode == ResultCode.Success)
@@ -152,10 +149,10 @@ namespace WF.ViewModels.Auth
 
 
                     }
-
+                    
                 }
                 await MessageViewer.CloseAllPopup();
-                VisibleButton = true;
+
             }
             catch (System.Exception exception)
             {

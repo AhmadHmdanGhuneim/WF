@@ -104,10 +104,9 @@ namespace WF.ViewModels.Details
                 }
 
             }
-            catch 
+            catch (Exception exception)
             {
-
-                throw;
+                GeneralFunctions.HandelException(exception, "LanguageViewModel : SelectLaguage");
             }
         }
 
@@ -153,10 +152,10 @@ namespace WF.ViewModels.Details
 
 
             }
-            catch
+            catch (Exception exception)
             {
-
-                throw;
+                GeneralFunctions.HandelException(exception, "LanguageViewModel : FillKagueMenu");
+                return new ObservableCollection<LanguageViewModel>();
             }
         }
 

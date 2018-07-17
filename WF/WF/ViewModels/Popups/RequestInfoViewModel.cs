@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WF.Functions;
 using WF.Helpers;
 using WF.Models.Reports;
 using WF.Services;
@@ -23,8 +24,16 @@ namespace WF.ViewModels.Popups
 
         public RequestInfoViewModel(ReportRequest request)
         {
-            Request = request;
-            BackCommand = new Command(Back);
+            try
+            {
+                Request = request;
+                BackCommand = new Command(Back);
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestBackViewModel");
+            }
+           
         }
 
         private async void Back()

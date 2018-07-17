@@ -1,30 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WF.ApiFactory;
-using WF.DependencyServices;
-using WF.Extensions;
 using WF.Helpers;
-using WF.Models;
 using WF.Models.Auth;
 using WF.Models.BaseResult;
 using WF.Models.Department;
 using WF.Models.Employee;
-using WF.Models.Local;
 using WF.Models.Summary;
 using WF.Models.Views;
 using WF.Resources;
-using WF.Services;
-using WF.ViewModels.Auth;
-using WF.Views.Details;
-using OxyPlot;
-using OxyPlot.Axes;
-using OxyPlot.Series;
 using Xamarin.Forms;
 using WF.Functions;
 
@@ -173,17 +160,25 @@ namespace WF.ViewModels.Details
         public ICommand ChangeLangCommand { get; }
         public DaySummaryViewModel()
         {
-            _user = GeneralFunctions.GetUser();
-            _factory = new DashboardFactory();
-            RefreshCommand = new Command(Refresh);
-            ShowCommand = new Command(Show);
-            ChangeLangCommand = new Command(LocaleHelper.ChangeCulture);
-            SelectedShift = 1;
-
-            if (IsManager)
+            try
             {
-                FillDepartments();
+                _user = GeneralFunctions.GetUser();
+                _factory = new DashboardFactory();
+                RefreshCommand = new Command(Refresh);
+                ShowCommand = new Command(Show);
+                ChangeLangCommand = new Command(LocaleHelper.ChangeCulture);
+                SelectedShift = 1;
+
+                if (IsManager)
+                {
+                    FillDepartments();
+                }
             }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DaySummaryViewModel");
+            }
+
 
         }
 
@@ -195,168 +190,217 @@ namespace WF.ViewModels.Details
 
         private async Task FillDepartments()
         {
-            CancellAll();
-            DepartmentsPikerTitle = Resource.DownloadingText;
-            bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-            var res = await _factory.GetDepartments(_user.Token, _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                SelectedDepartment = null;
-                SelectedEmployee = null;
-                Departments.Clear();
-                Employees.Clear();
-                foreach (var department in res.Data)
+
+
+                CancellAll();
+                DepartmentsPikerTitle = Resource.DownloadingText;
+                bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
+                var res = await _factory.GetDepartments(_user.Token, _cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    department.Name = department.NameAr;
-                    if (!isArabic)
+                    SelectedDepartment = null;
+                    SelectedEmployee = null;
+                    Departments.Clear();
+                    Employees.Clear();
+                    foreach (var department in res.Data)
                     {
-                        department.Name = department.NameEn;
-                    }
-                    if (!string.IsNullOrEmpty(department.Name))
-                    {
-                        Departments.Add(department);
+                        department.Name = department.NameAr;
+                        if (!isArabic)
+                        {
+                            department.Name = department.NameEn;
+                        }
+                        if (!string.IsNullOrEmpty(department.Name))
+                        {
+                            Departments.Add(department);
+                        }
                     }
                 }
+                DepartmentsPikerTitle = Resource.DepartmentTitle;
             }
-            DepartmentsPikerTitle = Resource.DepartmentTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DaySummary : FillDepartemtnt");
+            }
         }
 
         private async Task FillEmployees()
         {
-            CancellAll();
-            EmployeePikerTitle = Resource.DownloadingText;
-            bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-            var res = await _factory.GetEmployeesForDepartment(_user.Token, SelectedDepartment.Id, _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                SelectedEmployee = null;
-                Employees.Clear();
-                foreach (var emp in res.Data)
+
+                CancellAll();
+                EmployeePikerTitle = Resource.DownloadingText;
+                bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
+                var res = await _factory.GetEmployeesForDepartment(_user.Token, SelectedDepartment.Id, _cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    emp.Name = emp.NameAr;
-                    if(!isArabic)
+                    SelectedEmployee = null;
+                    Employees.Clear();
+                    foreach (var emp in res.Data)
                     {
-                        emp.Name = emp.NameEn; 
+                        emp.Name = emp.NameAr;
+                        if (!isArabic)
+                        {
+                            emp.Name = emp.NameEn;
+                        }
+                        Employees.Add(emp);
                     }
-                    Employees.Add(emp);
                 }
+                EmployeePikerTitle = Resource.EmployeeTitle;
             }
-            EmployeePikerTitle = Resource.EmployeeTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DaySummary : FillEmployee");
+            }
         }
 
         private async void Refresh()
         {
-            CancellAll();
-            IsRefreshBusy = true;
-            if (IsManager && Departments.Count == 0)
+            try
             {
-                await FillDepartments();
-            }
-            else if (IsManager && SelectedDepartment != null && Employees.Count == 0)
-            {
-                await FillEmployees();
-            }
-            else if (IsManager && SelectedEmployee != null || !IsManager)
-            {
-                await ShowTextCharts();
-            }
 
-            StopRefresh();
+
+                CancellAll();
+                IsRefreshBusy = true;
+                if (IsManager && Departments.Count == 0)
+                {
+                    await FillDepartments();
+                }
+                else if (IsManager && SelectedDepartment != null && Employees.Count == 0)
+                {
+                    await FillEmployees();
+                }
+                else if (IsManager && SelectedEmployee != null || !IsManager)
+                {
+                    await ShowTextCharts();
+                }
+
+                StopRefresh();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DaySummary : Refresh");
+            }
         }
 
         private void Show()
         {
-            ShowTextCharts();
+            try
+            {
+                ShowTextCharts();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DaySummary : Show");
+            }
+
         }
 
         private async Task ShowTextCharts()
         {
-            if (SelectedEmployee == null && IsManager)
+            try
             {
-                await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
-                return;
-            }
 
-            OperationResult<ShiftSummary> res;
-            CancellAll();
-            IsNoDataMsgVisible = false;
-            IsIndicatorVisible = true;
-
-
-            //muath dassan
-            //17-12-2017
-            //i removed becuase at the screen it not show hijri calender when the IsGregorianLocale=false
-            //so i fixed it to gregorian
-            //var ticks = _user.IsGregorianLocale ? new DateTime(Date.Year, Date.Month, Date.Day).Ticks : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
-            //{
-            //    Year = Date.Year,
-            //    Month = Date.Month,
-            //    Day = Date.Day
-            //}).Ticks;
-
-
-            var ticks = new DateTime(Date.Year, Date.Month, Date.Day).Ticks;
-
-
-            if (!IsManager)
-                res = await _factory.ShiftSummary(_user.Token, SelectedShift, ticks, _cancellationToken.Token);
-            else
-                res = await _factory.ShiftSummaryForEmployee(_user.Token, SelectedEmployee.Id, SelectedShift, ticks,
-                    _cancellationToken.Token);
-
-            IsIndicatorVisible = false;
-            if (res.ResultCode == ResultCode.Success)
-            {
-                if (res.Data == null)
+                if (SelectedEmployee == null && IsManager)
                 {
-                    IsNoDataMsgVisible = true;
-                    IsTextChartsVisible = false;
+                    await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
+                    return;
                 }
+
+                OperationResult<ShiftSummary> res;
+                CancellAll();
+                await MessageViewer.Waiting();
+                //muath dassan
+                //17-12-2017
+                //i removed becuase at the screen it not show hijri calender when the IsGregorianLocale=false
+                //so i fixed it to gregorian
+                //var ticks = _user.IsGregorianLocale ? new DateTime(Date.Year, Date.Month, Date.Day).Ticks : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
+                //{
+                //    Year = Date.Year,
+                //    Month = Date.Month,
+                //    Day = Date.Day
+                //}).Ticks;
+
+
+                var ticks = new DateTime(Date.Year, Date.Month, Date.Day).Ticks;
+
+
+                if (!IsManager)
+                    res = await _factory.ShiftSummary(_user.Token, SelectedShift, ticks, _cancellationToken.Token);
                 else
+                    res = await _factory.ShiftSummaryForEmployee(_user.Token, SelectedEmployee.Id, SelectedShift, ticks,
+                        _cancellationToken.Token);
+
+                IsIndicatorVisible = false;
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    res.Data.Status = res.Data.Status?.Trim();
-                    Summary = res.Data;
-                    Summary.Calculate();
-                    switch (Summary.Status)
+                    if (res.Data == null)
                     {
-                        case "P":
-                            Status = Resource.StatusP;
-                            break;
-
-                        case "A":
-                            Status = Resource.StatusA;
-                            break;
-
-                        case "IN":
-                            Status = Resource.StatusIN;
-                            break;
-
-                        case "OU":
-                            Status = Resource.StatusOU;
-                            break;
-
-                        case "OI":
-                            Status = Resource.StatusOI;
-                            break;
-
-                        default:
-                            Status = Resource.StatusUnknown;
-                            break;
+                        IsNoDataMsgVisible = true;
+                        IsTextChartsVisible = false;
                     }
-                    OnPropertyChanged(nameof(Status));
-                    IsTextChartsVisible = true;
-                    CancellAll();
+                    else
+                    {
+                        res.Data.Status = res.Data.Status?.Trim();
+                        Summary = res.Data;
+                        Summary.Calculate();
+                        switch (Summary.Status)
+                        {
+                            case "P":
+                                Status = Resource.StatusP;
+                                break;
+
+                            case "A":
+                                Status = Resource.StatusA;
+                                break;
+
+                            case "IN":
+                                Status = Resource.StatusIN;
+                                break;
+
+                            case "OU":
+                                Status = Resource.StatusOU;
+                                break;
+
+                            case "OI":
+                                Status = Resource.StatusOI;
+                                break;
+
+                            default:
+                                Status = Resource.StatusUnknown;
+                                break;
+                        }
+                        OnPropertyChanged(nameof(Status));
+                        IsTextChartsVisible = true;
+                        CancellAll();
+                    }
                 }
+                await MessageViewer.CloseAllPopup();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DaySummary : ShowTextCharts");
             }
         }
 
         private void StopRefresh()
         {
-            Task.Run(async delegate
+            try
             {
-                await Task.Delay(300);
-                IsRefreshBusy = false;
-            });
+
+
+                Task.Run(async delegate
+                {
+                    await Task.Delay(300);
+                    IsRefreshBusy = false;
+                });
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DaySummary : FillDepartemtnt");
+            }
         }
     }
 }

@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WF.ApiFactory;
 using WF.Functions;
 using WF.Helpers;
-using WF.Models;
 using WF.Models.Auth;
 using WF.Models.BaseResult;
 using WF.Models.Department;
 using WF.Models.Employee;
-using WF.Models.Local;
-using WF.Models.Reports;
 using WF.Models.Views;
 using WF.Resources;
-using WF.Services;
-using WF.ViewModels.Auth;
 using Xamarin.Forms;
 
 
@@ -115,49 +108,65 @@ namespace WF.ViewModels.Details
         public ICommand ChangeLangCommand { get; }
         public RequestSurpiseViewModel()
         {
-
-            _user = GeneralFunctions.GetUser();
-            _boardFactory = new DashboardFactory();
-            _surpFactory = new SurpriseFactory();
-
-            RefreshCommand = new Command(Refresh);
-            ShowCommand = new Command(Show);
-            CheckCommand = new Command<Employee>(Check);
-            SendCommand = new Command(Send);
-            ChangeLangCommand = new Command(LocaleHelper.ChangeCulture);
-            FillDepartments();
-
-            Employees.CollectionChanged += delegate (object sender, NotifyCollectionChangedEventArgs args)
+            try
             {
-                OnPropertyChanged(nameof(IsGridTitleVisible));
-                OnPropertyChanged(nameof(IsFooterVisible));
-            };
+                _user = GeneralFunctions.GetUser();
+                _boardFactory = new DashboardFactory();
+                _surpFactory = new SurpriseFactory();
+
+                RefreshCommand = new Command(Refresh);
+                ShowCommand = new Command(Show);
+                CheckCommand = new Command<Employee>(Check);
+                SendCommand = new Command(Send);
+                ChangeLangCommand = new Command(LocaleHelper.ChangeCulture);
+                FillDepartments();
+
+                Employees.CollectionChanged += delegate (object sender, NotifyCollectionChangedEventArgs args)
+                {
+                    OnPropertyChanged(nameof(IsGridTitleVisible));
+                    OnPropertyChanged(nameof(IsFooterVisible));
+                };
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestSupriseViewModel");
+            }
         }
 
         public async void Send()
         {
-            IsBlockingDisplay = true;
-
-            var emps = Employees.Where(e => e.IsSelected).Select(e => e.Id).ToArray();
-            if (emps.Any())
+            try
             {
-                var res = await _surpFactory.SendExcuse(_user.Token, emps, _cancellationToken.Token);
-                if (res.ResultCode == ResultCode.Success)
-                {
-                    MessageViewer.SuccessAsync(Resource.SuccessSentRequest);
+                IsBlockingDisplay = true;
 
-                    Employees.Clear();
+                var emps = Employees.Where(e => e.IsSelected).Select(e => e.Id).ToArray();
+                if (emps.Any())
+                {
+                    await MessageViewer.Waiting();
+                    var res = await _surpFactory.SendExcuse(_user.Token, emps, _cancellationToken.Token);
+                    await MessageViewer.CloseAllPopup();
+                    if (res.ResultCode == ResultCode.Success)
+                    {
+
+                        await MessageViewer.SuccessAsync(Resource.SuccessSentRequest);
+
+                        Employees.Clear();
+                    }
+                    else
+                    {
+                        await MessageViewer.ErrorAsync(Resource.FailureSentRequst);
+                    }
                 }
                 else
                 {
-                    MessageViewer.ErrorAsync(Resource.FailureSentRequst);
+                    await MessageViewer.ErrorAsync(Resource.NotSelectedError);
                 }
+                IsBlockingDisplay = false;
             }
-            else
+            catch (Exception exception)
             {
-                MessageViewer.ErrorAsync(Resource.NotSelectedError);
+                GeneralFunctions.HandelException(exception, "RequestSupriseViewModel : Send");
             }
-            IsBlockingDisplay = false;
         }
 
 
@@ -184,110 +193,154 @@ namespace WF.ViewModels.Details
 
         private async void Refresh()
         {
-            CancellAll();
-            IsRefreshBusy = true;
-
-            if (Departments.Count == 0)
+            try
             {
-                await FillDepartments();
+                CancellAll();
+                IsRefreshBusy = true;
+                if (Departments.Count == 0)
+                {
+                    await FillDepartments();
+                }
+                else if (SelectedDepartment != null)
+                {
+                    await ShowGrid();
+                }
+                StopRefresh();
             }
-            else if (SelectedDepartment != null)
+            catch (Exception exception)
             {
-                await ShowGrid();
+                GeneralFunctions.HandelException(exception, "RequestSupriseViewModel : Referash");
             }
-            StopRefresh();
         }
 
         private void StopRefresh()
         {
-            Task.Run(async delegate
+            try
             {
-                await Task.Delay(300);
-                IsRefreshBusy = false;
-            });
+                Task.Run(async delegate
+                {
+                    await Task.Delay(300);
+                    IsRefreshBusy = false;
+                });
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestSupriseViewModel :  StopeRefresh");
+            }
         }
 
         private void Check(Employee req)
         {
-            req.IsSelected = !req.IsSelected;
+            try
+            {
+                req.IsSelected = !req.IsSelected;
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestSupriseViewModel :  Check");
+            }
+
         }
 
         private void Show()
         {
-            ShowGrid();
+            try
+            {
+                ShowGrid();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestSupriseViewModel :  Show");
+            }
         }
 
         private async Task ShowGrid()
         {
-            if (SelectedDepartment == null)
+            try
             {
-                await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
-                return;
-            }
-
-            CancellAll();
-            Employees.Clear();
-            IsNoDataMsgVisible = false;
-            IsIndicatorVisible = true;
-            bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-            var res = await _boardFactory.GetEmployeesForDepartment(_user.Token, SelectedDepartment.Id, _cancellationToken.Token);
-
-            IsIndicatorVisible = false;
-            if (res.ResultCode == ResultCode.Success)
-            {
-                if (res.Data == null || res.Data.Length == 0)
+                if (SelectedDepartment == null)
                 {
-                    IsNoDataMsgVisible = true;
+                    await MessageViewer.ErrorAsync(Resource.NotEnouthFields);
+                    return;
                 }
-                else
-                {
-                    var i = 0;
-                    foreach (var q in res.Data)
-                    {
-                        q.Id = q.Id.Trim();
-                        q.BackgroundColor = i++ % 2 == 0 ? FirstColor : SecondColor;
-                        q.Name = q.NameAr;
 
-                        if (!isArabic)
+                CancellAll();
+                Employees.Clear();
+                IsNoDataMsgVisible = false;
+                IsIndicatorVisible = true;
+                await MessageViewer.Waiting();
+                bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
+                var res = await _boardFactory.GetEmployeesForDepartment(_user.Token, SelectedDepartment.Id, _cancellationToken.Token);
+
+                IsIndicatorVisible = false;
+                if (res.ResultCode == ResultCode.Success)
+                {
+                    if (res.Data == null || res.Data.Length == 0)
+                    {
+                        IsNoDataMsgVisible = true;
+                    }
+                    else
+                    {
+                        var i = 0;
+                        foreach (var q in res.Data)
                         {
-                            q.Name = q.NameEn;
-                        }
-                        if (!string.IsNullOrEmpty(q.Name))
-                        {
-                            Employees.Add(q);
+                            q.Id = q.Id.Trim();
+                            q.BackgroundColor = i++ % 2 == 0 ? FirstColor : SecondColor;
+                            q.Name = q.NameAr;
+
+                            if (!isArabic)
+                            {
+                                q.Name = q.NameEn;
+                            }
+                            if (!string.IsNullOrEmpty(q.Name))
+                            {
+                                Employees.Add(q);
+                            }
+
                         }
 
                     }
-                    
                 }
+                await MessageViewer.CloseAllPopup();
+            }
+            catch
+            {
+                throw;
             }
         }
 
         private async Task FillDepartments()
         {
-            CancellAll();
-            DepartmentsPikerTitle = Resource.DownloadingText;
-            bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-            var res = await _boardFactory.GetDepartments(_user.Token, _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                SelectedDepartment = null;
-                Departments.Clear();
-                foreach (var department in res.Data)
+                CancellAll();
+                DepartmentsPikerTitle = Resource.DownloadingText;
+                bool isArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
+                var res = await _boardFactory.GetDepartments(_user.Token, _cancellationToken.Token);
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    department.Name = department.NameAr;
-                    if (!isArabic)
+                    SelectedDepartment = null;
+                    Departments.Clear();
+                    foreach (var department in res.Data)
                     {
-                        department.Name = department.NameEn;
-                    }
-                    if (!string.IsNullOrEmpty(department.Name))
-                    {
-                        Departments.Add(department);
-                    }
+                        department.Name = department.NameAr;
+                        if (!isArabic)
+                        {
+                            department.Name = department.NameEn;
+                        }
+                        if (!string.IsNullOrEmpty(department.Name))
+                        {
+                            Departments.Add(department);
+                        }
 
+                    }
                 }
+                DepartmentsPikerTitle = Resource.DepartmentTitle;
             }
-            DepartmentsPikerTitle = Resource.DepartmentTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RequestSupriseViewModel:FillDeprtment");
+            }
         }
 
         public void CancellAll()

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using WF.Functions;
 using WF.Models.Auth;
 using WF.Models.BaseResult;
+using WF.Resources;
 using Xamarin.Forms;
 
 namespace WF.ApiFactory
@@ -26,14 +27,14 @@ namespace WF.ApiFactory
                 if (!CrossConnectivity.Current.IsConnected)
                 {
 
-                    await Application.Current.MainPage.DisplayAlert("", GeneralFunctions.GetText("connectionmessage"), GeneralFunctions.GetText("close"));
+                    await Application.Current.MainPage.DisplayAlert("", Resource.connectionmessage,  Resource.close);
 
                     return null;
                 }
                 else
                 {
                     Analytics.TrackEvent("SignIn", new Dictionary<string, string> {
-                         { "login", login },{"password", password } });
+                        { "login", login },{"password", password } });
 
                     return await Request<User>("auth/signin", HttpMethod.Get, token, new Dictionary<string, string>
             {

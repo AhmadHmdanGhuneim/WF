@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,13 +9,11 @@ using WF.Helpers;
 using WF.Models;
 using WF.Models.Auth;
 using WF.Models.BaseResult;
-using WF.Models.Local;
 using WF.Models.Reports;
 using WF.Models.Summary;
 using WF.Models.Views;
 using WF.Resources;
 using WF.Services;
-using WF.ViewModels.Auth;
 using WF.ViewModels.Results;
 using Xamarin.Forms;
 
@@ -134,92 +129,119 @@ namespace WF.ViewModels.Details
         public ICommand ChangeLangCommand { get; }
         public MyRequestsViewModel()
         {
+            try
+            {
+                _user = GeneralFunctions.GetUser();
+                _factory = new ReportsFactory();
+                RefreshCommand = new Command(Refresh);
+                ShowCommand = new Command(Show);
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MyRequestViewModel");
+            }
 
-            _user = GeneralFunctions.GetUser();
-            _factory = new ReportsFactory();
 
-            RefreshCommand = new Command(Refresh);
-            ShowCommand = new Command(Show);
-           
         }
 
         private void Refresh()
         {
-            IsRefreshBusy = true;
+            try
+            {
+                IsRefreshBusy = true;
 
-           // Show();
+                // Show();
 
-            StopRefresh();
+                StopRefresh();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MyRequestViewModel :  Refreash");
+            }
         }
 
         private void StopRefresh()
         {
-            Task.Run(async delegate
+            try
             {
-                await Task.Delay(300);
-                IsRefreshBusy = false;
-            });
+                Task.Run(async delegate
+                {
+                    await Task.Delay(300);
+                    IsRefreshBusy = false;
+                });
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MyRequestViewModel : StopRefresh");
+            }
+
         }
 
         private async void Show()
         {
-            if (DateFrom > DateTo)
+            try
             {
-                await MessageViewer.ErrorAsync(Resource.MyRequestsValidationError);
-                return;
-            }
+                if (DateFrom > DateTo)
+                {
+                    await MessageViewer.ErrorAsync(Resource.MyRequestsValidationError);
+                    return;
+                }
 
-            CancellAll();
-            Requests.Clear();
-            IsNoDataMsgVisible = false;
-            IsIndicatorVisible = true;
-            IsGridTitleVisible = false;
+                CancellAll();
+                Requests.Clear();
+                IsNoDataMsgVisible = false;
+                IsIndicatorVisible = true;
+                IsGridTitleVisible = false;
+                await MessageViewer.Waiting();
+                var status = SelectedStatus == Resource.AllDdl
+                    ? -1
+                    : SelectedStatus == Resource.UnderProcessDdl
+                        ? 0
+                        : SelectedStatus == Resource.AcceptedDdl
+                            ? 1
+                            : 2;
 
-            var status = SelectedStatus == Resource.AllDdl
-                ? -1
-                : SelectedStatus == Resource.UnderProcessDdl
+                var ret = SelectedType == Resource.AllDdl
                     ? 0
-                    : SelectedStatus == Resource.AcceptedDdl
+                    : SelectedType == Resource.ExcuseDdl
                         ? 1
                         : 2;
 
-            var ret = SelectedType == Resource.AllDdl
-                ? 0
-                : SelectedType == Resource.ExcuseDdl
-                    ? 1
-                    : 2;
+                //end of day
+                var to = DateTo.Add(new TimeSpan(23, 59, 59));
 
-            //end of day
-            var to = DateTo.Add(new TimeSpan(23, 59, 59));
+                var res = await _factory.GetMyRequests(_user.Token, status, ret, DateFrom.Ticks, to.Ticks, _cancellationToken.Token);
 
-            var res = await _factory.GetMyRequests(_user.Token, status, ret, DateFrom.Ticks, to.Ticks, _cancellationToken.Token);
-
-            IsIndicatorVisible = false;
-            if (res.ResultCode == ResultCode.Success)
-            {
-                if (res.Data == null || res.Data.Length == 0)
+                IsIndicatorVisible = false;
+                if (res.ResultCode == ResultCode.Success)
                 {
-                    IsNoDataMsgVisible = true;
-                }
-                else
-                {
-                    IsGridTitleVisible = true;
-                    SelectSummary selectSummary = new SelectSummary();
-                    selectSummary.ReqestType = SelectedType;
-                    selectSummary.RequetStatus = SelectedStatus;
-                    selectSummary.FromDate = DateFrom.Date.ToShortDateString() ;
-                    selectSummary.ToDate = DateTo.Date.ToShortDateString();
-                    var i = 0;
-                    foreach (var req in res.Data)
+                    if (res.Data == null || res.Data.Length == 0)
                     {
-                        req.BackgroundColor = i++ % 2 == 0 ? FirstColor : SecondColor;
-                        req.Calculate();
-                        Requests.Add(req);
+                        IsNoDataMsgVisible = true;
                     }
-                    NavigationService.SetDetailPage(new MyRequestResultViewModel(Requests, selectSummary), SelectedMenuOptions.None, "");
-
-
+                    else
+                    {
+                        IsGridTitleVisible = true;
+                        SelectSummary selectSummary = new SelectSummary();
+                        selectSummary.ReqestType = SelectedType;
+                        selectSummary.RequetStatus = SelectedStatus;
+                        selectSummary.FromDate = DateFrom.Date.ToShortDateString();
+                        selectSummary.ToDate = DateTo.Date.ToShortDateString();
+                        var i = 0;
+                        foreach (var req in res.Data)
+                        {
+                            req.BackgroundColor = i++ % 2 == 0 ? FirstColor : SecondColor;
+                            req.Calculate();
+                            Requests.Add(req);
+                        }
+                        NavigationService.SetDetailPage(new MyRequestResultViewModel(Requests, selectSummary), SelectedMenuOptions.None, "");
+                    }
                 }
+               await MessageViewer.CloseAllPopup();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "MyRequestViewModel");
             }
         }
 

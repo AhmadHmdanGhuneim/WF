@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using WF.Functions;
 using WF.Models.BaseResult;
 using WF.Models.Summary;
 using WF.Models.Views;
@@ -20,7 +21,7 @@ namespace WF.ViewModels.Results
 
         public event Action UpdateOxyplot;
 
-      
+
 
         public SelectSummary SelectSummary { get; set; } = new SelectSummary();
 
@@ -49,48 +50,63 @@ namespace WF.ViewModels.Results
 
         public DashboardResultViewModel(SelectSummary prmSelectdSummary, OperationResult<CommonSummary> prmCommonSummary)
         {
-            SelectSummary = prmSelectdSummary;
-            ResultData = prmCommonSummary;
-            FillSummary();
+            try
+            {
+
+                SelectSummary = prmSelectdSummary;
+                ResultData = prmCommonSummary;
+                FillSummary();
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DashboardResultViewModel");
+            }
         }
 
-     
+
         private void FillChartsAnimation(double totalWorkingHoursPercent, double totalAbsentDaysPercent, double totalLateHoursPercent, CancellationToken token)
         {
-            var t = 100;
-
-            Summary.TotalAbsentDaysPercent = 0;
-            Summary.TotalLateHoursPercent = 0;
-            Summary.TotalWorkingHoursPercent = 0;
-            OnPropertyChanged(nameof(Summary));
-
-            var twhp = totalWorkingHoursPercent / t;
-            var tadp = totalAbsentDaysPercent / t;
-            var tlhp = totalLateHoursPercent / t;
-
-            var c = 1;
-            Device.StartTimer(TimeSpan.FromMilliseconds(10), delegate
+            try
             {
-                if (token.IsCancellationRequested)
-                    return false;
-                if (c == t)
-                {
-                    Summary.TotalAbsentDaysPercent = totalAbsentDaysPercent;
-                    Summary.TotalLateHoursPercent = totalLateHoursPercent;
-                    Summary.TotalWorkingHoursPercent = totalWorkingHoursPercent;
-                    OnPropertyChanged(nameof(Summary));
-                    return false;
-                }
 
-                c++;
-                Summary.TotalAbsentDaysPercent += tadp;
-                Summary.TotalLateHoursPercent += tlhp;
-                Summary.TotalWorkingHoursPercent += twhp;
+                var t = 100;
+
+                Summary.TotalAbsentDaysPercent = 0;
+                Summary.TotalLateHoursPercent = 0;
+                Summary.TotalWorkingHoursPercent = 0;
                 OnPropertyChanged(nameof(Summary));
-                return true;
-            });
 
+                var twhp = totalWorkingHoursPercent / t;
+                var tadp = totalAbsentDaysPercent / t;
+                var tlhp = totalLateHoursPercent / t;
 
+                var c = 1;
+                Device.StartTimer(TimeSpan.FromMilliseconds(10), delegate
+                {
+                    if (token.IsCancellationRequested)
+                        return false;
+                    if (c == t)
+                    {
+                        Summary.TotalAbsentDaysPercent = totalAbsentDaysPercent;
+                        Summary.TotalLateHoursPercent = totalLateHoursPercent;
+                        Summary.TotalWorkingHoursPercent = totalWorkingHoursPercent;
+                        OnPropertyChanged(nameof(Summary));
+                        return false;
+                    }
+
+                    c++;
+                    Summary.TotalAbsentDaysPercent += tadp;
+                    Summary.TotalLateHoursPercent += tlhp;
+                    Summary.TotalWorkingHoursPercent += twhp;
+                    OnPropertyChanged(nameof(Summary));
+                    return true;
+                });
+
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DashboardResultViewModel : FillChartsAnimation");
+            }
 
 
         }
@@ -157,16 +173,17 @@ namespace WF.ViewModels.Results
                 UpdateOxyplot?.Invoke();
 
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-
-                throw;
+                GeneralFunctions.HandelException(exception, "DashboardResultViewModel : FillSummary");
             }
         }
 
 
         private PlotModel CreatePlotModel(double first, double second, double third)
         {
+            try
+            {
             first /= 3600;
             second /= 3600;
             third /= 3600;
@@ -224,6 +241,12 @@ namespace WF.ViewModels.Results
                     }
                 }
             };
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "DashboardResultViewModel : CreatePlotModel");
+                return new PlotModel();
+            }
         }
 
 
