@@ -373,6 +373,10 @@ namespace WF.ViewModels.Details
                         NavigationService.SetDetailPage(new RequestDecisionResultViewModel(Requests, selectSummary), SelectedMenuOptions.None, "");
                     }
                 }
+
+
+
+                await MessageViewer.CloseAllPopup();
             }
             catch (Exception exception)
             {

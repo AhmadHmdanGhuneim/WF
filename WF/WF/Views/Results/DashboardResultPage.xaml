@@ -2,14 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ext="clr-namespace:WF.Extensions;assembly=WF"
-             xmlns:xfShapeView="clr-namespace:XFShapeView;assembly=XFShapeView"
              x:Class="WF.Views.Results.DashboardResultPage"
              Title="{ext:Translate DashboardTitle}">
 
 
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="10" BackgroundColor="#d8d8d8">
+            <StackLayout>
                 <StackLayout Padding="10" BindingContext="{Binding SelectSummary}" BackgroundColor="White" Margin="0,0,0,10">
                     <Grid ColumnSpacing="2" >
                         <Grid.ColumnDefinitions>
@@ -41,121 +40,103 @@
                 </StackLayout>
 
 
-
-
-
-
-                <Grid ColumnSpacing="10" RowSpacing="10" BackgroundColor="White">
+                <Grid x:Name="AttendesStackLayout" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" Margin="0,0,0,5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Column="{Binding StartSpan}" Row="0" HeightRequest="100" WidthRequest="100">
-                        <xfShapeView:ShapeView ShapeType="ProgressCircle"
-                                  Color="Transparent" BorderColor="#aed2f3"
-                                  ProgressBorderColor="#1780e1" BorderWidth="10"
-                                  VerticalOptions="Fill" HorizontalOptions="Fill"
-                                  HeightRequest="100" WidthRequest="100"
-                                  ProgressBorderWidth="10"
-                                 Progress="{Binding Summary.TotalWorkingHoursPercent}"/>
+                    <!-- Total Working Houre -->
+                    <StackLayout Grid.Column="0" BackgroundColor="#009ad6" Padding="5,5,5,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!--Set Image i first Column-->
 
+                            <!--<Image Grid.RowSpan="2" Grid.Column="0" Source="time.png" WidthRequest="16"/>-->
 
-                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <StackLayout Grid.Row="0" Grid.Column="1">
+                                <Label Text="{Binding Summary.TotalWorkingHours}" FontAttributes="Bold" FontSize="Small"
+                                HorizontalOptions="FillAndExpand" TextColor="{StaticResource TextColor}" HorizontalTextAlignment="Center"/>
+                                
+                                <Label Text="{Binding Summary.TotalWorkingHoursComment}" FontAttributes="Bold"
+                                  HorizontalOptions="FillAndExpand" TextColor="{StaticResource TextColor}" FontSize="Small" HorizontalTextAlignment="Start"/>
 
-                            <Label Text="{Binding Summary.TotalWorkingHours}" FontAttributes="Bold"
-                         HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"/>
-                            <Label Text="{ext:Translate HrsText}" FontSize="Small" HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"/>
-                        </StackLayout>
-                    </Grid>
-                    <StackLayout Grid.Column="{Binding EndSpan}" Grid.Row="0" VerticalOptions="Center">
+                                <ProgressBar HeightRequest="5" Progress="{Binding Summary.TotalWorkingHoursPercent}" HorizontalOptions="FillAndExpand"></ProgressBar>
+                            </StackLayout>
+                           
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{ext:Translate TotalWorkingHours}" FontSize="10" 
+                             TextColor="{StaticResource TextColor}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
 
-                        <Label Text="{ext:Translate TotalWorkingHours}"  HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding HorizontalTextAlignment}"></Label>
-
-
-                        <Label Text="{Binding Summary.TotalWorkingHoursComment}"
-                               HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding HorizontalTextAlignment}"></Label>
+                        </Grid>
                     </StackLayout>
+                    
+                    <!--Total Late Hours-->
+                    <StackLayout Grid.Column="1" BackgroundColor="#d13e2a" Padding="5,5,5,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!--Set Image i first Column-->
 
-                    <Grid Column="0" Row="1" HeightRequest="100" WidthRequest="100">
-                        <xfShapeView:ShapeView
-                  ShapeType="ProgressCircle"
-                  Color="Transparent"
-                  BorderColor="#aed2f3"
-                  ProgressBorderColor="#1780e1"
-                  BorderWidth="10"
-                  VerticalOptions="Fill"
-                  HorizontalOptions="Fill"
-                  HeightRequest="100"
-                  WidthRequest="100"
-                  ProgressBorderWidth="10"
-                  Progress="{Binding Summary.TotalLateHoursPercent}"/>
-                        <StackLayout
-                  HorizontalOptions="Center"
-                  VerticalOptions="Center">
-                            <Label Text="{Binding Summary.TotalLateHours}"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center"/>
-                            <Label Text="{ext:Translate HrsText}"
-                       FontSize="Small"
-                       HorizontalOptions="Center"/>
-                        </StackLayout>
-                    </Grid>
+                            <StackLayout Grid.Row="0" Grid.Column="1">
+                                <Label Text="{Binding Summary.TotalLateHours}" FontAttributes="Bold" 
+                                HorizontalOptions="FillAndExpand" TextColor="{StaticResource TextColor}" HorizontalTextAlignment="Center"/>
 
-                    <StackLayout Grid.Column="1" Grid.Row="1" VerticalOptions="Center">
-                        <Label Text="{ext:Translate TotalLateHours}"
-                     HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
-                        <Label Text="{Binding Summary.TotalLateHoursComment}"
-                     HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
+
+                                <Label Text="{Binding Summary.TotalLateHoursComment}" FontAttributes="Bold"
+                                  HorizontalOptions="FillAndExpand" TextColor="{StaticResource TextColor}"/>
+                                <ProgressBar HeightRequest="5"  Progress="{Binding Summary.TotalWorkingHoursPercent}" HorizontalOptions="FillAndExpand"></ProgressBar>
+                            </StackLayout>
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{ext:Translate TotalLateHours}" FontSize="10" 
+                               TextColor="{StaticResource TextColor}" HorizontalOptions="FillAndExpand"  HorizontalTextAlignment="Center"/>
+
+                        </Grid>
                     </StackLayout>
+                    <!--عدد ايام الغياب-->
+                    <StackLayout Grid.Column="2" BackgroundColor="#d87f00" Padding="5,5,5,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <!--Set Image i first Column-->
 
-                    <Grid Column="0" Row="2" HeightRequest="100" WidthRequest="100">
-                        <xfShapeView:ShapeView ShapeType="ProgressCircle" Color="Transparent" BorderColor="#aed2f3"
-                                     ProgressBorderColor="#1780e1" BorderWidth="10" VerticalOptions="Fill"
-                                     HorizontalOptions="Fill" HeightRequest="100" WidthRequest="100"
-                                     ProgressBorderWidth="10" Progress="{Binding Summary.TotalAbsentDaysPercent}"/>
-                        <StackLayout HorizontalOptions="Center" VerticalOptions="FillAndExpand">
+                            <StackLayout Grid.Row="0" Grid.Column="1">
+                                <Label Text="{Binding Summary.TotalAbsentDays}" FontAttributes="Bold" 
+                                HorizontalOptions="FillAndExpand" TextColor="{StaticResource TextColor}" HorizontalTextAlignment="Center"/>
 
-                            <Label Text="{Binding Summary.DaysAbsentWithoutVac}"
-                                   FontAttributes="Bold" HorizontalOptions="Center"
-                                   IsVisible="{Binding IsMonthVisible}"/>
-                            <Label Text="{Binding Summary.Status}"
-                                   FontSize="Large" FontAttributes="Bold"
-                                   HorizontalOptions="Center" IsVisible="{Binding IsDayVisible}"/>
-                            <Label Text="{ext:Translate DaysText}" FontSize="Small"
-                                   HorizontalOptions="Center" IsVisible="{Binding IsMonthVisible}" />
-                        </StackLayout>
-                    </Grid>
 
-                    <StackLayout Grid.Column="1" Grid.Row="2" VerticalOptions="Center" IsVisible="{Binding IsMonthVisible}">
-                        <Label Text="{ext:Translate TotalAbsentDays}"
-                     HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
-                        <Label Text="{Binding Summary.TotalAbsentDaysComment}"
-                     HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
-                    </StackLayout>
+                                <Label Text="{Binding Summary.TotalAbsentDaysComment}" FontAttributes="Bold"
+                                  HorizontalOptions="FillAndExpand" TextColor="{StaticResource TextColor}"/>
 
-                    <StackLayout Grid.Column="1" Grid.Row="2" VerticalOptions="Center" IsVisible="{Binding IsDayVisible}">
-                        <Label Text="{ext:Translate StatusDashboard}"
-                     HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
-                        <Label Text="{Binding Status}"
-                     HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
+                                <ProgressBar HeightRequest="5" Progress="{Binding Summary.TotalAbsentDaysPercent}" HorizontalOptions="FillAndExpand"  ></ProgressBar>
+
+                            </StackLayout>
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{ext:Translate TotalAbsentDays}" FontSize="10" 
+                                TextColor="{StaticResource TextColor}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center"/>
+
+                        </Grid>
+
                     </StackLayout>
                 </Grid>
 
-                <Grid x:Name="PlotGrid" Margin="0,15,0,0" BackgroundColor="White" />
+                <Grid x:Name="PlotGrid"  BackgroundColor="White" />
 
                 <Grid Padding="10" BackgroundColor="White">
                     <Grid.RowDefinitions>

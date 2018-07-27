@@ -14,7 +14,7 @@
     </TabbedPage.ToolbarItems>-->
 
     <TabbedPage.Children>
-        <details:DashboardPage Title="{ext:Translate DashboardTitle}" Icon="Dashboard.png"/>
+        <details:DashboardPage Title="{ext:Translate DashboardTitle}" Icon="dashboard"/>
         <me:SettingPage Title="{ext:Translate settings}" Icon="Setting.png"/>
         
     </TabbedPage.Children>

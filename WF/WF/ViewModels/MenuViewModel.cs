@@ -142,22 +142,11 @@ namespace WF.ViewModels
 
         public MenuViewModel()
         {
-            //SelectMenuItemCommand = new Command(SelectMenuItem);
-
-            //IsManager = true;
-
-            //MessagingCenter.Subscribe<LoginViewModel>(this, "Authed", (sender) =>
-            //{
-
-            //});
-            ///* get User  */
-            ////   _user = App.Realm.All<User>().FirstOrDefault();
-
             IsManager = GeneralFunctions.CheckManager(); //  _user.IsManager;
-            WelcomeText = GeneralFunctions.GetUserName();
+           WelcomeText = GeneralFunctions.GetUserName();
         }
 
-
+       
         public enum TitlePages
         {
             mainpage,
@@ -181,7 +170,7 @@ namespace WF.ViewModels
                 ObservableCollection<MenuViewModel> HeaderListList = new ObservableCollection<MenuViewModel>();
                 HeaderListList.Add(new MenuViewModel()
                 {
-
+                    
                     WelcomeText = GeneralFunctions.GetUserName()
                 });
                 return HeaderListList;
@@ -203,7 +192,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.mainpage.ToString()),
-                    Icon = "Dashboard.png",
+                    Icon = "dashboard.png",
                     SelectedMenuOptions = SelectedMenuOptions.Dashboard
 
                 });
@@ -212,7 +201,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.DaySummaryTitle.ToString()),
-                    Icon = "FAQs.png",
+                    Icon = "daysummary.png",
                     SelectedMenuOptions = SelectedMenuOptions.DaySummary
 
                 });
@@ -220,7 +209,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.MonthSummaryTitle.ToString()),
-                    Icon = "Month.png",
+                    Icon = "monthsummary.png",
                     SelectedMenuOptions = SelectedMenuOptions.MonthSummary
                 });
 
@@ -228,7 +217,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.ExcuseTitle.ToString()),
-                    Icon = "Excuse.png",
+                    Icon = "excuserequset.png",
                     SelectedMenuOptions = SelectedMenuOptions.Excuse
                 });
 
@@ -236,7 +225,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.VacationTitle.ToString()),
-                    Icon = "Vacation.png",
+                    Icon = "vacuationrequest.png",
                     SelectedMenuOptions = SelectedMenuOptions.Vacation
                 });
 
@@ -244,7 +233,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.RequestTitle.ToString()),
-                    Icon = "Request.png",
+                    Icon = "myrequset.png",
                     SelectedMenuOptions = SelectedMenuOptions.MyRequest
                 });
 
@@ -252,7 +241,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.DecisionTitle.ToString()),
-                    Icon = "Click.png",
+                    Icon = "requsetapproval.png",
                     SelectedMenuOptions = SelectedMenuOptions.RequestDecision
                 });
 
@@ -260,7 +249,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.RequestSurpriseTitle.ToString()),
-                    Icon = "Surprise.png",
+                    Icon = "requsetsuprise.png",
                     SelectedMenuOptions = SelectedMenuOptions.RequestSurprise
                 });
 
@@ -268,7 +257,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.SurpriseResultTitle.ToString()),
-                    Icon = "Result.png",
+                    Icon = "requsetsuprise.png",
                     SelectedMenuOptions = SelectedMenuOptions.SurpriseResult
                 });
 

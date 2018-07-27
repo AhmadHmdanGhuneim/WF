@@ -70,7 +70,7 @@ namespace WF.ViewModels
                 {
                   
                     Title = GeneralFunctions.GetText("language"),
-                    Icon = "Langauge.png"
+                    Icon = "langauge.png"
 
                 });
                 settingViewModels.Add(new SettingViewModel()

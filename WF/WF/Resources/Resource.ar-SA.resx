@@ -506,13 +506,13 @@
     <value>الى وقت:</value>
   </data>
   <data name="TotalAbsentDays" xml:space="preserve">
-    <value>عدد أيام الغياب:</value>
+    <value>عدد أيام الغياب</value>
   </data>
   <data name="TotalGapDurationWithoutExcuse" xml:space="preserve">
     <value>عدد الثغرات بدون عذر</value>
   </data>
   <data name="TotalLateHours" xml:space="preserve">
-    <value>عدد ساعات التأخير:</value>
+    <value>عدد ساعات التأخير</value>
   </data>
   <data name="TotalShiftDuration" xml:space="preserve">
     <value>مجموع مدة الفترة</value>
@@ -521,7 +521,7 @@
     <value>مجموع مدة العمل</value>
   </data>
   <data name="TotalWorkingHours" xml:space="preserve">
-    <value>مجموع ساعات العمل:</value>
+    <value>مجموع ساعات العمل</value>
   </data>
   <data name="TypeGridTitle" xml:space="preserve">
     <value>النوع</value>
@@ -615,5 +615,11 @@
   </data>
   <data name="close" xml:space="preserve">
     <value>رجوع</value>
+  </data>
+  <data name="loginscreen" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="attendessystem" xml:space="preserve">
+    <value>نظام الحضور</value>
   </data>
 </root>

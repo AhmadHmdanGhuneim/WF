@@ -12,7 +12,7 @@
     </MasterDetailPage.Master>
     
     <MasterDetailPage.Detail>
-        <NavigationPage x:Name="MainNavigator" BarTextColor="White" BarBackgroundColor="#007dc1" >
+        <NavigationPage x:Name="MainNavigator" BarTextColor="White" BarBackgroundColor="#1f5082" >
             <x:Arguments>
                 <pages:MainPage></pages:MainPage>
             </x:Arguments>

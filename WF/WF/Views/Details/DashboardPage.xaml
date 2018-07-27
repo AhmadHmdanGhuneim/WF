@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ext="clr-namespace:WF.Extensions;assembly=WF"
              xmlns:pullToRefresh="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
-             xmlns:xfShapeView="clr-namespace:XFShapeView;assembly=XFShapeView"
              x:Class="WF.Views.Details.DashboardPage"
              Title="{ext:Translate DashboardTitle}">
 

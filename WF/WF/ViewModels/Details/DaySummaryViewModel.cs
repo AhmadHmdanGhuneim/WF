@@ -25,6 +25,16 @@ namespace WF.ViewModels.Details
 
         private readonly DashboardFactory _factory;
 
+        public int FirstImagePosition => IsLtrLang ? 0 : 4;
+        public int SecandImagePosition => IsLtrLang ? 2 : 2;
+
+        public int FirstWordPosition => IsLtrLang ? 1 : 3;
+        
+        public int SecandWordPosition =>IsLtrLang ? 3 :1;
+
+
+
+
         public ICommand RefreshCommand { get; }
 
         public ICommand ShowCommand { get; }
@@ -245,7 +255,11 @@ namespace WF.ViewModels.Details
                         {
                             emp.Name = emp.NameEn;
                         }
-                        Employees.Add(emp);
+                        if(!string.IsNullOrEmpty(emp.Name))
+                        {
+                            Employees.Add(emp);
+                        }
+                       
                     }
                 }
                 EmployeePikerTitle = Resource.EmployeeTitle;

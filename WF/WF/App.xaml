@@ -5,13 +5,26 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="FontColor">#000000</Color>
-            <Color x:Key="ButtonColor">#007dc1</Color>
+            <Color x:Key="ButtonColor">#005e9f</Color>
+            
             <Color x:Key="TextColor">White</Color>
             <Color x:Key="ContrastColor">White</Color>
 
             <Style TargetType="ContentPage" x:Key="PageStyle">
                 <Setter Property="BackgroundColor" Value="{StaticResource ContrastColor}" />
             </Style>
-        </ResourceDictionary>
+
+            <OnPlatform x:Key="LabelType"
+              x:TypeArguments="Label"          
+              iOS="Cairo"
+              Android="Cairo-Regular.ttf#Cairo"
+               />
+
+            <Style TargetType="Label" x:Key="LabelFont">
+                <Setter Property="FontFamily" Value="{StaticResource LabelType}">
+                   
+                </Setter>
+            </Style>
+         </ResourceDictionary>
     </Application.Resources>
 </Application>

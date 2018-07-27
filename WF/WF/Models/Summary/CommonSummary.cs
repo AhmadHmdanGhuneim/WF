@@ -40,7 +40,7 @@ namespace WF.Models.Summary
 
         public double TotalWorkingHoursPercent { get; set; }
 
-        public int TotalAbsentDays { get; set; }
+        public string TotalAbsentDays { get; set; }
 
         public double TotalAbsentDaysPercent { get; set; }
 
@@ -56,27 +56,37 @@ namespace WF.Models.Summary
 
         public void Calculate()
         {
-            TotalWorkingHoursPercent = ShiftDuration == 0 ? 0 : WorkDuration / (double)ShiftDuration * 100;
+            TotalWorkingHoursPercent = ShiftDuration == 0 ? 0 : WorkDuration / (double)ShiftDuration;//* 100;
 
-            TotalWorkingHoursPercent = TotalWorkingHoursPercent > 100 ? 100 : TotalWorkingHoursPercent;
+            TotalWorkingHoursPercent = TotalWorkingHoursPercent > 1 ? 1 : TotalWorkingHoursPercent;
 
-            TotalAbsentDaysPercent = DaysWork == 0 ? 0 : DaysAbsentWithoutVac / (double)DaysWork * 100;
+            // TotalAbsentDaysPercent = DaysWork == 0 ? 0 : DaysAbsentWithoutVac / (double)DaysWork; //* 100;
+            TotalAbsentDaysPercent = DaysWork == 0 ? 0 : DaysAbsentWithoutVac / (double)30; //* 100;
 
-            TotalAbsentDaysPercent = TotalAbsentDaysPercent > 100 ? 100 : TotalAbsentDaysPercent;
 
-            TotalLateHoursPercent = WorkDuration == 0 ? 0 : BeginLate / (double)WorkDuration * 100;
 
-            TotalLateHoursPercent = TotalLateHoursPercent > 100 ? 100 : TotalLateHoursPercent;
+            TotalAbsentDaysPercent = TotalAbsentDaysPercent > 1 ? 1 : TotalAbsentDaysPercent;
+
+            TotalLateHoursPercent = WorkDuration == 0 ? 0 : BeginLate / (double)WorkDuration; //* 100;
+
+            TotalLateHoursPercent = TotalLateHoursPercent > 1 ? 1 : TotalLateHoursPercent;
 
             var dur = TimeSpan.FromSeconds(WorkDuration);
             var sdur = TimeSpan.FromSeconds(ShiftDuration);
             var bl = TimeSpan.FromSeconds(BeginLate);
 
-            TotalWorkingHoursComment = $"{(int)dur.TotalHours:00}:{dur.Minutes:00} / {(int)sdur.TotalHours:00}:{sdur.Minutes:00}";
-            TotalWorkingHours = $"{(int)dur.TotalHours:00}:{dur.Minutes:00}";
-            TotalAbsentDaysComment = $"{DaysAbsentWithoutVac} / {DaysWork}";
+            TotalWorkingHoursComment = ($"{(int)dur.TotalHours:00}:{dur.Minutes:00} / {(int)sdur.TotalHours:00}:{sdur.Minutes:00}").Trim();
+            TotalWorkingHours = $"{(int)dur.TotalHours:00}:{dur.Minutes:00}" + " Hrs";
+            //TotalAbsentDaysComment = $"{DaysAbsentWithoutVac} / {DaysWork}";
+
+            TotalAbsentDaysComment = $"{DaysAbsentWithoutVac} / {30}";
+
+            TotalAbsentDays = DaysAbsentWithoutVac.ToString() + "  Days";
+
             TotalLateHoursComment = $"{(int)bl.TotalHours:00}:{bl.Minutes:00} / {(int)dur.TotalHours:00}:{dur.Minutes:00}";
-            TotalLateHours = $"{(int)bl.TotalHours:00}:{bl.Minutes:00}";
+            TotalLateHours = $"{(int)bl.TotalHours:00}:{bl.Minutes:00}" + " Hrs";
+          
+
         }
 
     }

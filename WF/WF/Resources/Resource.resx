@@ -616,4 +616,10 @@
   <data name="close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="loginscreen" xml:space="preserve">
+    <value>Login </value>
+  </data>
+  <data name="attendessystem" xml:space="preserve">
+    <value>Attendes System</value>
+  </data>
 </root>

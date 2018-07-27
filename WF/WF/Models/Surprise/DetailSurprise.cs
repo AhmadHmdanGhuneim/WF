@@ -21,9 +21,9 @@ namespace WF.Models.Surprise
 
         public bool InLocation { get; set; }
 
-        public string IsCheckedImg => IsChecked ? "Ok.png" : "Cancel.png";
+        public string IsCheckedImg => IsChecked ? "ok.png" : "cancel.png";
 
-        public string InLocationImg => InLocation ? "Ok.png" : "Cancel.png";
+        public string InLocationImg => InLocation ? "ok.png" : "cancel.png";
 
         // bindable rows 
         private Color _bgColor;
@@ -33,6 +33,15 @@ namespace WF.Models.Surprise
             get { return _bgColor; }
             set { SetProperty(ref _bgColor, value); }
         }
+
+        public int NumberPosition => IsLtrLang ? 0 : 3;
+        public int NamePosition => IsLtrLang ? 1 : 2;
+
+        public int CheckPosition => IsLtrLang ? 2 : 1;
+
+        public int InPosition => IsLtrLang ? 3 : 0;
+
+
 
     }
 }

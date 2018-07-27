@@ -127,7 +127,7 @@ namespace WF
         {
             // Handle when your app starts
             AppCenter.Start("android=5a27bb08-fef7-4f2b-a451-065b44d3d99e;" +"ios=0c27caf7-db52-4b8c-bd61-ce9b41f4fea7", typeof(Analytics), typeof(Crashes));
-          //  Analytics.SetEnabledAsync(true);
+            Analytics.SetEnabledAsync(false);
 
         }
 

@@ -57,12 +57,15 @@
                 <Label Grid.Row="0" Grid.Column="{Binding NumberPosition}" FontSize="Small" FontAttributes="Bold"
                                HorizontalOptions="Center"
                                Text="{extensions:Translate IdGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                
                 <Label Grid.Row="0" Grid.Column="{Binding NamePosition}" FontSize="Small" FontAttributes="Bold"
                               HorizontalOptions="Center"
                                Text="{extensions:Translate NameGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                
                 <Label Grid.Row="0" Grid.Column="{Binding CheckPosition}" FontSize="Small" FontAttributes="Bold"
                                HorizontalOptions="Center"
                                Text="{extensions:Translate CheckedGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                
                 <Label Grid.Row="0" Grid.Column="{Binding InPosition}" FontSize="Small" FontAttributes="Bold"
                                HorizontalOptions="Center"
                                Text="{extensions:Translate InLocationGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
@@ -85,26 +88,26 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0"
+                                <Label Grid.Column="{Binding NumberPosition}"
                                    FontSize="Small"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center"
                                    Text="{Binding EmpId}"></Label>
-                                <Label Grid.Column="1"
+                                <Label Grid.Column="{Binding NamePosition}"
                                    FontSize="Small"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center"
                                    Text="{Binding EmpName}"></Label>
-                                <Grid Column="2">
+                                <Grid Column="{Binding CheckPosition}">
                                     <Image VerticalOptions="Center"
                                            HorizontalOptions="Center"
                                            Source="{Binding IsCheckedImg}"
                                            HeightRequest="20"/>
                                 </Grid>
-                                <Grid Column="3">
+                                <Grid Column="{Binding InPosition}">
                                     <Image VerticalOptions="Center"
                                            HorizontalOptions="Center"
                                            Source="{Binding InLocationImg}"
@@ -112,33 +115,6 @@
                                 </Grid>
                             </Grid>
 
-
-                            <!--<Grid ColumnSpacing="5" VerticalOptions="Fill" BackgroundColor="{Binding BackgroundColor}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="**"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="{Binding Path=BindingContext.NumberPosition,Source={x:Reference ContentPage}}" FontSize="Small" VerticalOptions="Center"
-                                   HorizontalOptions="Center" Text="{Binding EmpId}"></Label>
-                                  
-                                    <Label Grid.Column="{Binding Path=BindingContext.NamePosition,Source={x:Reference ContentPage}}"
-                                      FontSize="Small" VerticalOptions="Center"
-                                   HorizontalOptions="Center"
-                                   Text="{Binding EmpName}"></Label>
-                                    <Grid Column="{Binding Path=BindingContext.CheckPosition,Source={x:Reference ContentPage}}">
-                                        <Image VerticalOptions="Center"
-                                           HorizontalOptions="Center"
-                                           Source="{Binding IsCheckedImg}"
-                                           HeightRequest="20"/>
-                                    </Grid>
-                                    <Grid Column="{Binding Path=BindingContext.InPosition,Source={x:Reference ContentPage}}">
-                                        <Image VerticalOptions="Center" HorizontalOptions="Center"
-                                           Source="{Binding InLocationImg}"
-                                           HeightRequest="20"/>
-                                    </Grid>
-                                </Grid>-->
                             </ViewCell>
                         </DataTemplate>
                     </local:CustomListViewRenderer.ItemTemplate>

@@ -10,9 +10,9 @@
 
 
 
-        <StackLayout Padding="10"  BackgroundColor="#d8d8d8">
+        <StackLayout Padding="10">
 
-            <StackLayout Padding="10" BindingContext="{Binding SelectSummary}" BackgroundColor="White" Margin="0,0,0,10">
+            <StackLayout  BindingContext="{Binding SelectSummary}" BackgroundColor="White" Margin="0,0,0,10">
                 <Grid ColumnSpacing="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -43,80 +43,77 @@
             </StackLayout>
 
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+            <StackLayout >
+                <Grid BackgroundColor="{StaticResource ButtonColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="{Binding DatePostion}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
-                           HorizontalOptions="Center" Text="{extensions:Translate DateGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="{Binding RequsetPostion}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
-                           HorizontalOptions="Center" Text="{extensions:Translate RetGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                    <Label Grid.Row="0" Grid.Column="{Binding DatePostion}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
+                           HorizontalTextAlignment="Center" Text="{extensions:Translate DateGridTitle}" TextColor="{StaticResource TextColor}"></Label>
 
-                <Label Grid.Row="0" Grid.Column="{Binding TypePosition}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
-                           HorizontalOptions="Center" Text="{extensions:Translate TypeGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                    <Label Grid.Row="0" Grid.Column="{Binding RequsetPostion}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
+                           HorizontalTextAlignment="Center" Text="{extensions:Translate RetGridTitle}" TextColor="{StaticResource TextColor}"></Label>
 
-                <Label Grid.Row="0" Grid.Column="{Binding StatusPosition}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
-                           HorizontalOptions="Center" Text="{extensions:Translate StatusGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                    <Label Grid.Row="0" Grid.Column="{Binding TypePosition}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
+                           HorizontalTextAlignment="Center" Text="{extensions:Translate TypeGridTitle}" TextColor="{StaticResource TextColor}"></Label>
 
-            </Grid>
-            
-            
-            <StackLayout VerticalOptions="FillAndExpand">
+                    <Label Grid.Row="0" Grid.Column="{Binding StatusPosition}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
+                           HorizontalTextAlignment="Center" Text="{extensions:Translate StatusGridTitle}" TextColor="{StaticResource TextColor}"></Label>
 
-
-                <local:CustomListViewRenderer HasUnevenRows="True" ItemsSource="{Binding Requests}"
+                </Grid>
+                <StackLayout VerticalOptions="FillAndExpand">
+                    <local:CustomListViewRenderer HasUnevenRows="True" ItemsSource="{Binding Requests}"
                           SeparatorVisibility="None" ItemSelected="ListView_OnItemSelected">
-                    <local:CustomListViewRenderer.Header>
-                        <StackLayout HeightRequest="1"></StackLayout>
-                    </local:CustomListViewRenderer.Header>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
+                        <local:CustomListViewRenderer.Header>
+                            <StackLayout HeightRequest="1"></StackLayout>
+                        </local:CustomListViewRenderer.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
 
-                                <Grid ColumnSpacing="5" VerticalOptions="Fill"  Margin="0,0,0,6" BackgroundColor="White">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
+                                    <Grid ColumnSpacing="5" VerticalOptions="Fill"  Margin="0,0,0,6" BackgroundColor="White">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="1" Grid.Column="{Binding DatePostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                                    Text="{Binding DateComment}" HorizontalTextAlignment="Center"></Label>
+                                        <Label Grid.Row="1" Grid.Column="{Binding RequsetPostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                               Text="{Binding RetId}" HorizontalTextAlignment="Center"></Label>
+                                        <Label Grid.Row="1" Grid.Column="{Binding TypePosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                               Text="{Binding RequestType.Name}" HorizontalTextAlignment="Center"></Label>
+                                        <Label Grid.Row="1" Grid.Column="{Binding StatusPosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                               Text="{Binding StatusComment}" HorizontalTextAlignment="Center"></Label>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <local:CustomListViewRenderer.Footer>
+                            <StackLayout HeightRequest="1"></StackLayout>
+                        </local:CustomListViewRenderer.Footer>
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                    </local:CustomListViewRenderer>
 
-                                 
-
-                                    <Label Grid.Row="1" Grid.Column="{Binding DatePostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
-                               Text="{Binding DateComment}"></Label>
-                                    <Label Grid.Row="1" Grid.Column="{Binding RequsetPostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
-                               Text="{Binding RetId}"></Label>
-                                    <Label Grid.Row="1" Grid.Column="{Binding TypePosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
-                               Text="{Binding RequestType.Name}"></Label>
-                                    <Label Grid.Row="1" Grid.Column="{Binding StatusPosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
-                               Text="{Binding StatusComment}"></Label>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <local:CustomListViewRenderer.Footer>
-                        <StackLayout HeightRequest="1"></StackLayout>
-                    </local:CustomListViewRenderer.Footer>
-
-                </local:CustomListViewRenderer>
+                </StackLayout>
 
             </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

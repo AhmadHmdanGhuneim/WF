@@ -1,10 +1,11 @@
 ﻿
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 
 using Android.Support.V4.Content;
-
+using Android.Text;
 using WF.CustomeControl;
 using WF.Droid.CustomeControl;
 using Xamarin.Forms;
@@ -28,6 +29,8 @@ namespace WF.Droid.CustomeControl
             if (e.OldElement != null || e.NewElement == null)
                 return;
 
+            
+
             element = (ImageEntry)this.Element;
 
 
@@ -46,6 +49,16 @@ namespace WF.Droid.CustomeControl
             }
             editText.CompoundDrawablePadding = 25;
             Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcAtop);
+            GradientDrawable gd = new GradientDrawable();
+
+            //Below line is useful to give border color
+            gd.SetColor(global::Android.Graphics.Color.WhiteSmoke);
+
+            //gd.SetColor(Android.Resource.Color.FromHex("#e6e2e2d9"));
+
+            Control.SetBackgroundDrawable(gd);
+            Control.SetRawInputType(InputTypes.TextFlagNoSuggestions);
+            Control.SetHintTextColor(ColorStateList.ValueOf(global::Android.Graphics.Color.White));
         }
 
         private BitmapDrawable GetDrawable(string imageEntryImage)

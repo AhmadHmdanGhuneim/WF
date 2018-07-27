@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WF.ViewModels.Results;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XFShapeView;
 
 namespace WF.Views.Results
 {
@@ -18,7 +19,7 @@ namespace WF.Views.Results
 		{
 			InitializeComponent ();
             BindingContext = viewModel;
-
+            
             var model = BindingContext as DashboardResultViewModel;
             if (model != null)
                 SetPlotView();

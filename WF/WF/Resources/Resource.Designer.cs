@@ -124,6 +124,15 @@ namespace WF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attendes System.
+        /// </summary>
+        internal static string attendessystem {
+            get {
+                return ResourceManager.GetString("attendessystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login or password is incorrect.
         /// </summary>
         internal static string AuthFailMsg {
@@ -615,6 +624,15 @@ namespace WF.Resources {
         internal static string LoginPlaceholder {
             get {
                 return ResourceManager.GetString("LoginPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login .
+        /// </summary>
+        internal static string loginscreen {
+            get {
+                return ResourceManager.GetString("loginscreen", resourceCulture);
             }
         }
         

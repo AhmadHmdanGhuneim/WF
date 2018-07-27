@@ -424,6 +424,7 @@ namespace WF.ViewModels.Details
                         selectSummary.Year = SelectedYear.ToString();
 
                         OperationResult<CommonSummary> operationResult = res;
+
                         NavigationService.SetDetailPage(new DashboardResultViewModel(selectSummary, operationResult), SelectedMenuOptions.None, "");
                     }
                 }

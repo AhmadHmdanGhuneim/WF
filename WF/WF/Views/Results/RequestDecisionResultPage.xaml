@@ -38,7 +38,7 @@
                 </Grid>
             </StackLayout>
 
-            <Grid>
+            <Grid BackgroundColor="{StaticResource ButtonColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -52,15 +52,15 @@
 
                 <Label Grid.Row="0" Grid.Column="{Binding UserPostion}" FontSize="Small" FontAttributes="Bold"
                                     VerticalOptions="Center" HorizontalOptions="Center"
-                                    Text="{extensions:Translate UserGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                                    Text="{extensions:Translate UserGridTitle}" TextColor="{StaticResource TextColor}"></Label>
 
                 <Label Grid.Row="0" Grid.Column="{Binding DatePostion}" FontSize="Small" FontAttributes="Bold"
                                VerticalOptions="Center" HorizontalOptions="Center"
-                               Text="{extensions:Translate DateGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                               Text="{extensions:Translate DateGridTitle}" TextColor="{StaticResource TextColor}"></Label>
 
                 <Label Grid.Row="0" Grid.Column="{Binding InfoPosition}" FontSize="Small" FontAttributes="Bold"
                                VerticalOptions="Center" HorizontalOptions="Center"
-                               Text="{extensions:Translate InfoGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                               Text="{extensions:Translate InfoGridTitle}" TextColor="{StaticResource TextColor}"></Label>
             </Grid>
 
 

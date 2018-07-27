@@ -4,29 +4,43 @@
              x:Class="WF.Views.Auth.LoginPage"
              xmlns:ext="clr-namespace:WF.Extensions;assembly=WF"
              xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
-             Title="WorkForce">
+             Title="WorkForce"
+             NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Content>
 
         <ScrollView>
-            <StackLayout x:Name="MainStackLayout" Padding="10">
+            <StackLayout x:Name="MainStackLayout" Padding="10,20,10,10" BackgroundColor="White">
+               
                 <Image VerticalOptions="Center" HorizontalOptions="Center" Source="Logo.png"
-                       HeightRequest="100" />
+                       HeightRequest="100" Margin="0,0,0,10" />
+
+
+                <Label Text="{ext:Translate loginscreen}" FontSize="Large"  TextColor="#d98c80" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
+                    
+                </Label>
+
+
+                <Label Text="{ext:Translate attendessystem}" FontSize="Large" TextColor="#eebf3f" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" Margin="0,0,0,15">
+                    
+                </Label>
+
+
+
 
                 <local:ImageEntry x:Name="UserNameEntry" Placeholder="{ext:Translate LoginPlaceholder}"
                 HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Login}"
-                                  Image="Ok"/>
+                                  Image="langauge" ImageAlignment="{Binding ImagePosition}" />
 
-                <!--<Entry x:Name="UserNameEntry" Placeholder="{ext:Translate LoginPlaceholder}"
-                    HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Login}"
-                   HorizontalOptions="FillAndExpand"/>-->
-                <Entry x:Name="PasswordEntry" Placeholder="{ext:Translate PasswordPlaceholder}"
-                   HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Password}"
-                   HorizontalOptions="FillAndExpand" IsPassword="True"/>
 
-                <Button BorderColor="Black" BackgroundColor="{StaticResource ButtonColor}"
+                <local:ImageEntry x:Name="PasswordEntry" Placeholder="{ext:Translate PasswordPlaceholder}"
+                HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Password}"
+                                  Image="langauge" ImageAlignment="{Binding ImagePosition}" IsPassword="True"/>
+
+
+                <Button BackgroundColor="{StaticResource ButtonColor}"
                             Text="{ext:Translate LoginButtonTitle}" FontSize="Medium" TextColor="{StaticResource TextColor}"
-                            HorizontalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand" 
                             Command="{Binding AuthCommand}" />
                 
                 <Image  Source="Fingerprint.png" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding VisibleFingerprint}" HeightRequest="60">

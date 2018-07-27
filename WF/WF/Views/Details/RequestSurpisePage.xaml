@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:extensions="clr-namespace:WF.Extensions;assembly=WF"
              x:Class="WF.Views.Details.RequestSurpisePage"
-               xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
+             xmlns:local="clr-namespace:WF.CustomeControl;assembly=WF"
              x:Name="ContentPage"
              Title="{extensions:Translate RequestSurpriseTitle}">
 

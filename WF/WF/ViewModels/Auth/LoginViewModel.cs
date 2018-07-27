@@ -16,6 +16,7 @@ using WF.Views.Popups;
 using Rg.Plugins.Popup.Extensions;
 using static WF.Functions.GeneralFunctions;
 using Microsoft.AppCenter.Crashes;
+using WF.CustomeControl;
 
 namespace WF.ViewModels.Auth
 {
@@ -28,22 +29,11 @@ namespace WF.ViewModels.Auth
         private User _user;
 
         private IFingerprint _fingerprint = DependencyService.Get<IFingerprint>();
+        public ImageAlignment ImagePosition => IsLtrLang ? ImageAlignment.Left : ImageAlignment.Right;
 
-        private bool _visibleButton;
 
-        public bool VisibleButton
-        {
-            get { return _visibleButton; }
-            set { SetProperty(ref _visibleButton, value); }
-        }
 
-        private bool _visibleIndicator;
 
-        public bool VisibleIndicator
-        {
-            get { return _visibleIndicator; }
-            set { SetProperty(ref _visibleIndicator, value); }
-        }
 
         private string _login;
 

@@ -48,7 +48,7 @@ namespace WF.iOS.CustomeControl
                 BorderWidth = 2.0f,
                 BorderColor = element.LineColor.ToCGColor()
             };
-
+            Control.TintColor = UIColor.Red;
             textField.Layer.AddSublayer(bottomBorder);
             textField.Layer.MasksToBounds = true;
         }
