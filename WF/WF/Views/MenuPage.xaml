@@ -32,10 +32,25 @@
                 <Image  Grid.RowSpan="2"  Grid.Column="{Binding StartSpan}" Source="user.png"  />
                 <Label  Grid.Row="0" Text="{ext:Translate WelcomeText}" Grid.Column="{Binding EndSpan}" VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="#009ad7" FontSize="Small" FontAttributes="Bold"
                                        HorizontalOptions="Fill" 
-                                       HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                                       HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
                 <Label Grid.Row="1" Text="{Binding WelcomeText}" Grid.Column="{Binding EndSpan}" VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="{StaticResource TextColor}" FontSize="Small" FontAttributes="Bold"
                                        HorizontalOptions="Fill" 
-                                       HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                                       HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
             </Grid>
             <!--</ViewCell>
                     </DataTemplate>
@@ -61,7 +76,7 @@
                                     <ColumnDefinition Width="{Binding StartGridLength}" />
                                     <ColumnDefinition Width="{Binding EndGridLength}" />
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Column="{Binding StartSpan}" Source="{Binding Icon}" />
+                                <Image Grid.Column="{Binding StartSpan}" Source="{Binding Icon}" VerticalOptions="Center" />
                                 <Label Grid.Column="{Binding EndSpan}"
                                            Text="{Binding Title}"
                                            VerticalTextAlignment="Center"
@@ -69,20 +84,20 @@
                                            TextColor="{StaticResource TextColor}"
                                            HorizontalOptions="{Binding TextAligment}"
                                            HorizontalTextAlignment="{Binding TextAligment}" >
+
                                     <!--<Label.FontFamily>
-                                        <OnPlatform x:TypeArguments="x:String">
+                                            <OnPlatform x:TypeArguments="x:String">
                                             <On Platform ="iOS">Cairo</On>
                                             <On Platform="Android">Cairo-Regular.ttf#Cairo</On>
                                         </OnPlatform>
                                     </Label.FontFamily>-->
-
+                                  
                                     <Label.FontFamily>
-                                        <OnPlatform x:TypeArguments="x:String">
+                                            <OnPlatform x:TypeArguments="x:String">
                                             <On Platform="iOS">Cairo</On>
                                             <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
                                         </OnPlatform>
                                     </Label.FontFamily>
-
                                 </Label>
                             </Grid>
                         </ViewCell>

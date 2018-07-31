@@ -30,7 +30,14 @@
                         <Label FontSize="Small" IsVisible="{Binding IsManager}"
                            Text="{extensions:Translate EmployeeLabel}"
                            HorizontalOptions="{Binding TextAligment}"
-                           HorizontalTextAlignment="{Binding TextAligment}"/>
+                           HorizontalTextAlignment="{Binding TextAligment}">
+                            <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
 
 
                         <extensions:BindablePicker  IsVisible="{Binding IsManager}"
@@ -49,13 +56,27 @@
                             <Label FontSize="Small" Grid.Row="0" Grid.Column="0"
                                Text="{extensions:Translate ShiftText}"
                                    HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
+                               HorizontalTextAlignment="{Binding TextAligment}">
+                                <Label.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS">Cairo</On>
+                                        <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                    </OnPlatform>
+                                </Label.FontFamily>
+                            </Label>
 
                             <Label FontSize="Small"
                                      Grid.Row="0" Grid.Column="1"
                                      Text="{extensions:Translate DateLabel}"
                                    HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
+                               HorizontalTextAlignment="{Binding TextAligment}">
+                                <Label.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS">Cairo</On>
+                                        <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                    </OnPlatform>
+                                </Label.FontFamily>
+                            </Label>
 
                             <extensions:BindablePicker
                                 Grid.Row="1" Grid.Column="0"
@@ -70,7 +91,15 @@
 
 
                         <Button Text="{extensions:Translate ShowButton}" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource ButtonColor}"
-                                Command="{Binding ShowCommand}" TextColor="{StaticResource TextColor}" />
+                                Command="{Binding ShowCommand}" TextColor="{StaticResource TextColor}" >
+
+                            <Button.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Button.FontFamily>
+                        </Button>
 
 
                     </StackLayout>
@@ -106,14 +135,30 @@
                            VerticalOptions="Center"
                            Text="{extensions:Translate ShiftText}"
                            TextColor="#fa513a"
-                           HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                            <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
 
                         <Label Grid.Column="{Binding FirstWordPosition}" Grid.Row="1"
                            VerticalOptions="Center"
                            FontSize="Small"
                            Text="{Binding Summary.ShiftId}"
                            TextColor="{StaticResource TextColor}"
-                           HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                           HorizontalTextAlignment="{Binding HorizontalTextAligment}" >
+
+                            <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+
+                        </Label>
 
                         <!--End shift
                         Status-->
@@ -124,7 +169,15 @@
                            VerticalOptions="Center"
                            TextColor="#40ecb2"
                            Text="{extensions:Translate StatusText}"
-                           HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+
+                            <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
 
                         <Label Grid.Column="{Binding FirstWordPosition}" Grid.Row="3"
                            VerticalOptions="Center"

@@ -16,7 +16,9 @@ namespace WF.Views.Details
         public LanguagePage()
         {
             InitializeComponent();
-            LanguageViewModel languageViewModel = new LanguageViewModel();
+            Title = WF.Resources.Resource.language;
+                
+                LanguageViewModel languageViewModel = new LanguageViewModel();
             ObservableCollection<LanguageViewModel> languageViewModelsList = languageViewModel.FillLanguageMenu();
             LanuguageListView.ItemsSource = languageViewModelsList;
 

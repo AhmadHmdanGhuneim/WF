@@ -27,12 +27,26 @@
                            FontSize="Medium"
                            VerticalOptions="Center"
                            Text="{extensions:Translate ReqIdText}" 
-                           HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="0"
                            VerticalOptions="Center"
                            Text="{Binding Request.Id}" 
-                           HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
 
@@ -41,11 +55,25 @@
                            FontAttributes="Bold"
                            FontSize="Medium"
                            VerticalOptions="Center"
-                           Text="{extensions:Translate UserText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{extensions:Translate UserText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="1"
                            VerticalOptions="Center"
-                           Text="{Binding Request.EmpLogin}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{Binding Request.EmpLogin}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
 
@@ -53,12 +81,26 @@
                            FontAttributes="Bold"
                            FontSize="Medium"
                            VerticalOptions="Center"
-                           Text="{extensions:Translate EmpIdText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{extensions:Translate EmpIdText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="2"
                            VerticalOptions="Center"
-                           Text="{Binding Request.EmpId}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{Binding Request.EmpId}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
 
@@ -66,32 +108,74 @@
                            FontAttributes="Bold"
                            FontSize="Medium"
                            VerticalOptions="Center"
-                           Text="{extensions:Translate RetIdText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{extensions:Translate RetIdText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="3"
                            VerticalOptions="Center"
-                           Text="{Binding Request.RetStr}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{Binding Request.RetStr}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
                     <Label Grid.Column="{Binding StartSpan}" Grid.Row="4"
                            FontAttributes="Bold"
                            FontSize="Medium"
                            VerticalOptions="Center"
-                           Text="{extensions:Translate TypeText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                           Text="{extensions:Translate TypeText}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" >
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="4"
                            VerticalOptions="Center"
-                           Text="{Binding Request.RequestType.Name}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{Binding Request.RequestType.Name}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding StartSpan}" Grid.Row="5"
                            FontAttributes="Bold"
                            FontSize="Medium"
                            VerticalOptions="Center"
-                           Text="{extensions:Translate ReasonLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                           Text="{extensions:Translate ReasonLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" >
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="5"
                            VerticalOptions="Center"
-                           Text="{Binding Request.Reason}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                           Text="{Binding Request.Reason}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" >
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
                 </Grid>
                 <Grid IsVisible="{Binding IsExc}">
                     <Grid.ColumnDefinitions>
@@ -106,25 +190,67 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Column="{Binding StartSpan}" Grid.Row="0"
                            FontAttributes="Bold" FontSize="Medium"       
-                           VerticalOptions="Center" Text="{extensions:Translate DateLabel}"/>
+                           VerticalOptions="Center" Text="{extensions:Translate DateLabel}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="0"
-                           VerticalOptions="Center" Text="{Binding Request.DateFromComment}"/>
+                           VerticalOptions="Center" Text="{Binding Request.DateFromComment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
                     <Label Grid.Column="{Binding StartSpan}" Grid.Row="1"
                            FontAttributes="Bold" FontSize="Medium"
-                           VerticalOptions="Center" Text="{extensions:Translate TimeFromLabel}"/>
+                           VerticalOptions="Center" Text="{extensions:Translate TimeFromLabel}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="1"
-                           VerticalOptions="Center" Text="{Binding Request.TimeFromComment}"/>
+                           VerticalOptions="Center" Text="{Binding Request.TimeFromComment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding StartSpan}" Grid.Row="2"
                            FontAttributes="Bold" FontSize="Medium" VerticalOptions="Center"
-                           Text="{extensions:Translate TimeToLabel}"/>
+                           Text="{extensions:Translate TimeToLabel}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="2"
-                           VerticalOptions="Center" Text="{Binding Request.TimeToComment}"/>
+                           VerticalOptions="Center" Text="{Binding Request.TimeToComment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
                 </Grid>
                 <Grid IsVisible="{Binding IsVac}">
                     <Grid.ColumnDefinitions>
@@ -141,25 +267,60 @@
                            FontSize="Medium"
                            VerticalOptions="Center"
                            Text="{extensions:Translate DateFromLabel}" 
-                             HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                             HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="0"
                            VerticalOptions="Center"
-                           Text="{Binding Request.DateFromComment}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{Binding Request.DateFromComment}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
                     <Label Grid.Column="{Binding StartSpan}" Grid.Row="1"
                            FontAttributes="Bold"
                            FontSize="Medium"
                            VerticalOptions="Center"
-                           Text="{extensions:Translate DateToLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{extensions:Translate DateToLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
                     <Label Grid.Column="{Binding EndSpan}" Grid.Row="1"
                            VerticalOptions="Center"
-                           Text="{Binding Request.DateToComment}"   HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                           Text="{Binding Request.DateToComment}"   HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
                 </Grid>
-                <Button Text="{extensions:Translate Back}" Command="{Binding BackCommand}" BackgroundColor="{StaticResource ButtonColor}" TextColor="{StaticResource TextColor}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="{extensions:Translate Back}" Command="{Binding BackCommand}" BackgroundColor="{StaticResource ButtonColor}" TextColor="{StaticResource TextColor}" HorizontalOptions="FillAndExpand">
+                    <Button.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
             </StackLayout>
         </ScrollView>
     </Frame>

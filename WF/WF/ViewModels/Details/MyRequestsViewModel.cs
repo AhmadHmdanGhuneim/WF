@@ -232,6 +232,7 @@ namespace WF.ViewModels.Details
                         {
                             req.BackgroundColor = i++ % 2 == 0 ? FirstColor : SecondColor;
                             req.Calculate();
+                            req.StatusImage = req.StatusComment.ToLower() + ".png";
                             Requests.Add(req);
                         }
                         NavigationService.SetDetailPage(new MyRequestResultViewModel(Requests, selectSummary), SelectedMenuOptions.None, "");

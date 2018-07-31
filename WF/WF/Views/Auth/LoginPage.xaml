@@ -17,12 +17,22 @@
 
 
                 <Label Text="{ext:Translate loginscreen}" FontSize="Large"  TextColor="#d98c80" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center">
-                    
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
                 </Label>
 
 
                 <Label Text="{ext:Translate attendessystem}" FontSize="Large" TextColor="#eebf3f" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" Margin="0,0,0,15">
-                    
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
                 </Label>
 
 
@@ -30,19 +40,27 @@
 
                 <local:ImageEntry x:Name="UserNameEntry" Placeholder="{ext:Translate LoginPlaceholder}"
                 HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Login}"
-                                  Image="langauge" ImageAlignment="{Binding ImagePosition}" />
+                                  Image="loginuser" ImageAlignment="{Binding ImagePosition}" />
 
 
                 <local:ImageEntry x:Name="PasswordEntry" Placeholder="{ext:Translate PasswordPlaceholder}"
                 HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Password}"
-                                  Image="langauge" ImageAlignment="{Binding ImagePosition}" IsPassword="True"/>
+                                  Image="loginpassword" ImageAlignment="{Binding ImagePosition}" IsPassword="True"/>
 
 
                 <Button BackgroundColor="{StaticResource ButtonColor}"
                             Text="{ext:Translate LoginButtonTitle}" FontSize="Medium" TextColor="{StaticResource TextColor}"
                             HorizontalOptions="FillAndExpand" 
-                            Command="{Binding AuthCommand}" />
-                
+                            Command="{Binding AuthCommand}">
+                    <Button.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Button.FontFamily>
+
+                </Button>
+
                 <Image  Source="Fingerprint.png" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding VisibleFingerprint}" HeightRequest="60">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding FingerprintAuthCommand}"></TapGestureRecognizer>

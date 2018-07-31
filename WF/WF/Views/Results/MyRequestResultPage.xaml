@@ -26,17 +26,73 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <!--HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="{Binding TextAligment}"-->
-                    <Label  Grid.Row="0" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate StatusLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
-                    <Label  Grid.Row="0" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding RequetStatus}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="0" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate StatusLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label  Grid.Row="0" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding RequetStatus}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
-                    <Label  Grid.Row="1" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate RequestTypeLable}"  HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
-                    <Label  Grid.Row="1" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding ReqestType}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
+                    <Label  Grid.Row="1" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate RequestTypeLable}"  HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label  Grid.Row="1" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding ReqestType}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" >
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
-                    <Label  Grid.Row="2" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate DateFromLabel}"  HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
-                    <Label  Grid.Row="2" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding FromDate}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="2" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate DateFromLabel}"  HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label  Grid.Row="2" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding FromDate}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
-                    <Label  Grid.Row="3" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate DateToLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" />
-                    <Label  Grid.Row="3" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding ToDate}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"/>
+                    <Label  Grid.Row="3" Grid.Column="{Binding StartSpan}" FontSize="Small" Text="{extensions:Translate DateToLabel}" HorizontalTextAlignment="{Binding HorizontalTextAligment}" >
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label  Grid.Row="3" Grid.Column="{Binding EndSpan}" FontSize="Small" Text="{Binding ToDate}" HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
                 </Grid>
@@ -55,25 +111,46 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <!--<ColumnDefinition Width="*"></ColumnDefinition>-->
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="{Binding DatePostion}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
-                           HorizontalTextAlignment="Center" Text="{extensions:Translate DateGridTitle}" TextColor="{StaticResource TextColor}"></Label>
+                           HorizontalTextAlignment="Center" Text="{extensions:Translate DateGridTitle}" TextColor="{StaticResource TextColor}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
-                    <Label Grid.Row="0" Grid.Column="{Binding RequsetPostion}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
-                           HorizontalTextAlignment="Center" Text="{extensions:Translate RetGridTitle}" TextColor="{StaticResource TextColor}"></Label>
+                    <!--<Label Grid.Row="0" Grid.Column="{Binding RequsetPostion}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
+                           HorizontalTextAlignment="Center" Text="{extensions:Translate RetGridTitle}" TextColor="{StaticResource TextColor}"></Label>-->
 
                     <Label Grid.Row="0" Grid.Column="{Binding TypePosition}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
-                           HorizontalTextAlignment="Center" Text="{extensions:Translate TypeGridTitle}" TextColor="{StaticResource TextColor}"></Label>
+                           HorizontalTextAlignment="Center" Text="{extensions:Translate TypeGridTitle}" TextColor="{StaticResource TextColor}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label Grid.Row="0" Grid.Column="{Binding StatusPosition}" FontSize="Small" FontAttributes="Bold" VerticalOptions="Center"
-                           HorizontalTextAlignment="Center" Text="{extensions:Translate StatusGridTitle}" TextColor="{StaticResource TextColor}"></Label>
+                           HorizontalTextAlignment="Center" Text="{extensions:Translate StatusGridTitle}" TextColor="{StaticResource TextColor}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                 </Grid>
-                <StackLayout VerticalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="White">
                     <local:CustomListViewRenderer HasUnevenRows="True" ItemsSource="{Binding Requests}"
-                          SeparatorVisibility="None" ItemSelected="ListView_OnItemSelected">
+                          SeparatorVisibility="None" ItemSelected="ListView_OnItemSelected" BackgroundColor="#d8d8d8">
                         <local:CustomListViewRenderer.Header>
                             <StackLayout HeightRequest="1"></StackLayout>
                         </local:CustomListViewRenderer.Header>
@@ -81,25 +158,61 @@
                             <DataTemplate>
                                 <ViewCell>
 
-                                    <Grid ColumnSpacing="5" VerticalOptions="Fill"  Margin="0,0,0,6" BackgroundColor="White">
+                                    <Grid  VerticalOptions="Fill" Margin="0,0,0,6">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
+                                            <!--<RowDefinition Height="Auto"/>-->
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="1" Grid.Column="{Binding DatePostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
-                                    Text="{Binding DateComment}" HorizontalTextAlignment="Center"></Label>
-                                        <Label Grid.Row="1" Grid.Column="{Binding RequsetPostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
-                               Text="{Binding RetId}" HorizontalTextAlignment="Center"></Label>
-                                        <Label Grid.Row="1" Grid.Column="{Binding TypePosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
-                               Text="{Binding RequestType.Name}" HorizontalTextAlignment="Center"></Label>
-                                        <Label Grid.Row="1" Grid.Column="{Binding StatusPosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
-                               Text="{Binding StatusComment}" HorizontalTextAlignment="Center"></Label>
+                                        <Label Grid.Row="0" Grid.Column="{Binding DatePostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
+                                               Text="{Binding DateComment}" HorizontalTextAlignment="Center">
+                                            <Label.FontFamily>
+                                                  <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS">Cairo</On>
+                                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                                </OnPlatform>
+                                            </Label.FontFamily>
+                                        </Label>
+
+                                        <!--<Label Grid.Row="1" Grid.Column="{Binding RequsetPostion}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                               Text="{Binding RetId}" HorizontalTextAlignment="Center"></Label>-->
+
+                                        <Label Grid.Row="0" Grid.Column="{Binding TypePosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="Center"
+                                               Text="{Binding RequestType.Name}" HorizontalTextAlignment="Center">
+                                            <Label.FontFamily>
+                                                    <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS">Cairo</On>
+                                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                                </OnPlatform>
+                                            </Label.FontFamily>
+                                        </Label>
+
+
+                                        <Grid Grid.Row="0" Column="{Binding StatusPosition}" HorizontalOptions="Center">
+                                          
+                                            <Image VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                           Source="{Binding StatusImage}"
+                                           HeightRequest="20"/>
+                                        </Grid>
+
+
+                                        <!--<Label Grid.Row="1" Grid.Column="{Binding StatusPosition}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                                          Text="{Binding StatusComment}" HorizontalTextAlignment="Center">
+                                            <Label.FontFamily>
+                                                <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS">Cairo</On>
+                                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                                </OnPlatform>
+                                            </Label.FontFamily>
+                                        </Label>-->
+
+
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

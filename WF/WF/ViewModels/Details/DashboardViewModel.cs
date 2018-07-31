@@ -257,87 +257,131 @@ namespace WF.ViewModels.Details
 
         private async Task FillDepartments()
         {
-            CancellAll();
-            DepartmentsPikerTitle = Resource.DownloadingText;
-            bool IsArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-            var res = await _factory.GetDepartments(GeneralFunctions.GetToken(), _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                SelectedDepartment = null;
-                SelectedEmployee = null;
-                Departments.Clear();
-                Employees.Clear();
-                foreach (var department in res.Data)
+
+
+                CancellAll();
+                DepartmentsPikerTitle = Resource.DownloadingText;
+                bool IsArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
+                var res = await _factory.GetDepartments(GeneralFunctions.GetToken(), _cancellationToken.Token);
+                if (res != null)
                 {
-                    department.Name = department.NameAr;
-                    if (!IsArabic)
+
+                    if (res.ResultCode == ResultCode.Success)
                     {
-                        department.Name = department.NameEn;
-                    }
-                    if (!string.IsNullOrEmpty(department.Name))
-                    {
-                        Departments.Add(department);
+                        SelectedDepartment = null;
+                        SelectedEmployee = null;
+                        Departments.Clear();
+                        Employees.Clear();
+                        foreach (var department in res.Data)
+                        {
+                            department.Name = department.NameAr;
+                            if (!IsArabic)
+                            {
+                                department.Name = department.NameEn;
+                            }
+                            if (!string.IsNullOrEmpty(department.Name))
+                            {
+                                Departments.Add(department);
+                            }
+
+                        }
                     }
 
                 }
+                DepartmentsPikerTitle = Resource.DepartmentTitle;
             }
-            DepartmentsPikerTitle = Resource.DepartmentTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "FillDepartmetinDashboard");
+            }
         }
 
         private async Task FillEmployees()
         {
-            CancellAll();
-            EmployeePikerTitle = Resource.DownloadingText;
-            bool IsArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
-            var res = await _factory.GetEmployeesForDepartment(GeneralFunctions.GetToken(), SelectedDepartment.Id, _cancellationToken.Token);
-            if (res.ResultCode == ResultCode.Success)
+            try
             {
-                SelectedEmployee = null;
-                Employees.Clear();
-                foreach (var emp in res.Data)
-                {
-                    emp.Name = emp.NameAr;
-                    if (!IsArabic)
-                    {
-                        emp.Name = emp.NameEn;
-                    }
-                    if (!string.IsNullOrEmpty(emp.Name))
-                    {
-                        Employees.Add(emp);
-                    }
 
+                CancellAll();
+                EmployeePikerTitle = Resource.DownloadingText;
+                bool IsArabic = GeneralFunctions.GetLanguage().Contains(GeneralFunctions.Language.ar.ToString());
+                var res = await _factory.GetEmployeesForDepartment(GeneralFunctions.GetToken(), SelectedDepartment.Id, _cancellationToken.Token);
+                if (res != null)
+                {
+                    if (res.ResultCode == ResultCode.Success)
+                    {
+                        SelectedEmployee = null;
+                        Employees.Clear();
+                        foreach (var emp in res.Data)
+                        {
+                            emp.Name = emp.NameAr;
+                            if (!IsArabic)
+                            {
+                                emp.Name = emp.NameEn;
+                            }
+                            if (!string.IsNullOrEmpty(emp.Name))
+                            {
+                                Employees.Add(emp);
+                            }
+
+                        }
+                    }
                 }
+                EmployeePikerTitle = Resource.EmployeeTitle;
+
             }
-            EmployeePikerTitle = Resource.EmployeeTitle;
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "FillEmployeeinDashboard");
+            }
         }
 
         private async void Refresh()
         {
-            CancellAll();
-            IsRefreshBusy = true;
-            if (IsManager && Departments.Count == 0)
+            try
             {
-                await FillDepartments();
-            }
-            else if (IsManager && SelectedDepartment != null && Employees.Count == 0)
-            {
-                await FillEmployees();
-            }
-            else if (IsManager && SelectedEmployee != null || !IsManager)
-            {
-                await ShowCharts();
-            }
 
-            StopRefresh();
+                CancellAll();
+                IsRefreshBusy = true;
+                if (IsManager && Departments.Count == 0)
+                {
+                    await FillDepartments();
+                }
+                else if (IsManager && SelectedDepartment != null && Employees.Count == 0)
+                {
+                    await FillEmployees();
+                }
+                else if (IsManager && SelectedEmployee != null || !IsManager)
+                {
+                    await ShowCharts();
+                }
+
+                StopRefresh();
+
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "RefreshinDashboard");
+            }
         }
 
         private void StopRefresh()
         {
-            Task.Run(async delegate
+            try
             {
-                await Task.Delay(300);
-                IsRefreshBusy = false;
-            });
+
+
+                Task.Run(async delegate
+                {
+                    await Task.Delay(300);
+                    IsRefreshBusy = false;
+                });
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "StopRefresh");
+            }
         }
 
         private void Show()
@@ -408,24 +452,29 @@ namespace WF.ViewModels.Details
                         res = await _factory.MonthSummaryForEmployee(_user.Token, SelectedEmployee.Id, startTicks, endTicks, _cancellationToken.Token);
                 }
                 IsIndicatorVisible = false;
-                if (res.ResultCode == ResultCode.Success)
+                if (res != null)
                 {
-                    if (res.Data == null)
-                    {
-                        IsNoDataMsgVisible = true;
-                        IsChartsVisible = false;
-                    }
-                    else
-                    {
-                        SelectSummary selectSummary = new SelectSummary();
-                        selectSummary.Department = SelectedDepartment.Name;
-                        selectSummary.Employee = SelectedEmployee.Name;
-                        selectSummary.Month = SelectedMonth.Value;
-                        selectSummary.Year = SelectedYear.ToString();
 
-                        OperationResult<CommonSummary> operationResult = res;
 
-                        NavigationService.SetDetailPage(new DashboardResultViewModel(selectSummary, operationResult), SelectedMenuOptions.None, "");
+                    if (res.ResultCode == ResultCode.Success)
+                    {
+                        if (res.Data == null)
+                        {
+                            IsNoDataMsgVisible = true;
+                            IsChartsVisible = false;
+                        }
+                        else
+                        {
+                            SelectSummary selectSummary = new SelectSummary();
+                            selectSummary.Department = SelectedDepartment.Name;
+                            selectSummary.Employee = SelectedEmployee.Name;
+                            selectSummary.Month = SelectedMonth.Value;
+                            selectSummary.Year = SelectedYear.ToString();
+
+                            OperationResult<CommonSummary> operationResult = res;
+
+                            NavigationService.SetDetailPage(new DashboardResultViewModel(selectSummary, operationResult), SelectedMenuOptions.None, "");
+                        }
                     }
                 }
                 await MessageViewer.CloseAllPopup();
@@ -491,7 +540,7 @@ namespace WF.ViewModels.Details
             {
                 GeneralFunctions.HandelException(exception, "DashboardViewModel : FillDays");
             }
-           
+
         }
     }
 }

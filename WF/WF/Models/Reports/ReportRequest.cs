@@ -56,6 +56,8 @@ namespace WF.Models.Reports
             }
         }
 
+        public string StatusImage { get; set; }
+
         public string CheckImg => IsSelected ? "Checked.png" : "Unchecked.png";
 
         private Color _bgColor;
@@ -103,14 +105,9 @@ namespace WF.Models.Reports
             TimeFromComment = StartTime.ToString("hh:mm tt", CultureInfo.InvariantCulture);
             TimeToComment = EndTime.ToString("hh:mm tt", CultureInfo.InvariantCulture);
 
-            StatusComment = Status == 0
-                ? "UP"
-                : Status == 1
-                    ? "AC"
-                    : "RJ";
+            StatusComment = Status == 0  ? "UP" : Status == 1 ? "AC" : "RJ";
 
-            RetStr = RetId == "VAC"
-                ? Resource.VacationStr
+            RetStr = RetId == "VAC" ? Resource.VacationStr
                 : RetId == "EXC"
                     ? Resource.ExcuseStr
                     : RetId;

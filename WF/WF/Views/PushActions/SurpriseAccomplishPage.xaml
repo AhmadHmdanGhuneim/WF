@@ -39,7 +39,14 @@
                                        Grid.Column="{Binding StartSpan}"
                                 HorizontalOptions="Center"/>
                     <Label Text="{Binding BlockingText}" Grid.Column="{Binding EndSpan}"
-                        HorizontalOptions="Center"/>
+                        HorizontalOptions="Center">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
                 </Grid>
             </Grid>
         </Grid>

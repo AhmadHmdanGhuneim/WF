@@ -28,12 +28,26 @@
                     <Label FontSize="Small" Grid.Row="0" Grid.Column="{Binding StartSpan}"
                                      Text="{extensions:Translate RequestTypeLable}"
                                      HorizontalOptions="{Binding TextAligment}"
-                                     HorizontalTextAlignment="{Binding TextAligment}"></Label>
+                                     HorizontalTextAlignment="{Binding TextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <Label FontSize="Small" Grid.Row="0" Grid.Column="{Binding EndSpan}"
                                      Text="{extensions:Translate StatusLabel}"
                                      HorizontalOptions="{Binding TextAligment}"
-                                     HorizontalTextAlignment="{Binding TextAligment}"></Label>
+                                     HorizontalTextAlignment="{Binding TextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <extensions:BindablePicker Grid.Row="1" Grid.Column="{Binding StartSpan}"
                                 Title="{extensions:Translate RequestTypeTitle}"
@@ -49,7 +63,14 @@
                     <Label FontSize="Small" Grid.Row="2" Grid.Column="{Binding StartSpan}"
                            Text="{extensions:Translate DateFromLabel}"
                            HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"/>
+                               HorizontalTextAlignment="{Binding TextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
                     <DatePicker MaximumDate="{Binding MaxDate}"
                                     Grid.Row="3" Grid.Column="{Binding StartSpan}"
                                     MinimumDate="{Binding MinTime}"
@@ -58,7 +79,14 @@
                                Grid.Row="2" Grid.Column="{Binding EndSpan}"
                                Text="{extensions:Translate DateToLabel}"
                                    HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"/>
+                               HorizontalTextAlignment="{Binding TextAligment}">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
                     <DatePicker MaximumDate="{Binding MaxDate}"
                                     Grid.Row="3" Grid.Column="{Binding EndSpan}"
                                     MinimumDate="{Binding MinTime}"
@@ -68,7 +96,14 @@
 
                 <Button Text="{extensions:Translate ShowButton}" HorizontalOptions="FillAndExpand"
                         BackgroundColor="{StaticResource ButtonColor}"
-                        TextColor="{StaticResource TextColor}" Command="{Binding ShowCommand}"/>
+                        TextColor="{StaticResource TextColor}" Command="{Binding ShowCommand}">
+                    <Button.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
 
 
             </StackLayout>
@@ -78,7 +113,15 @@
                     FontAttributes="Bold"
                     FontSize="Large"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center">
+                <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS">Cairo</On>
+                        <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                    </OnPlatform>
+                </Label.FontFamily>
+
+            </Label>
 
 
 

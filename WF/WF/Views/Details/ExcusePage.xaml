@@ -25,48 +25,98 @@
                         </Grid.ColumnDefinitions>
 
                         <Label FontSize="Small" Grid.Row="0" Grid.Column="{Binding DatePosition}" Text="{extensions:Translate DateLabel}" HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="Center"/>
+                               HorizontalTextAlignment="Center">
+                            <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+
+                        </Label>
 
                         <DatePicker MaximumDate="{Binding MaxDate}" Grid.Row="1" Grid.Column="{Binding DatePosition}"
                                     MinimumDate="{Binding MinTime}" Date="{Binding SelectedDate}"/>
 
 
                         <Label FontSize="Small" Grid.Row="0" Grid.Column="{Binding FromTimePosition}" Text="{extensions:Translate TimeFromLabel}"
-                               HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="Center"/>
+                               HorizontalOptions="{Binding TextAligment}" HorizontalTextAlignment="Center">
+                            <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
 
                         <TimePicker x:Name="FromTimeDatePicker" Time="{Binding TimeFrom}" Grid.Row="1" Grid.Column="{Binding FromTimePosition}"/>
 
 
                         <Label FontSize="Small" Grid.Row="0" Grid.Column="1" Text="{extensions:Translate TimeToLabel}"
                                HorizontalOptions="Center"
-                               HorizontalTextAlignment="Center"/>
+                               HorizontalTextAlignment="Center">
+                            <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
 
                         <TimePicker x:Name="TotimeDatePicker" Time="{Binding TimeTo}" Grid.Row="1" Grid.Column="1"/>
                     </Grid>
 
 
                     <Label FontSize="Small" Text="{extensions:Translate ExcuseTypeLabel}" HorizontalOptions="{Binding TextAligment}"
-                           HorizontalTextAlignment="{Binding TextAligment}"/>
+                           HorizontalTextAlignment="{Binding TextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                     <extensions:BindablePicker Title="{Binding ExcuseTypesPikerTitle}"
                                                ItemsSource="{Binding RequestTypes}"
                                                SelectedItem="{Binding SelectedRequestType}"
                                                DisplayMemberPath="Name"/>
-                  
+
                     <Label FontSize="Small" Text="{extensions:Translate ReasonLabel}" HorizontalOptions="{Binding TextAligment}"
-                       HorizontalTextAlignment="{Binding TextAligment}"/>
+                       HorizontalTextAlignment="{Binding TextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
 
-                    <Editor HeightRequest="100" Text="{Binding Reason}"/>
+                    <Editor HeightRequest="100" Text="{Binding Reason}">
+                        <Editor.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Editor.FontFamily>
+                    </Editor>
 
 
 
                     <Button Text="{extensions:Translate SendButton}" BackgroundColor="{StaticResource ButtonColor}"
                                 HorizontalOptions="FillAndExpand"
                                 TextColor="{StaticResource TextColor}"
-                                Command="{Binding SendCommand}" />
-                    
-                    
+                                Command="{Binding SendCommand}" >
+                        <Button.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Button.FontFamily>
+                    </Button>
+
+
 
 
                 </StackLayout>

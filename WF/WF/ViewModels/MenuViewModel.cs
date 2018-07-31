@@ -264,7 +264,7 @@ namespace WF.ViewModels
                 menuViewModelsList.Add(new MenuViewModel()
                 {
                     Title = GeneralFunctions.GetText(TitlePages.LogoutTitle.ToString()),
-                    Icon = "Logout.png",
+                    Icon = "logout.png",
                     SelectedMenuOptions = SelectedMenuOptions.Logout
                 });
                 return menuViewModelsList;

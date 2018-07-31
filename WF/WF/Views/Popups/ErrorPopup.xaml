@@ -21,12 +21,25 @@
                                 <Image Source="errorImage" HorizontalOptions="Center" Margin="0,0,0,5"/>
                                 <StackLayout   Orientation="Vertical">
                                     <Label  FontSize="20" Text="{ext:Translate errormessage}"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  LineBreakMode="WordWrap">
+                                        <Label.FontFamily>
+                                                <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS">Cairo</On>
+                                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                            </OnPlatform>
+                                        </Label.FontFamily>
                                     </Label>
                                 </StackLayout>
                                 <Grid HeightRequest="10"></Grid>
                             </StackLayout>
                             <ContentView  Grid.Row="1"  BackgroundColor="{StaticResource ButtonColor}" VerticalOptions="FillAndExpand">
-                                <Label FontSize="20" x:Name="MainLabel" Text="{ext:Translate close}" VerticalOptions="Center" HorizontalOptions="Fill" HorizontalTextAlignment="Center" TextColor="White"/>
+                                <Label FontSize="20" x:Name="MainLabel" Text="{ext:Translate close}" VerticalOptions="Center" HorizontalOptions="Fill" HorizontalTextAlignment="Center" TextColor="White">
+                                    <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS">Cairo</On>
+                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                        </OnPlatform>
+                                    </Label.FontFamily>
+                                </Label>
                             </ContentView>
                         </Grid>
                     </ContentView>

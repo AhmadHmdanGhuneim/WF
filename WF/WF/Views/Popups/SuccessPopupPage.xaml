@@ -14,7 +14,12 @@
     <StackLayout x:Name ="MainStackLayout" VerticalOptions="Start" BackgroundColor="#43A047" HeightRequest="90">
         <Label x:Name="SuccessMessage" Margin="10, 0, 0, 15" TextColor="White" VerticalOptions="EndAndExpand"
                HorizontalTextAlignment="End" HorizontalOptions="End">
-
+            <Label.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String">
+                    <On Platform="iOS">Cairo</On>
+                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                </OnPlatform>
+            </Label.FontFamily>
         </Label>
     </StackLayout>
 </pages:PopupPage>

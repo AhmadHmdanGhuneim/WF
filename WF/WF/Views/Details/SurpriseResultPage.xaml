@@ -17,7 +17,14 @@
 
                 <Label FontSize="Small" Text="{extensions:Translate MasterSurpriseLabel}"
                                     HorizontalOptions="{Binding TextAligment}"
-                                    HorizontalTextAlignment="{Binding TextAligment}"/>
+                                    HorizontalTextAlignment="{Binding TextAligment}">
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
                 <extensions:BindablePicker Title="{Binding MasterSurprisePikerTitle}"
                                         VerticalOptions="Center"
                                         ItemsSource="{Binding MasterSurprises}"
@@ -29,7 +36,14 @@
                                   
                             BackgroundColor="{StaticResource ButtonColor}"
                                         TextColor="{StaticResource TextColor}"
-                                        Command="{Binding ShowCommand}" />
+                                        Command="{Binding ShowCommand}" >
+                    <Button.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
 
 
 
@@ -37,9 +51,17 @@
                 <Label Text="{extensions:Translate NoDataYet}" IsVisible="{Binding IsNoDataMsgVisible}"
                                 FontAttributes="Bold" FontSize="Large"
                                 HorizontalOptions="Center"
-                                VerticalOptions="Center"/>
+                                VerticalOptions="Center">
 
-              
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+
+
             </StackLayout>
             <Grid  IsVisible="{Binding IsGridTitleVisible}">
 
@@ -56,19 +78,47 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="{Binding NumberPosition}" FontSize="Small" FontAttributes="Bold"
                                HorizontalOptions="Center"
-                               Text="{extensions:Translate IdGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                               Text="{extensions:Translate IdGridTitle}" TextColor="{StaticResource ButtonColor}">
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
                 
                 <Label Grid.Row="0" Grid.Column="{Binding NamePosition}" FontSize="Small" FontAttributes="Bold"
                               HorizontalOptions="Center"
-                               Text="{extensions:Translate NameGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                               Text="{extensions:Translate NameGridTitle}" TextColor="{StaticResource ButtonColor}">
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
                 
                 <Label Grid.Row="0" Grid.Column="{Binding CheckPosition}" FontSize="Small" FontAttributes="Bold"
                                HorizontalOptions="Center"
-                               Text="{extensions:Translate CheckedGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                               Text="{extensions:Translate CheckedGridTitle}" TextColor="{StaticResource ButtonColor}">
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
                 
                 <Label Grid.Row="0" Grid.Column="{Binding InPosition}" FontSize="Small" FontAttributes="Bold"
                                HorizontalOptions="Center"
-                               Text="{extensions:Translate InLocationGridTitle}" TextColor="{StaticResource ButtonColor}"></Label>
+                               Text="{extensions:Translate InLocationGridTitle}" TextColor="{StaticResource ButtonColor}">
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
             </Grid>
 
             <local:CustomListViewRenderer ItemsSource="{Binding DetailSurprises}"
@@ -95,12 +145,26 @@
                                    FontSize="Small"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center"
-                                   Text="{Binding EmpId}"></Label>
+                                   Text="{Binding EmpId}">
+                                    <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS">Cairo</On>
+                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                        </OnPlatform>
+                                    </Label.FontFamily>
+                                </Label>
                                 <Label Grid.Column="{Binding NamePosition}"
                                    FontSize="Small"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center"
-                                   Text="{Binding EmpName}"></Label>
+                                   Text="{Binding EmpName}">
+                                    <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS">Cairo</On>
+                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                        </OnPlatform>
+                                    </Label.FontFamily>
+                                </Label>
                                 <Grid Column="{Binding CheckPosition}">
                                     <Image VerticalOptions="Center"
                                            HorizontalOptions="Center"
@@ -123,13 +187,21 @@
                         <StackLayout HeightRequest="1"></StackLayout>
                     </local:CustomListViewRenderer.Footer>
                 </local:CustomListViewRenderer>
-         
+
             <Button Text="{extensions:Translate ResendPushButton}"
                                 HorizontalOptions="FillAndExpand"
                                 BackgroundColor="{StaticResource ButtonColor}"
                                 TextColor="{StaticResource TextColor}"
                                
-                                Command="{Binding ResendCommand}"/>
+                                Command="{Binding ResendCommand}">
+                <Button.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS">Cairo</On>
+                        <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                    </OnPlatform>
+                </Button.FontFamily>
+
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

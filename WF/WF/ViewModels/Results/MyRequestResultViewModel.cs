@@ -16,10 +16,10 @@ namespace WF.ViewModels.Results
         public SelectSummary SelectSummary { get; set; } = new SelectSummary();
 
 
-        public int DatePostion => IsLtrLang ? 0 : 3;
-        public int RequsetPostion => IsLtrLang ? 1 : 2;
-        public int TypePosition => IsLtrLang ? 2 : 1;
-        public int StatusPosition => IsLtrLang ? 3 : 0;
+        public int DatePostion => IsLtrLang ? 0 : 2;
+      //  public int RequsetPostion => IsLtrLang ? 1 : 2;
+        public int TypePosition => IsLtrLang ? 1 : 1;
+        public int StatusPosition => IsLtrLang ? 2 : 0;
 
 
         public MyRequestResultViewModel(ObservableCollection<ReportRequest> prmRequests,SelectSummary prmSelectdSummary)

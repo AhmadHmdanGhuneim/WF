@@ -28,7 +28,15 @@
                 <Label FontSize="Small" IsVisible="{Binding IsDepAndEmpVisible}"
                                         Text="{extensions:Translate DepartmentLabel}"
                                         HorizontalOptions="{Binding TextAligment}"
-                                        HorizontalTextAlignment="{Binding TextAligment}"/>
+                                        HorizontalTextAlignment="{Binding TextAligment}">
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+
+                </Label>
                 <extensions:BindablePicker IsVisible="{Binding IsDepAndEmpVisible}"
                                            Title="{Binding DepartmentsPikerTitle}"
                                            VerticalOptions="Center"
@@ -38,7 +46,14 @@
                 <Label FontSize="Small" IsVisible="{Binding IsDepAndEmpVisible}"
                                         Text="{extensions:Translate EmployeeLabel}"
                                         HorizontalOptions="{Binding TextAligment}"
-                                        HorizontalTextAlignment="{Binding TextAligment}"/>
+                                        HorizontalTextAlignment="{Binding TextAligment}">
+                    <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
                 <extensions:BindablePicker IsVisible="{Binding IsDepAndEmpVisible}"
                                            Title="{Binding EmployeePikerTitle}"
                                            VerticalOptions="Center"
@@ -56,13 +71,26 @@
                     </Grid.RowDefinitions>
                     <Label FontSize="Small" Grid.Row="0" Grid.Column="{Binding EndSpan}"
                                            Text="{extensions:Translate Year}"
-                                         
-                                           HorizontalTextAlignment="{Binding HorizontalTextAligment}"></Label>
-                    <Label FontSize="Small" 
-                                           Grid.Row="0" Grid.Column="{Binding StartSpan}"
-                                           Text="{extensions:Translate MonthText}"
-                                          
-                                           HorizontalTextAlignment="{Binding HorizontalTextAligment}"></Label>
+                                           HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label FontSize="Small" Grid.Row="0" Grid.Column="{Binding StartSpan}"
+                                            Text="{extensions:Translate MonthText}"
+                                           HorizontalTextAlignment="{Binding HorizontalTextAligment}">
+
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+
+                    </Label>
                     <extensions:BindablePicker Grid.Row="1" Grid.Column="{Binding EndSpan}"
                                                                Title="{extensions:Translate Year}"
                                                                SelectedItem="{Binding SelectedYear}"
@@ -79,7 +107,14 @@
                         HorizontalOptions="FillAndExpand"
                         Command="{Binding ShowCommand}"
                         BackgroundColor="{StaticResource ButtonColor}"
-                        TextColor="{StaticResource TextColor}" />
+                        TextColor="{StaticResource TextColor}" >
+                    <Button.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
 
             </StackLayout>
 
@@ -91,11 +126,18 @@
                         FontAttributes="Bold"
                         FontSize="Large"
                         HorizontalOptions="Center"
-                        VerticalOptions="Center"/>
-           
+                        VerticalOptions="Center">
+                <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS">Cairo</On>
+                        <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                    </OnPlatform>
+                </Label.FontFamily>
+            </Label>
 
 
-           
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

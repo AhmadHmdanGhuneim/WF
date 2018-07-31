@@ -9,6 +9,7 @@ using Android.OS;
 using Refractored.XamForms.PullToRefresh.Droid;
 using Android.Content;
 using WF.Droid.Gcm.Client;
+using Calligraphy;
 
 namespace WF.Droid
 {
@@ -35,8 +36,11 @@ namespace WF.Droid
             base.OnCreate(bundle);
             PullToRefreshLayoutRenderer.Init();
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
+            CalligraphyConfig.InitDefault(new CalligraphyConfig.Builder().SetDefaultFontPath("DINNextLTArabicBold.ttf").SetFontAttrId(Resource.Attribute.fontPath).Build());
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
+           
+
             try
             {
                 // Check to ensure everything's set up right

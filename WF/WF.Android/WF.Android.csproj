@@ -199,7 +199,6 @@
     <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\Cairo-Regular.ttf" />
     <AndroidAsset Include="Assets\DINNextLTArabicBold.ttf" />
     <None Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
@@ -266,9 +265,6 @@
     <AndroidResource Include="Resources\drawable\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Logout.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\langauge.png" />
   </ItemGroup>
   <ItemGroup>
@@ -303,9 +299,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\Selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Day.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\dashboard.png" />
@@ -458,6 +451,12 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\dashboard.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\loginuser.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\loginpassword.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\intro.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\language.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\logout.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ac.png" />
     <Content Include="Resources\drawable-hdpi\ok.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ok.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\cancel.png" />
@@ -465,6 +464,40 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\cancel.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ok.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\cancel.png" />
+    <AndroidResource Include="Resources\drawable\loginpassword.png" />
+    <AndroidResource Include="Resources\drawable\loginuser.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\loginuser.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\loginpassword.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\loginuser.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\loginpassword.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\loginuser.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\loginpassword.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\intro.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\intro.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\intro.png" />
+    <AndroidResource Include="Resources\drawable\intro.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\language.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\logout.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\language.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\logout.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\logout.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\languagae.png" />
+    <AndroidResource Include="Resources\drawable\langaugae.png" />
+    <AndroidResource Include="Resources\drawable\logout.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\rj.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\up.png" />
+    <AndroidResource Include="Resources\drawable\rj.png" />
+    <AndroidResource Include="Resources\drawable\up.png" />
+    <AndroidResource Include="Resources\drawable\ac.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\rj.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\up.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ac.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\rj.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\up.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ac.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\rj.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\up.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ac.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\cancel.png" />

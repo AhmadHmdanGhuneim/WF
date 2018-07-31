@@ -76,7 +76,7 @@ namespace WF.ViewModels
                 settingViewModels.Add(new SettingViewModel()
                 {
                     Title = GeneralFunctions.GetText("LogoutTitle"),
-                    Icon = "Logout.png"
+                    Icon = "logout.png"
 
                 });
 

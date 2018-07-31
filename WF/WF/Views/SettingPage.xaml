@@ -21,7 +21,14 @@
                                     <ColumnDefinition Width="{Binding StartGridLength}"></ColumnDefinition>
                                     <ColumnDefinition Width="{Binding EndGridLength}"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="{Binding StartSpan}"  Text="{Binding Title}"  VerticalTextAlignment="Center" VerticalOptions="Center"   HorizontalTextAlignment="{Binding HorizontalTextAligment}"   />
+                                <Label Grid.Column="{Binding StartSpan}"  Text="{Binding Title}"  VerticalTextAlignment="Center" VerticalOptions="Center"   HorizontalTextAlignment="{Binding HorizontalTextAligment}"   >
+                                    <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS">Cairo</On>
+                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                        </OnPlatform>
+                                    </Label.FontFamily>
+                                </Label>
                                 <Image Grid.Column="{Binding EndSpan}"  Source="{Binding Icon}" />
                             </Grid>
                         </ViewCell>

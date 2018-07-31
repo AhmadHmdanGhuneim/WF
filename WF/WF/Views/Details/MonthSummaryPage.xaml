@@ -16,7 +16,14 @@
                     <Label FontSize="Small" IsVisible="{Binding IsManager}"
                             Text="{extensions:Translate DepartmentLabel}"
                                HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"/>
+                               HorizontalTextAlignment="{Binding TextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
                     <extensions:BindablePicker
                             IsVisible="{Binding IsManager}"
                             Title="{Binding DepartmentsPikerTitle}"
@@ -29,7 +36,15 @@
                             IsVisible="{Binding IsManager}"
                             Text="{extensions:Translate EmployeeLabel}"
                                HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"/>
+                               HorizontalTextAlignment="{Binding TextAligment}">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+
+                    </Label>
                     <extensions:BindablePicker
                             IsVisible="{Binding IsManager}"
                             Title="{Binding EmployeePikerTitle}"
@@ -47,22 +62,36 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Label FontSize="Small"
-                                     Grid.Row="0" Grid.Column="{Binding StartSpan}"
+                                     Grid.Row="0" Grid.Column="{Binding EndSpan}"
                                      Text="{extensions:Translate Year}"
                                    HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
+                               HorizontalTextAlignment="{Binding TextAligment}">
+                            <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
                         <Label FontSize="Small"
-                                     Grid.Row="0" Grid.Column="{Binding EndSpan}"
+                                     Grid.Row="0" Grid.Column="{Binding StartSpan}"
                                      Text="{extensions:Translate MonthText}"
                                    HorizontalOptions="{Binding TextAligment}"
-                               HorizontalTextAlignment="{Binding TextAligment}"></Label>
+                               HorizontalTextAlignment="{Binding TextAligment}">
+                            <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Cairo</On>
+                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
                         <extensions:BindablePicker
-                                Grid.Row="1" Grid.Column="{Binding StartSpan}"
+                                Grid.Row="1" Grid.Column="{Binding EndSpan}"
                                 Title="{extensions:Translate YearTitle}"
                                 SelectedItem="{Binding SelectedYear}"
                                 ItemsSource="{Binding Years}"/>
                         <extensions:BindablePicker
-                                Grid.Row="1" Grid.Column="{Binding EndSpan}"
+                                Grid.Row="1" Grid.Column="{Binding StartSpan}"
                                 Title="{extensions:Translate MonthTitle}"
                                 DisplayMemberPath="Value"
                                 SelectedItem="{Binding SelectedMonth}"
@@ -74,7 +103,14 @@
                                 HeightRequest="50"
                                 BackgroundColor="{StaticResource ButtonColor}"
                                 TextColor="{StaticResource TextColor}"
-                                Command="{Binding ShowCommand}" />
+                                Command="{Binding ShowCommand}" >
+                        <Button.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Button.FontFamily>
+                    </Button>
 
 
                     <Label Text="{extensions:Translate NoDataYet}"
@@ -82,7 +118,14 @@
                     FontAttributes="Bold"
                     FontSize="Large"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center">
+                        <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Cairo</On>
+                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
 
                 </StackLayout>
             </ScrollView>

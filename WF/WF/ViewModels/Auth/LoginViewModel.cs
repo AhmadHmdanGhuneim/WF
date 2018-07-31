@@ -121,12 +121,12 @@ namespace WF.ViewModels.Auth
 
                         //Application.Current.Properties.Remove(AppKey.User.ToString());
                         //Application.Current.Properties.Add(AppKey.User.ToString(), user.Data);
-
+                       
                         GeneralFunctions.SaveUserValues(user.Data, Password);
 
                         await Application.Current.SavePropertiesAsync();
                         Application.Current.MainPage = new MasterPage();
-
+                       
 
                         //App.Realm.Write(() =>
                         //{
@@ -139,6 +139,10 @@ namespace WF.ViewModels.Auth
 
 
                     }
+                    else
+                    {
+                        // MessageViewer.Message("", Resource.AuthFailMsg, Resource.OkText);
+                    }
                     
                 }
                 await MessageViewer.CloseAllPopup();
@@ -148,7 +152,7 @@ namespace WF.ViewModels.Auth
             {
                 Crashes.TrackError(exception);
                 var page = new ErrorPopup();
-                Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
+                await Rg.Plugins.Popup.Services.PopupNavigation.PushAsync(page);
 
             }
             //VisibleIndicator = false;

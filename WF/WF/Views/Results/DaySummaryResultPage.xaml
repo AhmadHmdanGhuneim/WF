@@ -6,7 +6,14 @@
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" >
+                <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS">Cairo</On>
+                        <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                    </OnPlatform>
+                </Label.FontFamily>
+            </Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
