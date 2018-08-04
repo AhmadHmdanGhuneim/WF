@@ -250,6 +250,15 @@ namespace WF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company Code.
+        /// </summary>
+        internal static string company {
+            get {
+                return ResourceManager.GetString("company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please ensure that you connerct to internet.
         /// </summary>
         internal static string connectionmessage {

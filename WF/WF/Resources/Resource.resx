@@ -622,4 +622,7 @@
   <data name="attendessystem" xml:space="preserve">
     <value>Attendes System</value>
   </data>
+  <data name="company" xml:space="preserve">
+    <value>Company Code</value>
+  </data>
 </root>

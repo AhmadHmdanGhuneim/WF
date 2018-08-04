@@ -51,5 +51,38 @@ namespace WF.ApiFactory
             }
 
         }
+
+
+
+
+        public async Task<OperationResult<CompanyLiscence>> CheckComapny(string prmCompanyId, CancellationToken token)
+        {
+            try
+            {
+                if (!CrossConnectivity.Current.IsConnected)
+                {
+
+                    await Application.Current.MainPage.DisplayAlert("", Resource.connectionmessage, Resource.close);
+
+                    return null;
+                }
+                else
+                {
+                    return await Request<CompanyLiscence>("Company/GetHostCompany", HttpMethod.Get, token, new Dictionary<string, string>
+            {
+                {"cmpid", prmCompanyId},
+              
+            });
+                }
+
+            }
+            catch (Exception exception)
+            {
+                GeneralFunctions.HandelException(exception, "CheckCompany");
+                return null;
+            }
+        }
+
+
     }
 }

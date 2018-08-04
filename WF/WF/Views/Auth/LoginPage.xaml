@@ -39,14 +39,44 @@
 
 
                 <local:ImageEntry x:Name="UserNameEntry" Placeholder="{ext:Translate LoginPlaceholder}"
-                HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Login}"
-                                  Image="loginuser" ImageAlignment="{Binding ImagePosition}" />
+                HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Login}" TextColor="Black"
+                                  Image="loginuser" ImageAlignment="{Binding ImagePosition}" PlaceholderColor="Black" >
+                    <local:ImageEntry.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </local:ImageEntry.FontFamily>
+                
+                </local:ImageEntry>
 
 
                 <local:ImageEntry x:Name="PasswordEntry" Placeholder="{ext:Translate PasswordPlaceholder}"
                 HorizontalTextAlignment="{Binding HorizontalTextAligment}" Text="{Binding Password}"
-                                  Image="loginpassword" ImageAlignment="{Binding ImagePosition}" IsPassword="True"/>
+                                  Image="loginpassword" ImageAlignment="{Binding ImagePosition}" PlaceholderColor="Black"  IsPassword="True">
+                    <local:ImageEntry.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </local:ImageEntry.FontFamily>
 
+                </local:ImageEntry>
+
+
+                <Entry x:Name="CompanyEntry" Placeholder="{ext:Translate company}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"  Text="{Binding CompayId}">
+                    <Entry.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Cairo</On>
+                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                        </OnPlatform>
+                    </Entry.FontFamily>
+                </Entry>
+                         
+                
+                
+                
+                
 
                 <Button BackgroundColor="{StaticResource ButtonColor}"
                             Text="{ext:Translate LoginButtonTitle}" FontSize="Medium" TextColor="{StaticResource TextColor}"
@@ -61,11 +91,11 @@
 
                 </Button>
 
-                <Image  Source="Fingerprint.png" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding VisibleFingerprint}" HeightRequest="60">
+                <!--<Image  Source="Fingerprint.png" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding VisibleFingerprint}" HeightRequest="60">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding FingerprintAuthCommand}"></TapGestureRecognizer>
                     </Image.GestureRecognizers>
-                </Image>
+                </Image>-->
 
             </StackLayout>
         </ScrollView>

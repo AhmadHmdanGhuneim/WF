@@ -14,6 +14,7 @@ namespace WF.Functions
     {
         public enum AppKey
         {
+            CompanyId,
             Password,
             lang,
             UserId,
@@ -292,7 +293,22 @@ namespace WF.Functions
         }
 
 
-        
+        public static string GetCompanyId()
+        {
+            try
+            {
+                if (Xamarin.Forms.Application.Current.Properties.ContainsKey(AppKey.IsGregorianLocale.ToString()))
+                {
+                    return Xamarin.Forms.Application.Current.Properties[AppKey.CompanyId.ToString()].ToString();
+                }
+                return null;
+            }
+            catch (Exception exception)
+            {
+                HandelException(exception, "GetCompanyId");
+                return null;
+            }
+        }
 
     }
 }

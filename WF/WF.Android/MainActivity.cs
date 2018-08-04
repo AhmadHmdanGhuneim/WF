@@ -2,14 +2,15 @@
 
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
+
 using Android.Views;
-using Android.Widget;
+using WF;
 using Android.OS;
 using Refractored.XamForms.PullToRefresh.Droid;
 using Android.Content;
 using WF.Droid.Gcm.Client;
 using Calligraphy;
+using Plugin.Connectivity;
 
 namespace WF.Droid
 {
@@ -39,25 +40,30 @@ namespace WF.Droid
             CalligraphyConfig.InitDefault(new CalligraphyConfig.Builder().SetDefaultFontPath("DINNextLTArabicBold.ttf").SetFontAttrId(Resource.Attribute.fontPath).Build());
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
-           
 
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                // Check to ensure everything's set up right
-                GcmClient.CheckDevice(this);
-                GcmClient.CheckManifest(this);
 
-                // Register for push notifications
-                System.Diagnostics.Debug.WriteLine("Registering...");
-                GcmClient.Register(this, PushHandlerBroadcastReceiver.SENDER_IDS);
-            }
-            catch (Java.Net.MalformedURLException)
-            {
-                CreateAndShowDialog("There was an error creating the client. Verify the URL.", "Error");
-            }
-            catch (Exception e)
-            {
-                CreateAndShowDialog(e.Message, "Error");
+
+
+                try
+                {
+                    // Check to ensure everything's set up right
+                    GcmClient.CheckDevice(this);
+                    GcmClient.CheckManifest(this);
+
+                    // Register for push notifications
+                    System.Diagnostics.Debug.WriteLine("Registering...");
+                    GcmClient.Register(this, PushHandlerBroadcastReceiver.SENDER_IDS);
+                }
+                catch (Java.Net.MalformedURLException)
+                {
+                    CreateAndShowDialog("There was an error creating the client. Verify the URL.", "Error");
+                }
+                catch (Exception e)
+                {
+                    CreateAndShowDialog(e.Message, "Error");
+                }
             }
         }
 

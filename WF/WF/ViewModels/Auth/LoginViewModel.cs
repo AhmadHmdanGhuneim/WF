@@ -31,8 +31,14 @@ namespace WF.ViewModels.Auth
         private IFingerprint _fingerprint = DependencyService.Get<IFingerprint>();
         public ImageAlignment ImagePosition => IsLtrLang ? ImageAlignment.Left : ImageAlignment.Right;
 
+        private string _companyId;
 
 
+        public string CompayId
+        {
+            get { return _companyId; }
+            set { SetProperty(ref _companyId, value); }
+        }
 
 
         private string _login;
@@ -59,6 +65,16 @@ namespace WF.ViewModels.Auth
             set { SetProperty(ref _visibleFingerprint, value); }
         }
 
+
+        private bool _visibleCompany;
+
+        public bool VisibleCompany
+        {
+            get { return _visibleCompany; }
+            set { SetProperty(ref _visibleCompany, value); }
+        }
+
+
         public ICommand AuthCommand { get; }
 
         public ICommand FingerprintAuthCommand { get; }
@@ -81,6 +97,13 @@ namespace WF.ViewModels.Auth
                 {
                     _fingerprint.StartListen(FingerSuccess);
                 }
+                VisibleCompany = false;
+                if (GeneralFunctions.GetCompanyId() == null)
+                {
+                    VisibleCompany = true;
+                }
+
+
             }
             catch (System.Exception exception)
             {
@@ -105,47 +128,61 @@ namespace WF.ViewModels.Auth
                 }
 
 
-               
-               
 
-                
+
+
+
                 await MessageViewer.Waiting();
-                var user = await _factory.SignIn(Login, Password, Device.RuntimePlatform == Device.Android, _cancellationToken.Token);
-                
-                if (user != null)
+
+
+
+                var comany = await _factory.CheckComapny(CompayId, _cancellationToken.Token);
+                if (comany != null)
                 {
-                    if (user.ResultCode == ResultCode.Success)
-                    {
-                        /* Set The Main Page is MasterDetailsPage */
-                        //GeneralFunctions.SaveUserValues(user.Data);
-
-                        //Application.Current.Properties.Remove(AppKey.User.ToString());
-                        //Application.Current.Properties.Add(AppKey.User.ToString(), user.Data);
-                       
-                        GeneralFunctions.SaveUserValues(user.Data, Password);
-
-                        await Application.Current.SavePropertiesAsync();
-                        Application.Current.MainPage = new MasterPage();
-                       
-
-                        //App.Realm.Write(() =>
-                        //{
-                        //    App.Realm.RemoveAll<User>();
-                        //    App.Realm.Add(user.Data);
-                        //});
-                        //_user = App.Realm.All<User>().FirstOrDefault();
-
-                        //FingerSuccess();
-
-
-                    }
-                    else
-                    {
-                        // MessageViewer.Message("", Resource.AuthFailMsg, Resource.OkText);
-                    }
                     
+
+                    if (comany.Data != null)
+                    {
+
+                        
+                        var user = await _factory.SignIn(Login, Password, Device.RuntimePlatform == Device.Android, _cancellationToken.Token);
+
+                        if (user != null)
+                        {
+                            if (user.ResultCode == ResultCode.Success)
+                            {
+                                /* Set The Main Page is MasterDetailsPage */
+                                //GeneralFunctions.SaveUserValues(user.Data);
+
+                                //Application.Current.Properties.Remove(AppKey.User.ToString());
+                                //Application.Current.Properties.Add(AppKey.User.ToString(), user.Data);
+
+                                GeneralFunctions.SaveUserValues(user.Data, Password);
+
+                                await Application.Current.SavePropertiesAsync();
+                                Application.Current.MainPage = new MasterPage();
+
+
+                                //App.Realm.Write(() =>
+                                //{
+                                //    App.Realm.RemoveAll<User>();
+                                //    App.Realm.Add(user.Data);
+                                //});
+                                //_user = App.Realm.All<User>().FirstOrDefault();
+
+                                //FingerSuccess();
+
+
+                            }
+                            else
+                            {
+                                // MessageViewer.Message("", Resource.AuthFailMsg, Resource.OkText);
+                            }
+
+                        }
+                    }
                 }
-                await MessageViewer.CloseAllPopup();
+                 CloseAllPopup();
 
             }
             catch (System.Exception exception)
@@ -237,8 +274,8 @@ namespace WF.ViewModels.Auth
 
         private async void CloseAllPopup()
         {
-            await Rg.Plugins.Popup.Services.PopupNavigation.PopAllAsync();
-            //await Navigation.PopAllPopupAsync();
+           await Rg.Plugins.Popup.Services.PopupNavigation.PopAllAsync();
+          //  await Navigation.PopAllPopupAsync();
         }
     }
 }

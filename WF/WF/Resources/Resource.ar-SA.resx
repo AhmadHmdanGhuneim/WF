@@ -622,4 +622,7 @@
   <data name="attendessystem" xml:space="preserve">
     <value>نظام الحضور</value>
   </data>
+  <data name="company" xml:space="preserve">
+    <value>رمز الشركة</value>
+  </data>
 </root>

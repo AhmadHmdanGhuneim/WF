@@ -226,12 +226,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WF\WF.csproj">
-      <Project>{12eacab9-673d-44d5-bd91-ed481be99bf3}</Project>
-      <Name>WF</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\Marker.png" />
   </ItemGroup>
   <ItemGroup>
@@ -501,6 +495,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WF\WF.csproj">
+      <Project>{12eacab9-673d-44d5-bd91-ed481be99bf3}</Project>
+      <Name>WF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

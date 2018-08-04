@@ -8,8 +8,18 @@ namespace WF.Views.Auth
     {
         public LoginPage(object viewModel)
         {
+            try
+            {
+
+           
             InitializeComponent();
             BindingContext = viewModel;
+            }
+            catch (System.Exception excep)
+            {
+
+                throw;
+            }
 
             //if (Device.RuntimePlatform == Device.Android)
             //    NavigationPage.SetHasNavigationBar(this, false);

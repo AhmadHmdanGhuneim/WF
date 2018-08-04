@@ -9,6 +9,7 @@ using WF.Services;
 using WF.ViewModels.Auth;
 using WF.Models;
 using Xamarin.Forms;
+using WF.Functions;
 
 namespace WF.Helpers
 {
@@ -19,7 +20,11 @@ namespace WF.Helpers
             switch (result.ResultCode)
             {
                 case ResultCode.UnknownError:
-                    await MessageViewer.ErrorAsync(Resource.CheckInternetMsg);
+                    Exception exception = new Exception("Error in Service");
+                    // await MessageViewer.ErrorAsync(Resource.CheckInternetMsg);
+                    GeneralFunctions.HandelException(exception, "Excuste");
+
+
                     break;
 
                 case ResultCode.AuthError:
@@ -29,21 +34,21 @@ namespace WF.Helpers
                 case ResultCode.NoAccess:
                     await MessageViewer.ErrorAsync(Resource.NoAccessMsg);
                     break;
+                   
+                //case ResultCode.AuthTokenError:
+                //    if (!(NavigationService.CurrentPage is LoginPage))
+                //    {
+                //        //App.Realm.Write(() =>
+                //        //{
+                //        //    App.Realm.RemoveAll<User>();
+                //        //});
 
-                case ResultCode.AuthTokenError:
-                    if (!(NavigationService.CurrentPage is LoginPage))
-                    {
-                        //App.Realm.Write(() =>
-                        //{
-                        //    App.Realm.RemoveAll<User>();
-                        //});
+                //        /*Remove all User*/
+                //        // NavigationService.SetDetailPage(new LoginViewModel(), SelectedMenuOptions.Login,"Login");
 
-                        /*Remove all User*/
-                        // NavigationService.SetDetailPage(new LoginViewModel(), SelectedMenuOptions.Login,"Login");
-
-                        NavigationService.InitPage(new LoginViewModel());
-                    }
-                    break;
+                //        NavigationService.InitPage(new LoginViewModel());
+                //    }
+                //    break;
 
                 default:
                     return;
