@@ -64,14 +64,14 @@
                 </local:ImageEntry>
 
 
-                <Entry x:Name="CompanyEntry" Placeholder="{ext:Translate company}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"  Text="{Binding CompayId}">
+                <!--<Entry x:Name="CompanyEntry" Placeholder="{ext:Translate company}" HorizontalTextAlignment="{Binding HorizontalTextAligment}"  Text="{Binding CompayId}">
                     <Entry.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS">Cairo</On>
                             <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
                         </OnPlatform>
                     </Entry.FontFamily>
-                </Entry>
+                </Entry>-->
                          
                 
                 

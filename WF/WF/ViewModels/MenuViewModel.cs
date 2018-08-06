@@ -303,8 +303,8 @@ namespace WF.ViewModels
                             //        ((MasterDetailPage)Application.Current.MainPage).IsPresented = false;
                             //  
                             //}
-
-                            NavigationService.SetDetailPage(new DashboardViewModel(), SelectedMenuOptions, Title);
+                            App.Current.MainPage = new MasterPage();
+                            //NavigationService.SetDetailPage(new DashboardViewModel(), SelectedMenuOptions, Title);
                         break;
                     case SelectedMenuOptions.DaySummary:
                         // if (!(NavigationService.CurrentPage is DaySummaryPage))

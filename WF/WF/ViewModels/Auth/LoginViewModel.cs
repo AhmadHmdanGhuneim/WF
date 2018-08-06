@@ -98,10 +98,10 @@ namespace WF.ViewModels.Auth
                     _fingerprint.StartListen(FingerSuccess);
                 }
                 VisibleCompany = false;
-                if (GeneralFunctions.GetCompanyId() == null)
-                {
-                    VisibleCompany = true;
-                }
+                //if (GeneralFunctions.GetCompanyId() == null)
+                //{
+                //    VisibleCompany = true;
+                //}
 
 
             }
@@ -136,13 +136,13 @@ namespace WF.ViewModels.Auth
 
 
 
-                var comany = await _factory.CheckComapny(CompayId, _cancellationToken.Token);
-                if (comany != null)
-                {
+                //var comany = await _factory.CheckComapny(CompayId, _cancellationToken.Token);
+                //if (comany != null)
+                //{
                     
 
-                    if (comany.Data != null)
-                    {
+                //    if (comany.Data != null)
+                //    {
 
                         
                         var user = await _factory.SignIn(Login, Password, Device.RuntimePlatform == Device.Android, _cancellationToken.Token);
@@ -180,8 +180,8 @@ namespace WF.ViewModels.Auth
                             }
 
                         }
-                    }
-                }
+                //    }
+                //}
                  CloseAllPopup();
 
             }

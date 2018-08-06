@@ -11,6 +11,9 @@ using Android.Content;
 using WF.Droid.Gcm.Client;
 using Calligraphy;
 using Plugin.Connectivity;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter;
 
 namespace WF.Droid
 {
@@ -43,7 +46,7 @@ namespace WF.Droid
 
             if (CrossConnectivity.Current.IsConnected)
             {
-
+               // AppCenter.Start("5a27bb08-fef7-4f2b-a451-065b44d3d99e", typeof(Analytics), typeof(Crashes));
 
 
                 try
