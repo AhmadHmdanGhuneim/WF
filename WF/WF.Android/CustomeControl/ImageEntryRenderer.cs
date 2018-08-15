@@ -52,13 +52,13 @@ namespace WF.Droid.CustomeControl
             GradientDrawable gd = new GradientDrawable();
 
             //Below line is useful to give border color
-            gd.SetColor(global::Android.Graphics.Color.WhiteSmoke);
-
-            //gd.SetColor(Android.Resource.Color.FromHex("#e6e2e2d9"));
+            //gd.SetColor(global::Android.Graphics.Color.WhiteSmoke);
+            gd.SetColor(global::Android.Graphics.Color.Transparent);
+            // gd.SetColor(System.Drawing.Color.Maroon("#e6e2e2d9"));
 
             Control.SetBackgroundDrawable(gd);
             Control.SetRawInputType(InputTypes.TextFlagNoSuggestions);
-            Control.SetHintTextColor(ColorStateList.ValueOf(global::Android.Graphics.Color.White));
+            Control.SetHintTextColor(ColorStateList.ValueOf(global::Android.Graphics.Color.Gray));
         }
 
         private BitmapDrawable GetDrawable(string imageEntryImage)

@@ -33,14 +33,16 @@ namespace WF.ApiFactory
                 }
                 else
                 {
+
                     Analytics.TrackEvent("SignIn", new Dictionary<string, string> {
                         { "login", login },{"password", password } });
-
+                    string registrationId = DependencyService.Get<DependencyServices.IPushRegister>().GetRegistrationId();
                     return await Request<User>("auth/signin", HttpMethod.Get, token, new Dictionary<string, string>
             {
                 {"login", login},
                 {"password", password},
-                {"isAndroid", isAndroid.ToString() }
+                {"isAndroid", isAndroid.ToString() },
+                {"deviceId", registrationId }
             });
                 }
             }

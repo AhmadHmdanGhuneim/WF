@@ -83,6 +83,11 @@ namespace WF.ViewModels.Details
             }
         }
 
+
+
+        public bool ShowAllEmployee = true;
+
+
         private bool _isAllEmps;
 
         public bool IsAllEmps
@@ -195,6 +200,11 @@ namespace WF.ViewModels.Details
                 ShowCommand = new Command(Show);
 
                 IsAllEmps = true;
+                if(!_user.IsManager)
+                {
+                    IsAllEmps = false;
+                    ShowAllEmployee = false;
+                }
                 ChangeLangCommand = new Command(LocaleHelper.ChangeCulture);
                 FillCalendar();
             }
@@ -366,7 +376,8 @@ namespace WF.ViewModels.Details
                         {
                             q.Calculate(_user.IsGregorianLocale);
                             q.BackgroundColor = i++ % 2 == 0 ? FirstColor : SecondColor;
-                            q.EmpLogin = q.EmpLogin.Trim();
+                            q.EmpLoginAr = q.EmpLoginAr.Trim();
+                            q.EmpLoginEn = q.EmpLoginEn.Trim();
                             Requests.Add(q);
                         }
 

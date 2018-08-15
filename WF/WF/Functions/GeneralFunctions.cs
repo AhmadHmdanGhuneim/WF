@@ -271,13 +271,7 @@ namespace WF.Functions
             try
             {
 
-                Application.Current.Properties.Remove(AppKey.IsGregorianLocale.ToString());
-                Application.Current.Properties.Remove(GeneralFunctions.AppKey.Token.ToString());
-                Application.Current.Properties.Remove(GeneralFunctions.AppKey.Password.ToString());
-                Application.Current.Properties.Remove(GeneralFunctions.AppKey.UserName.ToString());
-                Application.Current.Properties.Remove(GeneralFunctions.AppKey.UserId.ToString());
-                Application.Current.Properties.Remove(GeneralFunctions.AppKey.IsManager.ToString());
-
+                RemoveAllUserKey();
 
                 Application.Current.Properties.Add(GeneralFunctions.AppKey.IsGregorianLocale.ToString(), prmUser.IsGregorianLocale);
                 Application.Current.Properties.Add(GeneralFunctions.AppKey.Password.ToString(), prmPassword);
@@ -309,6 +303,27 @@ namespace WF.Functions
                 return null;
             }
         }
+
+
+        public static void RemoveAllUserKey()
+        {
+            try
+            {
+                Application.Current.Properties.Remove(AppKey.IsGregorianLocale.ToString());
+                Application.Current.Properties.Remove(GeneralFunctions.AppKey.Token.ToString());
+                Application.Current.Properties.Remove(GeneralFunctions.AppKey.Password.ToString());
+                Application.Current.Properties.Remove(GeneralFunctions.AppKey.UserName.ToString());
+                Application.Current.Properties.Remove(GeneralFunctions.AppKey.UserId.ToString());
+                Application.Current.Properties.Remove(GeneralFunctions.AppKey.IsManager.ToString());
+
+            }
+            catch 
+            {
+
+                throw;
+            }
+        }
+
 
     }
 }

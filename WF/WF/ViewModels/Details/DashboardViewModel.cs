@@ -225,6 +225,7 @@ namespace WF.ViewModels.Details
 
                 _user = GeneralFunctions.GetUser();
                 Title = GeneralFunctions.GetText("mainpage");
+              
                 _factory = new DashboardFactory();
                 RefreshCommand = new Command(Refresh);
                 ShowCommand = new Command(Show);
@@ -428,9 +429,7 @@ namespace WF.ViewModels.Details
                 }
                 else
                 {
-                    var d = _user.IsGregorianLocale
-                        ? new DateTime(SelectedYear, SelectedMonth.Key, 1)
-                        : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
+                    var d =  _user.IsGregorianLocale ? new DateTime(SelectedYear, SelectedMonth.Key, 1) : DateLocaleConvert.ConvertHijriToGregorian(new HijriDate
                         {
                             Year = SelectedYear,
                             Month = SelectedMonth.Key,
@@ -476,6 +475,7 @@ namespace WF.ViewModels.Details
                             NavigationService.SetDetailPage(new DashboardResultViewModel(selectSummary, operationResult), SelectedMenuOptions.None, "");
                         }
                     }
+                    
                 }
                 await MessageViewer.CloseAllPopup();
             }

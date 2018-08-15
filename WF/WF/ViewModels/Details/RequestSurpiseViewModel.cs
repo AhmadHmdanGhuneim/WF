@@ -150,8 +150,9 @@ namespace WF.ViewModels.Details
                     await MessageViewer.CloseAllPopup();
                     if (res.ResultCode == ResultCode.Success)
                     {
-
-                        await MessageViewer.SuccessAsync(Resource.SuccessSentRequest);
+                        
+                       
+                            await MessageViewer.SuccessAsync(Resource.SuccessSentRequest);
 
                         Employees.Clear();
                     }
@@ -172,7 +173,7 @@ namespace WF.ViewModels.Details
             }
         }
 
-        //public  void SendPushNotification()
+        //public void SendPushNotification(string deviceId)
         //{
         //    try
         //    {

@@ -625,4 +625,7 @@
   <data name="company" xml:space="preserve">
     <value>رمز الشركة</value>
   </data>
+  <data name="AuthTokenError" xml:space="preserve">
+    <value>يجب اعادة تسجيل الدخول</value>
+  </data>
 </root>

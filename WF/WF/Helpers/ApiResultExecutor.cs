@@ -23,8 +23,6 @@ namespace WF.Helpers
                     Exception exception = new Exception("Error in Service");
                     // await MessageViewer.ErrorAsync(Resource.CheckInternetMsg);
                     GeneralFunctions.HandelException(exception, "Excuste");
-
-
                     break;
 
                 case ResultCode.AuthError:
@@ -34,21 +32,19 @@ namespace WF.Helpers
                 case ResultCode.NoAccess:
                     await MessageViewer.ErrorAsync(Resource.NoAccessMsg);
                     break;
-                   
-                //case ResultCode.AuthTokenError:
-                //    if (!(NavigationService.CurrentPage is LoginPage))
-                //    {
-                //        //App.Realm.Write(() =>
-                //        //{
-                //        //    App.Realm.RemoveAll<User>();
-                //        //});
 
-                //        /*Remove all User*/
-                //        // NavigationService.SetDetailPage(new LoginViewModel(), SelectedMenuOptions.Login,"Login");
+                case ResultCode.AuthTokenError:
+                    if (!(NavigationService.CurrentPage is LoginPage))
+                    {
+                    
+                        /*Remove all User*/
 
-                //        NavigationService.InitPage(new LoginViewModel());
-                //    }
-                //    break;
+
+                        await MessageViewer.ErrorAsync(Resource.AuthTokenError);
+                        GeneralFunctions.RemoveAllUserKey();
+                        NavigationService.InitPage(new LoginViewModel());
+                    }
+                    break;
 
                 default:
                     return;

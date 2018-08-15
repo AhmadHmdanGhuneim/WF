@@ -5,6 +5,8 @@ using WF.DependencyServices;
 using WF.Droid.DependencyServices;
 using WF.Droid.Gcm.Client;
 using Xamarin.Forms;
+using Android.App;
+using Android.Content;
 
 [assembly: Dependency(typeof(PushRegister))]
 namespace WF.Droid.DependencyServices
@@ -21,6 +23,7 @@ namespace WF.Droid.DependencyServices
             GcmClient.Register(MainActivity.Instance, AzureConstants.AndroidSenderID);
             Settings.IsAuthorized = true;
             Settings.PushTag = tag;
+          
         }
 
         public void Unregister()
@@ -37,5 +40,25 @@ namespace WF.Droid.DependencyServices
             //Settings.IsAuthorized = false;
 
         }
+
+
+        public string GetRegistrationId()
+        {
+            try
+            {
+                var context = MainActivity.Instance;
+                var registrationId = GcmClient.GetRegistrationId(context);
+
+               
+                return registrationId;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+       
     }
 }

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using WF.Functions;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace WF.Views.Auth
@@ -12,13 +13,13 @@ namespace WF.Views.Auth
             {
 
            
-            InitializeComponent();
-            BindingContext = viewModel;
+              InitializeComponent();
+              BindingContext = viewModel;
+              this.BackgroundImage = "loginbackground.png";
             }
             catch (System.Exception excep)
             {
-
-                throw;
+                GeneralFunctions.HandelException(excep, "Loginview");
             }
 
             //if (Device.RuntimePlatform == Device.Android)

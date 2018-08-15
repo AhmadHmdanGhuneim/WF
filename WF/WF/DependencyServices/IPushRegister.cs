@@ -9,5 +9,7 @@ namespace WF.DependencyServices
         void Register(string tag);
 
         void Unregister();
+
+        string GetRegistrationId();
     }
 }

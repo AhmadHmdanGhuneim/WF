@@ -48,18 +48,21 @@ namespace WF.ApiFactory
                 {
                     result = OperationResult<TModel>.Result(ResultCode.UnknownError);
                 }
+                await ApiResultExecutor.Execute(result);
+                return result;
             }
             catch (TaskCanceledException)
             {
                 result = OperationResult<TModel>.Result(ResultCode.Cancelled);
+                return result;
             }
             catch (Exception exception)
             {
                 result = OperationResult<TModel>.Result(ResultCode.UnknownError);
                 GeneralFunctions.HandelException(exception, "Request");
+                return result;
             }
-            await ApiResultExecutor.Execute(result);
-            return result;
+         
         }
 
         private static string OptionsToStr(Dictionary<string, string> data)

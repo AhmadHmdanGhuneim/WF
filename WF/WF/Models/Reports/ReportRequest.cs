@@ -22,7 +22,9 @@ namespace WF.Models.Reports
 
         public string EmpId { get; set; }
 
-        public string EmpLogin { get; set; }
+        public string EmpLoginAr { get; set; }
+        public string EmpLoginEn { get; set; }
+
 
         public string RetId { get; set; }
 
@@ -42,6 +44,8 @@ namespace WF.Models.Reports
 
         public RequestType RequestType { get; set; }
 
+
+        public String EmpLogin => IsLtrLang ? EmpLoginEn : EmpLoginAr;
         // bindable rows 
 
         private bool _selected;

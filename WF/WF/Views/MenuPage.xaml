@@ -11,7 +11,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
 
-        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#355057" Padding="10">
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#355057" Padding="10" >
             <!-- This is header for menu -->
 
             <!--<Image Source="Logo.png"  HeightRequest="80" />-->
@@ -19,10 +19,10 @@
                 <local:CustomListViewRenderer.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>-->
-            <Grid Margin="0,0,0,8">
+            <Grid >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="{Binding StartGridLength}"/>
+                    <ColumnDefinition Width="{Binding EndGridLength}"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -34,9 +34,9 @@
                                        HorizontalOptions="Fill" 
                                        HorizontalTextAlignment="{Binding HorizontalTextAligment}">
                     <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
+                        <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS">Cairo</On>
-                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
@@ -45,9 +45,9 @@
                                        HorizontalTextAlignment="{Binding HorizontalTextAligment}">
 
                     <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
+                        <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS">Cairo</On>
-                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                            <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
@@ -63,21 +63,22 @@
             <!--<BoxView Color="Gray" HeightRequest="1" />-->
             <!--</StackLayout>-->
             <!--<StackLayout x:Name="MainStackLayout" Padding="10" VerticalOptions="FillAndExpand">-->
-            <local:CustomListViewRenderer x:Name="MenuListView" SeparatorVisibility="Default" VerticalOptions="FillAndExpand">
+            <StackLayout Padding="10,10,10,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <local:CustomListViewRenderer x:Name="MenuListView" SeparatorVisibility="Default" VerticalOptions="FillAndExpand" >
 
-                <local:CustomListViewRenderer.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid VerticalOptions="FillAndExpand">
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectMenuItemCommand}"/>
-                                </Grid.GestureRecognizers>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="{Binding StartGridLength}" />
-                                    <ColumnDefinition Width="{Binding EndGridLength}" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="{Binding StartSpan}" Source="{Binding Icon}" VerticalOptions="Center" />
-                                <Label Grid.Column="{Binding EndSpan}"
+                    <local:CustomListViewRenderer.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid VerticalOptions="FillAndExpand">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectMenuItemCommand}"/>
+                                    </Grid.GestureRecognizers>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="{Binding StartGridLength}" />
+                                        <ColumnDefinition Width="{Binding EndGridLength}" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="{Binding StartSpan}" Source="{Binding Icon}" VerticalOptions="Center" />
+                                    <Label Grid.Column="{Binding EndSpan}"
                                            Text="{Binding Title}"
                                            VerticalTextAlignment="Center"
                                            VerticalOptions="Center"
@@ -85,30 +86,31 @@
                                            HorizontalOptions="{Binding TextAligment}"
                                            HorizontalTextAlignment="{Binding TextAligment}" >
 
-                                    <!--<Label.FontFamily>
+                                        <!--<Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                             <On Platform ="iOS">Cairo</On>
                                             <On Platform="Android">Cairo-Regular.ttf#Cairo</On>
                                         </OnPlatform>
                                     </Label.FontFamily>-->
-                                  
-                                    <Label.FontFamily>
+
+                                        <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
-                                            <On Platform="iOS">Cairo</On>
-                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
-                                        </OnPlatform>
-                                    </Label.FontFamily>
-                                </Label>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </local:CustomListViewRenderer.ItemTemplate>
+                                                <On Platform="iOS">Cairo</On>
+                                                <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
+                                                <!-- <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>-->
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </local:CustomListViewRenderer.ItemTemplate>
 
-            </local:CustomListViewRenderer>
+                </local:CustomListViewRenderer>
 
-            <!--</StackLayout>-->
+                <!--</StackLayout>-->
 
-
+            </StackLayout>
 
         </StackLayout>
 

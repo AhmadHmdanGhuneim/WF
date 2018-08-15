@@ -214,7 +214,7 @@ namespace WF.Services
             }
             catch (Exception exception)
             {
-
+                GeneralFunctions.HandelException(exception, "GetPage");
                 throw;
             }
         }

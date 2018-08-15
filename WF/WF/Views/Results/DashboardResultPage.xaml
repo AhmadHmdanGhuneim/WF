@@ -27,7 +27,7 @@
                             <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Cairo</On>
-                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                     <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
@@ -35,7 +35,7 @@
                             <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Cairo</On>
-                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                     <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
@@ -44,7 +44,7 @@
                             <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Cairo</On>
-                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                     <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
@@ -52,7 +52,7 @@
                             <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Cairo</On>
-                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                     <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
@@ -61,7 +61,7 @@
                             <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Cairo</On>
-                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                     <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
@@ -69,7 +69,7 @@
                             <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Cairo</On>
-                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                     <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
@@ -78,7 +78,7 @@
                             <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Cairo</On>
-                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                     <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
@@ -86,7 +86,7 @@
                             <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Cairo</On>
-                                    <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                     <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
@@ -123,7 +123,7 @@
                                     <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                             <On Platform="iOS">Cairo</On>
-                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                             <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                         </OnPlatform>
                                     </Label.FontFamily>
                                 </Label>
@@ -133,7 +133,7 @@
                                     <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                             <On Platform="iOS">Cairo</On>
-                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                             <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                         </OnPlatform>
                                     </Label.FontFamily>
                                 </Label>
@@ -146,7 +146,7 @@
                                 <Label.FontFamily>
                                         <OnPlatform x:TypeArguments="x:String">
                                         <On Platform="iOS">Cairo</On>
-                                        <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                         <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                     </OnPlatform>
                                 </Label.FontFamily>
                             </Label>
@@ -173,7 +173,7 @@
                                     <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                             <On Platform="iOS">Cairo</On>
-                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                             <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                         </OnPlatform>
                                     </Label.FontFamily>
                                 </Label>
@@ -184,7 +184,7 @@
                                     <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                             <On Platform="iOS">Cairo</On>
-                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                             <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                         </OnPlatform>
                                     </Label.FontFamily>
                                 </Label>
@@ -195,7 +195,7 @@
                                 <Label.FontFamily>
                                         <OnPlatform x:TypeArguments="x:String">
                                         <On Platform="iOS">Cairo</On>
-                                        <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                         <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                     </OnPlatform>
                                 </Label.FontFamily>
                             </Label>
@@ -221,7 +221,7 @@
                                     <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                             <On Platform="iOS">Cairo</On>
-                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                             <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                         </OnPlatform>
                                     </Label.FontFamily>
                                 </Label>
@@ -232,7 +232,7 @@
                                     <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                             <On Platform="iOS">Cairo</On>
-                                            <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                             <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                         </OnPlatform>
                                     </Label.FontFamily>
                                 </Label>
@@ -245,7 +245,7 @@
                                 <Label.FontFamily>
                                         <OnPlatform x:TypeArguments="x:String">
                                         <On Platform="iOS">Cairo</On>
-                                        <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                         <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                                     </OnPlatform>
                                 </Label.FontFamily>
                             </Label>
@@ -280,7 +280,7 @@
                         <Label.FontFamily>
                                 <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS">Cairo</On>
-                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                 <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
@@ -290,7 +290,7 @@
                         <Label.FontFamily>
                                 <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS">Cairo</On>
-                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                 <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
@@ -303,7 +303,7 @@
                         <Label.FontFamily>
                                 <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS">Cairo</On>
-                                <On Platform="Android">DINNextLTArabicBold.ttf#DINNextLTArabicBold</On>
+                                 <On Platform="Android">MyriadProCond.otf#MyriadProCond</On>
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>

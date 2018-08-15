@@ -22,19 +22,19 @@
     <AndroidKeyStore>false</AndroidKeyStore>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>false</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidLinkMode>Full</AndroidLinkMode>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -206,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\DINNextLTArabicBold.ttf" />
+    <AndroidAsset Include="Assets\MyriadProCond.otf" />
     <None Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -457,6 +461,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\language.png" />
     <AndroidResource Include="Resources\drawable-hdpi\logout.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ac.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\loginbackground.png" />
     <Content Include="Resources\drawable-hdpi\ok.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ok.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\cancel.png" />
@@ -498,6 +503,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\rj.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\up.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ac.png" />
+    <AndroidResource Include="Resources\drawable\loginbackground.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\loginbackground.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\loginbackground.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\loginbackground.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\cancel.png" />

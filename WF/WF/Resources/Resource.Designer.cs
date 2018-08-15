@@ -142,6 +142,15 @@ namespace WF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Should be Relogin.
+        /// </summary>
+        internal static string AuthTokenError {
+            get {
+                return ResourceManager.GetString("AuthTokenError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
         internal static string BackButton {

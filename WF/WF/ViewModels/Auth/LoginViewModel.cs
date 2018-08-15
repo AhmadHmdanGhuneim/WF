@@ -176,7 +176,7 @@ namespace WF.ViewModels.Auth
                             }
                             else
                             {
-                                // MessageViewer.Message("", Resource.AuthFailMsg, Resource.OkText);
+                                 MessageViewer.Message("", Resource.AuthFailMsg, Resource.OkText);
                             }
 
                         }
